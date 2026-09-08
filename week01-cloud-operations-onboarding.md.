@@ -1,20 +1,37 @@
 ## HaborTech Ticket Summary
 * The client was able to access AWS Academy and able to use the learner with normal functions. 
 ## Client Impact
-* Client unable to access AWS Academy and learner lab would further effect their ability to advance in the curriculum and be detrimental to GPA.
+* Client unable to access AWS Academy and learner lab would further effect their ability to advance in the curriculum and be detrimental to GPA. The work would come to full stop without full readiness as the intern would not be able to complete daily duties.
 ## AWS Services Involved
-* Courses include AWS Academy Cloud Operations [174254] and AWS Academy Learner Lab [183853] with AWS CLI.
+* AWS Academy course including AWS Academy Cloud Operations and AWS Academy Learner lab. Parameters surrounding IAM, Region lock, account specification, and documentation within a professional and organizational structure. 
 ## Virtualization Connection
-* AWS Academy Cloud Operations and Learner Lab allows client to access the necessary virtualization tools for cloud operations education.
+* Certain features such as EC2 are only available within the account or the root account. The same goes where you cannot run some services within the region. Often times going outside of these boundaries restrict permission and drive up the cost to expand. The platform that the virtualization is founded on can have restriction that 
+goes with that. 
 ## Evidence Reviewed
-* Client was able to access AWS Academy through invitation sent by instructor and then create username password. Upon entry of the Canvas dashboard was able to confirm both courses were available. Client then was able to start lab from Learner Lab and confirm functionality of lab.
+* -AWS Academy Access 
+  -AWS Academy Cloud Operations
+  -AWS Academy Learner Lab
+  -Region restrictions
+  -LabRole & LabInstanceProfile
+  -Session Behavior
+  -Budget Display Behavior
+  -Reset Behavior
+  -AWS Documentation Access
+  -Github Playbook readiness
 ## Operational Analysis
-* Findings show full functionality of AWS Academy due to lack of evidence showing otherwise.
+* Verifications within AWS Academy and operational readiness of learner lab shows full readiness to begin support work at HarborTech. 
 ## Recommendation
-* Proceed with caution in adherence to the parameters of AWS Academy labs.
+* Environment is ready for week 2 must continue work within modules and labs. 
 ## Escalation Notes
 * No necessary escalation required to procced forward.
 ## Lessons Learned
-* AWS Academy continues to have full necessary functionality and the client can proceed with the course as planned. 
+* Week 1 taught verification of all systems for cloud readiness with the neccessary evidence to backup it up in the form of a professional documentation structure. Environmental boundaries were to taught as to inform the intern of the extent of their operational reach.
 ## Professional Vocabulary 
-* Cloud Operations- The work that goes into maintaining a fully operationally cloud. Evidence- a notable event that could verified in operations. Escalation- Bringing a problem higher to someone with the right access, authority and or expertise. Sandbox- A playground area for the user to experiment within boundaries and restrictions. AWS Region- The areas of use permitted within the learner lab. Typically us-east-1 and us-west 2. Virtualization- removing the need for direct access to the hardware for software defined actions. Operations Playbook- The record keeping made from tickets to understand when similar problems occur. Managed Services- A technical model that defines the technical support of the provider and which operational responsibilities lie with the consumer. 
+* Cloud Operations- The work that goes into maintaining a fully operationally cloud.
+Evidence- a notable event that could verified in operations. 
+Escalation- Bringing a problem higher to someone with the right access, authority and or expertise.
+Sandbox- A playground area for the user to experiment within boundaries and restrictions. 
+AWS Region- The areas of use permitted within the learner lab. Typically us-east-1 and us-west 2.
+Virtualization- removing the need for direct access to the hardware for software defined actions.
+Operations Playbook- The record keeping made from tickets to understand when similar problems occur.
+Managed Services- A technical model that defines the technical support of the provider and which operational responsibilities lie with the consumer. 
