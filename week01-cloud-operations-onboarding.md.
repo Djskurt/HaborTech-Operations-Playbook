@@ -1,0 +1,20 @@
+## HaborTech Ticket Summary
+* The client was able to access AWS Academy and able to use the learner with normal functions. 
+## Client Impact
+* Client unable to access AWS Academy and learner lab would further effect their ability to advance in the curriculum and be detrimental to GPA.
+## AWS Services Involved
+* Courses include AWS Academy Cloud Operations [174254] and AWS Academy Learner Lab [183853] with AWS CLI.
+## Virtualization Connection
+* AWS Academy Cloud Operations and Learner Lab allows client to access the necessary virtualization tools for cloud operations education.
+## Evidence Reviewed
+* Client was able to access AWS Academy through invitation sent by instructor and then create username password. Upon entry of the Canvas dashboard was able to confirm both courses were available. Client then was able to start lab from Learner Lab and confirm functionality of lab.
+## Operational Analysis
+* Findings show full functionality of AWS Academy due to lack of evidence showing otherwise.
+## Recommendation
+* Proceed with caution in adherence to the parameters of AWS Academy labs.
+## Escalation Notes
+* No necessary escalation required to procced forward.
+## Lessons Learned
+* AWS Academy continues to have full necessary functionality and the client can proceed with the course as planned. 
+## Professional Vocabulary 
+* Cloud Operations- The work that goes into maintaining a fully operationally cloud. Evidence- a notable event that could verified in operations. Escalation- Bringing a problem higher to someone with the right access, authority and or expertise. Sandbox- A playground area for the user to experiment within boundaries and restrictions. AWS Region- The areas of use permitted within the learner lab. Typically us-east-1 and us-west 2. Virtualization- removing the need for direct access to the hardware for software defined actions. Operations Playbook- The record keeping made from tickets to understand when similar problems occur. Managed Services- A technical model that defines the technical support of the provider and which operational responsibilities lie with the consumer. 
