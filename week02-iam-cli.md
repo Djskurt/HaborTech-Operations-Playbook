@@ -47,6 +47,8 @@ This grants him only s3:ListBucket, s3:GetObject, and s3:PutObject permissions r
 Please escalate this request to authorized HarborTech team member to approve and deploy a customer-managed least-privilege policy attached to a dedicated IAM group. 
 Recommend that the approved administrator to assign Marcus Webb to the group, granting him only the necessary s3:ListBucket, s3:GetObject, and s3:PutObject permissions for the riverside-inventory bucket.
 ## Lessons Learned
-
+This investigation reinforced that AWS IAM operates on a strict default-deny model, where authentication verifies who a user is, but authorization requires explicit permission policies to grant access. 
+Through AWS CLI auditing commands, such as inspecting caller identities, role trust relationships, and policy bindings, I learned to systematically trace permission gaps back to missing authorization rather than authentication failures. 
+Investigating these access issues demonstrated the importance of enforcing least privilege by rejecting broad managed policies in favor of scoped, customer-managed policies attached to job-function IAM groups.
 ## Professional Vocabulary 
 
