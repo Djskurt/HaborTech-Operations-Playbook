@@ -39,12 +39,13 @@ These CLI inspections were conducted to determine if Marcus was covered by any o
 The evidence confirms a clear breakdown between identity verification and action authorization within the cloud environment. 
 While Marcus Webb successfully authenticated to the AWS Management Console using valid credentials, his request to access the riverside-inventory bucket resulted in an explicit AccessDenied error. 
 A review of onboarding records and CLI identity inspections reveals that Marcus lacks any assigned IAM group memberships, attached managed policies, or inline permission rules. 
-Because AWS IAM enforces a strict default-deny model, authentication alone does not grant resource access; his identity completely lacks the explicit authorization policy required to execute s3:ListBucket, s3:GetObject, and s3:PutObject actions on the inventory bucket.
+Because AWS IAM enforces a strict default-deny model, authentication alone does not grant resource access. Summarily saying, his identity completely lacks the explicit authorization policy required to execute s3:ListBucket, s3:GetObject, and s3:PutObject actions on the inventory bucket.
 ## Recommendation
 HarborTech should recommend attaching Marcus to a dedicated IAM group bound to a custom, least-privilege policy. 
 This grants him only s3:ListBucket, s3:GetObject, and s3:PutObject permissions restricted specifically to the riverside-inventory bucket and its contents.
 ## Escalation Notes
-
+Please escalate this request to authorized HarborTech team member to approve and deploy a customer-managed least-privilege policy attached to a dedicated IAM group. 
+Recommend that the approved administrator to assign Marcus Webb to the group, granting him only the necessary s3:ListBucket, s3:GetObject, and s3:PutObject permissions for the riverside-inventory bucket.
 ## Lessons Learned
 
 ## Professional Vocabulary 
