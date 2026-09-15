@@ -71,5 +71,3 @@ Investigating these access issues demonstrated the importance of enforcing least
   -The principal identity asking who they are and the response given to that question.
 - Resource Scope
   -Where the resource lives in the cloud hierarchy.
-- ARN
-  -A unique string identifier that is attached to specific resources across AWS. 
