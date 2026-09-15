@@ -64,7 +64,7 @@ Investigating these access issues demonstrated the importance of enforcing least
 - AccessDenied
   -An error response given when an entity such as a user requests an action, but the system determines they do not meet required permissions to perform said action. 
 - AWS CLI
-  -A terminal-based utility for aws that allows to use text commands instead of clicking around in a we browser interface. 
+  -A terminal-based utility for aws that allows to use text commands instead of clicking around in a web browser interface. 
 - CloudShell
   -The browser-based terminal embedded in the AWS management console that inherits our current AWS web console login credentials. 
 - Caller Identity
