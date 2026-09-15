@@ -52,19 +52,19 @@ Through AWS CLI auditing commands, such as inspecting caller identities, role tr
 Investigating these access issues demonstrated the importance of enforcing least privilege by rejecting broad managed policies in favor of scoped, customer-managed policies attached to job-function IAM groups.
 ## Professional Vocabulary 
 - Authentication
-  The evidence you present to a system to verify your identity such as username and password.
+  -The evidence you present to a system to verify your identity such as username and password.
 - Authorization
-  The process of checking what someone is allowed to do once their identity is known.
+  -The process of checking what someone is allowed to do once their identity is known.
 - IAM
-  The logical guardrails that decides what the user can do across the cloud environment.
+  -The logical guardrails that decides what the user can do across the cloud environment.
 - Policy
-  The rulebook, usually written in code, to govern how the resources, identities, and traffic operate within the cloud platform. 
+  -The rulebook, usually written in code, to govern how the resources, identities, and traffic operate within the cloud platform. 
 - Least Privilege
-  The bare minimum access the user, application, or system is given to complete assigned jobs.  
+  -The bare minimum access the user, application, or system is given to complete assigned jobs.  
 - AccessDenied
-  An error response given when an entity such as a user requests an action, but the system determines they do not meet required permissions to perform said action. 
+  -An error response given when an entity such as a user requests an action, but the system determines they do not meet required permissions to perform said action. 
 - AWS CLI
-  A terminal-based utility for aws that allows to use text commands instead of clicking around in a we browser interface. 
+  -A terminal-based utility for aws that allows to use text commands instead of clicking around in a we browser interface. 
 - CloudShell
 - Caller Identity
 - Resource Scope
