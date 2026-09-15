@@ -66,5 +66,7 @@ Investigating these access issues demonstrated the importance of enforcing least
 - AWS CLI
   -A terminal-based utility for aws that allows to use text commands instead of clicking around in a we browser interface. 
 - CloudShell
+  -The browser-based terminal embedded in the AWS management console that inherits our current AWS web console login credentials. 
 - Caller Identity
+  -The principal identity asking who they are. 
 - Resource Scope
