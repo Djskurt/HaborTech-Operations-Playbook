@@ -51,4 +51,13 @@ This investigation reinforced that AWS IAM operates on a strict default-deny mod
 Through AWS CLI auditing commands, such as inspecting caller identities, role trust relationships, and policy bindings, I learned to systematically trace permission gaps back to missing authorization rather than authentication failures. 
 Investigating these access issues demonstrated the importance of enforcing least privilege by rejecting broad managed policies in favor of scoped, customer-managed policies attached to job-function IAM groups.
 ## Professional Vocabulary 
-
+- Authentication
+- Authorization
+- IAM
+- Policy
+- Least Privilege
+- AccessDenied
+- AWS CLI
+- CloudShell
+- Caller Identity
+- Resource Scope
