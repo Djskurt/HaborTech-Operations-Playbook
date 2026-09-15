@@ -16,17 +16,33 @@ Investigation required the following AWS services and concepts:
 - AWS Security Token Service (STS)
 
 Marcus's was attempting to access Amazon S3 and was blocked by IAM. Amazon S3 held the riverside-inventory that Marcus was trying to access. AWS CloudShell and AWS CLI were used to gather evidence pertaining to why IAM was blocking Marcus's request. 
-An API call was made to AWS Security Token Service (STS) to return details of identity in IAM and to get the Amazon resource name (ARN). 
+An API call was made to AWS Security Token Service (STS) to return details of identity in and to get the Amazon resource name (ARN). 
 
 ## Virtualization Connection
 Because cloud infrastructure is virtualized into software-defined storage, access to virtual resources is enforced through identity and authorization policies at the API control plane. 
 Marcus’s successful authentication verified his identity, but without explicit IAM permissions, the virtual control plane blocked him from accessing the riverside-inventory bucket.
 ## Evidence Reviewed
+The following evidence was reviewed:
 
+-Successful AWS authentication by Marcus.
+-AccessDenied Error for Amazon S3 of bucket riverside-inventory from Marcus.
+-Output from 'aws sts get-caller-identity'.
+-LabRole's IAM Role ARN.
+-Output from 'aws iam get-role --role-name LabRole'.
+-Output from 'aws iam list-attached-role-policies --role-name LabRole'.
+-Output from 'aws iam list-role-policies --role-name LabRole'.
+-Contents surrounding the trust relationship, managed policies, and inline policy names for LabRole.
+
+The evidence reviewed includes the ARN for LabRole along with its trust relationship in AssumeRolePolicyDocument, attached managed policies, and inline policy names. 
+These CLI inspections were conducted to determine if Marcus was covered by any of these existing policies or trust boundaries. Ultimately, the results confirm he lacks the necessary permissions, proving that his AccessDenied error stems from missing, targeted authorization rules.
 ## Operational Analysis
-
+The evidence confirms a clear breakdown between identity verification and action authorization within the cloud environment. 
+While Marcus Webb successfully authenticated to the AWS Management Console using valid credentials, his request to access the riverside-inventory bucket resulted in an explicit AccessDenied error. 
+A review of onboarding records and CLI identity inspections reveals that Marcus lacks any assigned IAM group memberships, attached managed policies, or inline permission rules. 
+Because AWS IAM enforces a strict default-deny model, authentication alone does not grant resource access; his identity completely lacks the explicit authorization policy required to execute s3:ListBucket, s3:GetObject, and s3:PutObject actions on the inventory bucket.
 ## Recommendation
-
+HarborTech should recommend attaching Marcus to a dedicated IAM group bound to a custom, least-privilege policy. 
+This grants him only s3:ListBucket, s3:GetObject, and s3:PutObject permissions restricted specifically to the riverside-inventory bucket and its contents.
 ## Escalation Notes
 
 ## Lessons Learned
