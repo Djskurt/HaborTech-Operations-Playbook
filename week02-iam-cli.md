@@ -68,5 +68,8 @@ Investigating these access issues demonstrated the importance of enforcing least
 - CloudShell
   -The browser-based terminal embedded in the AWS management console that inherits our current AWS web console login credentials. 
 - Caller Identity
-  -The principal identity asking who they are. 
+  -The principal identity asking who they are and the response given to that question.
 - Resource Scope
+  -Where the resource lives in the cloud hierarchy.
+- ARN
+  -A unique string identifier that is attached to specific resources across AWS. 
