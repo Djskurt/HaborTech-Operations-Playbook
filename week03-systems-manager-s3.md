@@ -90,10 +90,18 @@ Several AWS Systems Manager capabilities were evaluated based on operational req
 
 -Parameter Store for centralized storage of configuration data and operational parameters.
 
+Evidence showed that not all administrative activities require direct server access.
+Session Manager is the preferred solution for interactive administration and troubleshooting.
+Run Command is better suited for non-interactive tasks that can be executed consistently across multiple systems without logging into each instance.
+The investigation identified a need for centralized configuration management to improve consistency across systems. 
+AWS Systems Manager Parameter Store was reviewed as a solution for securely storing and managing operational settings, configuration values, and parameters used by multiple resources.
 
-- Systems Manager feature fit
-- Interactive versus non-interactive access needs
-- Configuration or parameter needs
+Bright Path required a public resource page containing:
+HTML content
+Images
+Contact information
+Downloadable forms and documents
+
 - Static content requirements
 - Evidence available through the AWS environment
 
