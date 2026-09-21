@@ -51,6 +51,7 @@ Parameter Store was evaluated for centralized storage of configuration values, o
 Amazon S3 was investigated as an object storage service capable of storing website files, images, documents, and downloadable resources without requiring a traditional file server.
 S3 Static Website Hosting was evaluated as the recommended solution for Bright Path's public resource page. 
 Since the website consists entirely of static content, S3 provides a simpler and lower-maintenance alternative to hosting the site on an EC2 instance.
+
 During the investigation, CloudShell and the AWS CLI were used to create and manage S3 resources, upload website content, configure static website hosting, verify AWS account identity with STS, and validate the successful deployment of the public resource page.
 ## Virtualization Connection
 This investigation focused on selecting the appropriate management and hosting solutions for Bright Path Community Services. 
