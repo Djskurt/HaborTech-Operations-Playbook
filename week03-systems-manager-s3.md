@@ -2,7 +2,7 @@
 
 ## HarborTech Ticket Summary
 TKT-2026-0003: HarborTech received a request from Bright Path Nonprofits to evaluate more efficient methods for managing cloud operations and hosting public-facing content. 
-The organization was performing routine administrative tasks across five EC2 instances using manual processes, resulting in approximately 90 minutes of reptitive administrative work,  creating unnecessary operational overhead and increasing the potential for inconsistent system management. 
+The organization was performing routine administrative tasks across five EC2 instances using manual processes, resulting in approximately 90 minutes of reptitive administrative work, creating unnecessary operational overhead and increasing the potential for inconsistent system management. 
 Bright Path also required a simple public resource page containing program hours, images, and downloadable forms, and wanted to determine whether a dedicated web server was necessary to support the requirement.
 
 The objective of the investigation was to determine whether AWS Systems Manager could reduce administrative effort through centralized management and automation 
@@ -78,8 +78,19 @@ To support AWS Systems Manager capabilities, the following managed node requirem
 
 -Successful registration of instances as managed nodes within Systems Manager.
 
+Several AWS Systems Manager capabilities were evaluated based on operational requirements:
 
-- Managed node requirements
+-Run Command for centralized execution of recurring administrative tasks.
+
+-State Manager for maintaining desired configurations across multiple instances.
+
+-Session Manager for secure remote administration and troubleshooting.
+
+-Inventory for collecting software and configuration information.
+
+-Parameter Store for centralized storage of configuration data and operational parameters.
+
+
 - Systems Manager feature fit
 - Interactive versus non-interactive access needs
 - Configuration or parameter needs
