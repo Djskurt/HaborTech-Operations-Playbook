@@ -97,6 +97,7 @@ The investigation identified a need for centralized configuration management to 
 AWS Systems Manager Parameter Store was reviewed as a solution for securely storing and managing operational settings, configuration values, and parameters used by multiple resources.
 
 Bright Path required a public resource page containing:
+
 -HTML content
 
 -Images
@@ -141,6 +142,7 @@ Additionally, the lab reinforced the importance of selecting the right service m
 Define the important Week 3 terms in your own words.
 Include terms such as:
 - Systems Manager
+AWS Systems Manager is an AWS management service that provides a unified interface for administering compute resources, executing remote operations, maintaining configuration compliance, collecting inventory data, and automating operational workflows across an AWS environment.
 - Managed Node
 - Run Command
 - Session Manager
