@@ -139,16 +139,23 @@ The investigation also highlighted the importance of safe automation, ensuring t
 Additionally, the lab reinforced the importance of selecting the right service model for a workload. For Bright Path Nonprofit's static website requirement, Amazon S3 Static Website Hosting provided a simpler and lower-maintenance solution than deploying an additional EC2 instance. Choosing services that align with workload requirements can reduce operational overhead, improve scalability, and allow administrators to focus on higher-value tasks.
 
 ## Professional Vocabulary
-Define the important Week 3 terms in your own words.
-Include terms such as:
 - Systems Manager
-AWS Systems Manager is an AWS management service that provides a unified interface for administering compute resources, executing remote operations, maintaining configuration compliance, collecting inventory data, and automating operational workflows across an AWS environment.
+-AWS Systems Manager is an AWS management service that provides a unified interface for administering compute resources, executing remote operations, maintaining configuration compliance, collecting inventory data, and automating operational workflows across an AWS environment.
 - Managed Node
+A managed node is a system that is enrolled in AWS Systems Manager and can be managed remotely through centralized AWS operational tools and automation services.
 - Run Command
+Run Command is a Systems Manager tool that executes remote administrative commands and scripts on managed nodes from a central AWS management service.
 - Session Manager
+Provides secure remote access to managed nodes.
 - Inventory
+Collects configuration and software information from managed nodes.  
 - Parameter Store
+Securely stores and manages configuration data and secrets.  
 - Automation
+A feature that helps complete repetitive tasks without requiring someone to do them manually.  
 - Static Website Hosting
+Hosting a website made of files like HTML, CSS, and images without requiring a web server.  
 - Object Storage
+A way of storing data as individual files, called objects, that can be easily accessed and managed.  
 - Management Plane
+The part of a system used to control and manage resources.
