@@ -70,25 +70,25 @@ Because the same tasks are performed repeatedly across several systems, the envi
 
 To support AWS Systems Manager capabilities, the following managed node requirements were reviewed:
 
-SSM Agent installation and operational status on each EC2 instance.
+-SSM Agent installation and operational status on each EC2 instance.
 
-Appropriate IAM instance profile permissions required for Systems Manager.
+-Appropriate IAM instance profile permissions required for Systems Manager.
 
-Connectivity to AWS Systems Manager service endpoints.
+-Connectivity to AWS Systems Manager service endpoints.
 
-Successful registration of instances as managed nodes within Systems Manager.
+-Successful registration of instances as managed nodes within Systems Manager.
 
 Several AWS Systems Manager capabilities were evaluated based on operational requirements:
 
-Run Command for centralized execution of recurring administrative tasks.
+-Run Command for centralized execution of recurring administrative tasks.
 
-State Manager for maintaining desired configurations across multiple instances.
+-State Manager for maintaining desired configurations across multiple instances.
 
-Session Manager for secure remote administration and troubleshooting.
+-Session Manager for secure remote administration and troubleshooting.
 
-Inventory for collecting software and configuration information.
+-Inventory for collecting software and configuration information.
 
-Parameter Store for centralized storage of configuration data and operational parameters.
+-Parameter Store for centralized storage of configuration data and operational parameters.
 
 Evidence showed that not all administrative activities require direct server access.
 Session Manager is the preferred solution for interactive administration and troubleshooting.
