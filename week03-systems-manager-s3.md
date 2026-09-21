@@ -15,7 +15,7 @@ As the environment grows, this approach becomes more difficult to manage and sup
 The organization also requires a simple public resource page consisting of static content such as HTML, images, contact information, and downloadable forms. 
 Deploying and maintaining an additional EC2 instance for this purpose would introduce unnecessary costs and administrative responsibilities, including operating system patching, security updates, monitoring, and server maintenance.
 ## AWS Services Involved
-# The following AWS Services and features were involved:
+The following AWS Services and features were involved:
 -AWS Systems Manager
 -AWS Systems Manager Run Command
 -AWS Systems Manager State Manager
