@@ -17,27 +17,27 @@ Deploying and maintaining an additional EC2 instance for this purpose would intr
 ## AWS Services Involved
 The following AWS Services and features were involved:
 
-AWS Systems Manager
+-AWS Systems Manager
 
-AWS Systems Manager Run Command
+-AWS Systems Manager Run Command
 
-AWS Systems Manager State Manager
+-AWS Systems Manager State Manager
 
-AWS Systems Manager Session Manager
+-AWS Systems Manager Session Manager
 
-AWS Systems Manager Inventory
+-AWS Systems Manager Inventory
 
-AWS Systems Manager Parameter Store
+-AWS Systems Manager Parameter Store
 
-Amazon S3
+-Amazon S3
 
-Amazon S3 Static Website Hosting
+-Amazon S3 Static Website Hosting
 
-AWS CLI
+-AWS CLI
 
-AWS CloudShell
+-AWS CloudShell
 
-AWS Security Token Service (STS)
+-AWS Security Token Service (STS)
 
 
 AWS Systems Manager was evaluated as the centralized management solution for administering EC2 instances. 
@@ -97,12 +97,14 @@ The investigation identified a need for centralized configuration management to 
 AWS Systems Manager Parameter Store was reviewed as a solution for securely storing and managing operational settings, configuration values, and parameters used by multiple resources.
 
 Bright Path required a public resource page containing:
-HTML content
-Images
-Contact information
-Downloadable forms and documents
+-HTML content
 
-- Static content requirements
+-Images
+
+-Contact information
+
+-Downloadable forms and documents
+
 - Evidence available through the AWS environment
 
 ## Operational Analysis
