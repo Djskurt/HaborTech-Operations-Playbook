@@ -17,27 +17,27 @@ Deploying and maintaining an additional EC2 instance for this purpose would intr
 ## AWS Services Involved
 The following AWS Services and features were involved:
 
--AWS Systems Manager
+AWS Systems Manager
 
--AWS Systems Manager Run Command
+AWS Systems Manager Run Command
 
--AWS Systems Manager State Manager
+AWS Systems Manager State Manager
 
--AWS Systems Manager Session Manager
+AWS Systems Manager Session Manager
 
--AWS Systems Manager Inventory
+AWS Systems Manager Inventory
 
--AWS Systems Manager Parameter Store
+AWS Systems Manager Parameter Store
 
--Amazon S3
+Amazon S3
 
--Amazon S3 Static Website Hosting
+Amazon S3 Static Website Hosting
 
--AWS CLI
+AWS CLI
 
--AWS CloudShell
+AWS CloudShell
 
--AWS Security Token Service (STS)
+AWS Security Token Service (STS)
 
 
 AWS Systems Manager was evaluated as the centralized management solution for administering EC2 instances. 
@@ -70,25 +70,25 @@ Because the same tasks are performed repeatedly across several systems, the envi
 
 To support AWS Systems Manager capabilities, the following managed node requirements were reviewed:
 
--SSM Agent installation and operational status on each EC2 instance.
+SSM Agent installation and operational status on each EC2 instance.
 
--Appropriate IAM instance profile permissions required for Systems Manager.
+Appropriate IAM instance profile permissions required for Systems Manager.
 
--Connectivity to AWS Systems Manager service endpoints.
+Connectivity to AWS Systems Manager service endpoints.
 
--Successful registration of instances as managed nodes within Systems Manager.
+Successful registration of instances as managed nodes within Systems Manager.
 
 Several AWS Systems Manager capabilities were evaluated based on operational requirements:
 
--Run Command for centralized execution of recurring administrative tasks.
+Run Command for centralized execution of recurring administrative tasks.
 
--State Manager for maintaining desired configurations across multiple instances.
+State Manager for maintaining desired configurations across multiple instances.
 
--Session Manager for secure remote administration and troubleshooting.
+Session Manager for secure remote administration and troubleshooting.
 
--Inventory for collecting software and configuration information.
+Inventory for collecting software and configuration information.
 
--Parameter Store for centralized storage of configuration data and operational parameters.
+Parameter Store for centralized storage of configuration data and operational parameters.
 
 Evidence showed that not all administrative activities require direct server access.
 Session Manager is the preferred solution for interactive administration and troubleshooting.
