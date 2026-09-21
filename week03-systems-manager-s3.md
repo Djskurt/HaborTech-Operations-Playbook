@@ -70,13 +70,13 @@ Because the same tasks are performed repeatedly across several systems, the envi
 
 To support AWS Systems Manager capabilities, the following managed node requirements were reviewed:
 
-SSM Agent installation and operational status.
+-SSM Agent installation and operational status on each EC2 instance.
 
-Appropriate IAM instance profile permissions.
+-Appropriate IAM instance profile permissions required for Systems Manager.
 
-Connectivity to AWS Systems Manager service endpoints.
+-Connectivity to AWS Systems Manager service endpoints.
 
-Successful registration of instances as managed nodes within Systems Manager.
+-Successful registration of instances as managed nodes within Systems Manager.
 
 
 - Managed node requirements
