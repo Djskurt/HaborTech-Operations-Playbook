@@ -51,8 +51,13 @@ Parameter Store was evaluated for centralized storage of configuration values, o
 Amazon S3 was investigated as an object storage service capable of storing website files, images, documents, and downloadable resources without requiring a traditional file server.
 S3 Static Website Hosting was evaluated as the recommended solution for Bright Path's public resource page. 
 Since the website consists entirely of static content, S3 provides a simpler and lower-maintenance alternative to hosting the site on an EC2 instance.
+During the investigation, CloudShell and the AWS CLI were used to create and manage S3 resources, upload website content, configure static website hosting, verify AWS account identity with STS, and validate the successful deployment of the public resource page.
 ## Virtualization Connection
-Explain how Systems Manager provides a centralized management layer for virtual machines and how S3 can support workloads that do not require a traditional server.
+This investigation focused on selecting the appropriate management and hosting solutions for Bright Path Community Services. 
+Virtualization allows workloads to run on EC2 virtual machines while abstracting the underlying physical infrastructure, enabling administrators to focus on managing operating systems and applications rather than hardware. 
+AWS Systems Manager extends this abstraction by providing a centralized management layer for multiple EC2 instances through capabilities such as Run Command, Session Manager, Inventory, and Parameter Store. 
+This allows administrative tasks to be performed from a single management interface instead of accessing each virtual machine individually. The investigation also demonstrated that not every workload requires a virtual machine. 
+For Bright Path's static resource page, Amazon S3 provides an abstraction from traditional server infrastructure by hosting content directly from object storage, eliminating the need to deploy, secure, and maintain an additional EC2 instance for a simple static website.
 
 ## Evidence Reviewed
 Document the evidence you reviewed, such as:
