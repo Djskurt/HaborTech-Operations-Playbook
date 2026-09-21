@@ -140,11 +140,11 @@ Additionally, the lab reinforced the importance of selecting the right service m
 
 ## Professional Vocabulary
 -  Systems Manager
--AWS Systems Manager is an AWS management service that provides a unified interface for administering compute resources, executing remote operations, maintaining configuration compliance, collecting inventory data, and automating operational workflows across an AWS environment.
+  -An AWS management service that provides a unified interface for administering compute resources, executing remote operations, maintaining configuration compliance, collecting inventory data, and automating operational workflows across an AWS environment.
 -  Managed Node
 -A managed node is a system that is enrolled in AWS Systems Manager and can be managed remotely through centralized AWS operational tools and automation services.
 -  Run Command
--Run Command is a Systems Manager tool that executes remote administrative commands and scripts on managed nodes from a central AWS management service.
+-Is a Systems Manager tool that executes remote administrative commands and scripts on managed nodes from a central AWS management service.
 -  Session Manager
 -Provides secure remote access to managed nodes.
 -  Inventory
