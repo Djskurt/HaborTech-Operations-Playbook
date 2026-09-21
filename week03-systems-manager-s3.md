@@ -15,18 +15,18 @@ As the environment grows, this approach becomes more difficult to manage and sup
 The organization also requires a simple public resource page consisting of static content such as HTML, images, contact information, and downloadable forms. 
 Deploying and maintaining an additional EC2 instance for this purpose would introduce unnecessary costs and administrative responsibilities, including operating system patching, security updates, monitoring, and server maintenance.
 ## AWS Services Involved
-The following AWS Services and features were involved.
---AWS Systems Manager
---AWS Systems Manager Run Command
---AWS Systems Manager State Manager
---AWS Systems Manager Session Manager
---AWS Systems Manager Inventory
---AWS Systems Manager Parameter Store
---Amazon S3
---Amazon S3 Static Website Hosting
---AWS CLI
---AWS CloudShell
---AWS Security Token Service (STS)
+# The following AWS Services and features were involved:
+-AWS Systems Manager
+-AWS Systems Manager Run Command
+-AWS Systems Manager State Manager
+-AWS Systems Manager Session Manager
+-AWS Systems Manager Inventory
+-AWS Systems Manager Parameter Store
+-Amazon S3
+-Amazon S3 Static Website Hosting
+-AWS CLI
+-AWS CloudShell
+-AWS Security Token Service (STS)
 AWS Systems Manager was evaluated as the centralized management solution for administering EC2 instances. 
 It provides a single management plane for operational tasks, automation, configuration management, and remote administration. 
 Run Command was reviewed as the preferred method for executing maintenance tasks across multiple EC2 instances without requiring administrators to log in to each server individually.
