@@ -8,7 +8,7 @@ Bright Path also required a simple public resource page containing program hours
 The objective of the investigation was to determine whether AWS Systems Manager could reduce administrative effort through centralized management and automation 
 while using Amazon S3 Static Website Hosting to deliver public content without deploying and maintaining an additional web server.
 ## Client Impact
-Bright Path Community Services is experiencing operational inefficiencies due to repeated manual administration across multiple EC2 instances. 
+Bright Path Nonprofits is experiencing operational inefficiencies due to repeated manual administration across multiple EC2 instances. 
 Performing routine maintenance individually on each server increases administrative workload, consumes valuable staff time, and creates opportunities for inconsistent configurations and human error. 
 As the environment grows, this approach becomes more difficult to manage and support efficiently.
 
