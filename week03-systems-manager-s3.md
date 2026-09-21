@@ -16,6 +16,7 @@ The organization also requires a simple public resource page consisting of stati
 Deploying and maintaining an additional EC2 instance for this purpose would introduce unnecessary costs and administrative responsibilities, including operating system patching, security updates, monitoring, and server maintenance.
 ## AWS Services Involved
 The following AWS Services and features were involved:
+
 -AWS Systems Manager
 -AWS Systems Manager Run Command
 -AWS Systems Manager State Manager
@@ -27,6 +28,7 @@ The following AWS Services and features were involved:
 -AWS CLI
 -AWS CloudShell
 -AWS Security Token Service (STS)
+
 AWS Systems Manager was evaluated as the centralized management solution for administering EC2 instances. 
 It provides a single management plane for operational tasks, automation, configuration management, and remote administration. 
 Run Command was reviewed as the preferred method for executing maintenance tasks across multiple EC2 instances without requiring administrators to log in to each server individually.
