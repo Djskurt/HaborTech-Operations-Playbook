@@ -114,15 +114,28 @@ Explain which tasks are better suited for centralized management, automation, in
 Support your analysis with the evidence you reviewed.
 
 ## Recommendation
-Recommend the AWS service or feature that best fits each identified operational need.
-Explain why the recommendation is appropriate for the workload.
+I recommend HarborTech should implement AWS Systems Manager Run Command as the primary solution for Bright Path Nonprofit's recurring EC2 maintenance activities. Run Command allows administrators to execute commands across multiple managed instances from a centralized interface, reducing repetitive manual work and improving operational consistency. Before implementation, all target instances must be configured as managed nodes with the SSM Agent installed, appropriate IAM permissions assigned, and connectivity to Systems Manager service endpoints verified.
+
+For configuration management, AWS Systems Manager Parameter Store should be consider for use to centrally store operational settings and configuration values. This approach reduces configuration drift and simplifies administration across multiple systems.
+
+When direct server access is required for troubleshooting or diagnostics, AWS Systems Manager Session Manager should be recommended for use instead of traditional SSH access. Session Manager provides secure, controlled access while reducing the exposure associated with open management ports.
+
+For Bright Path Nonprofit's public resource page, Amazon S3 Static Website Hosting is the recommended solution. The website consists entirely of static content and does not require server-side processing, databases, or application services. Hosting the site in Amazon S3 eliminates the need to deploy and maintain an additional EC2 instance, reducing operational overhead while meeting the organization's requirements.
 
 ## Escalation Notes
-Document any prerequisite, permission, configuration, or environment issue that requires additional approval or support.
-If no escalation is required, state that clearly.
+During validation of the Bright Path Nonprofit static website deployment, the Amazon S3 website endpoint returned a 403 Forbidden response. Based on the evidence reviewed, the website files were successfully uploaded, static website hosting was configured, and the endpoint was generated correctly. The access issue appears to be related to Learner Lab public-access restrictions and sandbox security controls, not a deployment failure.
 
+At this time, no further action should be taken to bypass the Learner Lab restrictions. If this workload were deployed in a production environment, administrator approval would be required to configure the necessary bucket policies, public-read permissions, and public-access settings needed to make the website publicly accessible.
+
+Additionally, before implementing the recommended AWS Systems Manager solution for EC2 maintenance, verification is required that all target instances meet the managed-node prerequisites. Any instance that does not have the SSM Agent installed, the appropriate IAM role attached, or connectivity to AWS Systems Manager endpoints should be reviewed and remediated by the systems administration team before automation is enabled.
+
+No other environment, configuration, or permission issues were identified during the investigation. The remaining recommendations can proceed once the above prerequisites and access requirements have been reviewed by authorized administrators.
 ## Lessons Learned
-Explain what Week 3 taught you about centralized systems management, safe automation, reducing manual work, and selecting the right service model.
+Week 3 demonstrated the value of centralized systems management for improving operational efficiency and consistency across multiple EC2 instances. 
+AWS Systems Manager provides a secure and scalable way to manage systems, automate repetitive administrative tasks, and reduce the need for direct server access. 
+The investigation also highlighted the importance of safe automation, ensuring that managed node prerequisites, permissions, and connectivity requirements are verified before automation is implemented.
+
+Additionally, the lab reinforced the importance of selecting the right service model for a workload. For Bright Path Nonprofit's static website requirement, Amazon S3 Static Website Hosting provided a simpler and lower-maintenance solution than deploying an additional EC2 instance. Choosing services that align with workload requirements can reduce operational overhead, improve scalability, and allow administrators to focus on higher-value tasks.
 
 ## Professional Vocabulary
 Define the important Week 3 terms in your own words.
