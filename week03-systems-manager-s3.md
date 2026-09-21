@@ -61,9 +61,21 @@ This allows administrative tasks to be performed from a single management interf
 For Bright Path's static resource page, Amazon S3 provides an abstraction from traditional server infrastructure by hosting content directly from object storage, eliminating the need to deploy, secure, and maintain an additional EC2 instance for a simple static website.
 
 ## Evidence Reviewed
-Document the evidence you reviewed, such as:
-- Current manual administration steps
-- Number of affected systems
+Bright Path Community Services currently performs routine maintenance activities manually across multiple EC2 instances. 
+Administrative tasks require staff to access systems individually to perform updates, verify configurations, and complete operational checks. 
+This approach increases administrative effort and can lead to inconsistencies between systems.
+
+The investigation involved five EC2 instances that require regular maintenance and administrative oversight. 
+Because the same tasks are performed repeatedly across several systems, the environment was evaluated as a candidate for centralized management through AWS Systems Manager.
+
+To support AWS Systems Manager capabilities, the following managed node requirements were reviewed:
+
+SSM Agent installation and operational status.
+Appropriate IAM instance profile permissions.
+Connectivity to AWS Systems Manager service endpoints.
+Successful registration of instances as managed nodes within Systems Manager.
+
+
 - Managed node requirements
 - Systems Manager feature fit
 - Interactive versus non-interactive access needs
