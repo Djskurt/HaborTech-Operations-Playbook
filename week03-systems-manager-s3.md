@@ -113,9 +113,19 @@ Bright Path required a public resource page containing:
 -AWS Security Token Service (STS) was used to verify the AWS account and IAM identity associated with the CloudShell session:
 Input Command: aws sts get-caller-identity Output Command: {"UserId"AROAY****************: ":user539*****=Daniel_J._Scurek","Account": "5730********", "Arn": "arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek"}
 ## Operational Analysis
-Explain which tasks are better suited for centralized management, automation, interactive access, or static object hosting.
-Support your analysis with the evidence you reviewed.
+The evidence reviewed indicates that Bright Path Nonprofit's recurring EC2 maintenance activities are better suited for centralized management through AWS Systems Manager. Because the same administrative tasks are performed across multiple instances, centralized management improves consistency, reduces manual effort, and minimizes the risk of human error.
 
+Run Command was identified as the best solution for Dana's repeated maintenance tasks because commands can be executed across multiple EC2 instances without requiring administrators to log in to each server individually.
+
+State Manager supports the investigation by helping maintain consistent configurations across managed instances and reducing configuration drift.
+
+Session Manager is appropriate when administrators need interactive access for troubleshooting, diagnostics, or administrative actions without relying on traditional SSH access.
+
+Inventory provides operational visibility by collecting information about managed nodes, including software, operating system, and configuration details.
+
+Parameter Store centralizes configuration values and operational settings used across multiple systems. The investigation found that Parameter Store does not automatically update application configuration files or system settings. Applications, scripts, AWS CLI commands, or automation workflows must retrieve parameter values before they can be applied or consumed by a system.
+
+The investigation also determined that Amazon S3 Static Website Hosting is the most appropriate solution for Bright Path Nonprofit's public resource page. Because the website contains only static content, including HTML, images, and downloadable documents, Amazon S3 provides a lower-maintenance and more cost-effective solution than deploying and managing an additional EC2 web server.
 ## Recommendation
 I recommend HarborTech should implement AWS Systems Manager Run Command as the primary solution for Bright Path Nonprofit's recurring EC2 maintenance activities. Run Command allows administrators to execute commands across multiple managed instances from a centralized interface, reducing repetitive manual work and improving operational consistency. Before implementation, all target instances must be configured as managed nodes with the SSM Agent installed, appropriate IAM permissions assigned, and connectivity to Systems Manager service endpoints verified.
 
