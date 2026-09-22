@@ -119,18 +119,23 @@ Input Command: -aws sts get-caller-identity Output Command: -{"UserId"AROAY*****
 Input Command: -aws s3 mb s3://brightpath-djs-443 output command: -make_bucket: brightpath-djs-443
 Verification of bucket:
 Input Command: -aws s3 ls output command: 2026-09-20 13:08:32 brightpath-djs-443
+
 The bucket was successfully created in a permitted Learner Lab Region us-east-1 and configured to host website content.
 ### Initial CLI Upload:
 Input command: -aws s3 cp ./index.html s3://brightpath-djs-443/ output command: -upload: ./index.html to s3://brightpath-djs-4/index.html
 Input command -aws s3 ls s3://brightpath-djs-443/ output command: -2026-09-20 13:20:12 543 index.html
+
 The upload operation successfully stored the website file in Amazon S3, and the object listing verified that index.html existed in the bucket.
 Website Endpoint: https://brightpath-djs-443.s3-website-us-east-1.amazonaws.com
 ### Public Read Configuration for website endpoint:
 Input command: -aws s3api put-bucket-policy --bucket brightpath-djs-443 --policy '{...}' output command: -aws: [ERROR]: An error occurred (AccessDenied) when calling the PutBucketPolicy operation: User: arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek is not authorized to perform: s3:PutBucketPolicy on resource: "arn:aws:s3:::brightpath-dscurek-443" because public policies are prevented by the BlockPublicPolicy setting in S3 Block Public Access.
-An attempt to configure public-read access was denied by Learner Lab security controls. The restriction prevented the public bucket policy from being applied, resulting in the website endpoint returning a 403 Forbidden response. This behavior was attributed to the sandbox environment rather than a configuration issue with Amazon S3 Static Website Hosting.
+
+An attempt to configure public-read access was denied by Learner Lab security controls. The restriction prevented the public bucket policy from being applied, resulting in the website endpoint returning a 403 Forbidden response. 
+This behavior was attributed to the sandbox environment rather than a configuration issue with Amazon S3 Static Website Hosting.
 ### Website Content Update:
 Input Command: -aws s3 sync ./brightpath-site-djs-443 output command: -upload: brightpath-site/index.html to s3://brightpath-djs-443/index.html
 Input Command: -aws s3 ls s3://brightpath-djs-443/ output command: -2026-09-20 13:43:08 603 index.html
+
 The aws s3 sync command synchronized the updated website files from the local brightpath-site directory to the S3 bucket. The upload message confirmed that the revised index.html file was successfully uploaded, and the updated timestamp and file size verified that the new version replaced the previous object in Amazon S3. This demonstrated that website content could be updated and redeployed without requiring administration of a traditional web server.
 ## Operational Analysis
 The evidence reviewed indicates that Bright Path Nonprofit's recurring EC2 maintenance activities are better suited for centralized management through AWS Systems Manager. Because the same administrative tasks are performed across multiple instances, centralized management improves consistency, reduces manual effort, and minimizes the risk of human error.
