@@ -114,7 +114,8 @@ Applications, scripts, or automation workflows must explicitly retrieve paramete
 -AWS Security Token Service (STS) was used to verify the AWS account and IAM identity associated with the CloudShell session:
 
 Input Command: -aws sts get-caller-identity Output Command: -{"UserId"AROAY****************: ":user539*****=Daniel_J._Scurek","Account": "5730********", "Arn": "arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek"}
--The output confirmed that AWS CLI operations were being performed under the correct AWS account and IAM identity.
+
+The output confirmed that AWS CLI operations were being performed under the correct AWS account and IAM identity.
 ### Creation of S3 bucket:
 Input Command: -aws s3 mb s3://brightpath-djs-443 output command: -make_bucket: brightpath-djs-443
 Verification of bucket:
