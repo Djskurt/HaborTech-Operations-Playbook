@@ -108,7 +108,7 @@ Bright Path required a public resource page containing:
 
 -Downloadable forms and documents
 
-The following evidence was reviewed in the AWS environment through AWS CLI and AWS CloudShell:
+#The following evidence was reviewed in the AWS environment through AWS CLI and AWS CloudShell:
 -AWS Region was verified to be us-east-1
 -AWS Security Token Service (STS) was used to verify the AWS account and IAM identity associated with the CloudShell session:
 Input Command: aws sts get-caller-identity Output Command: {"UserId"AROAY****************: ":user539*****=Daniel_J._Scurek","Account": "5730********", "Arn": "arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek"}
