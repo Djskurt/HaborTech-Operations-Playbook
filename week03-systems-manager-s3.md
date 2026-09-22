@@ -120,6 +120,7 @@ the evidence shown that the output confirmed that AWS CLI operations were being 
 Input Command: -aws s3 mb s3://brightpath-djs-443 output command: -make_bucket: brightpath-djs-443
 Verification of bucket:
 Input Command: -aws s3 ls output command: 2026-09-20 13:08:32 brightpath-djs-443
+
 The evidence shown that the bucket was successfully created in a permitted Learner Lab Region us-east-1 and configured to host website content.
 ### Initial index.html CLI Upload:
 **index.html file was created with nano text editor.
