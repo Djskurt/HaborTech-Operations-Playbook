@@ -112,6 +112,7 @@ Applications, scripts, or automation workflows must explicitly retrieve paramete
 ### The following evidence was reviewed in the AWS environment through AWS CLI and AWS CloudShell:
 -AWS Region was verified to be us-east-1
 -AWS Security Token Service (STS) was used to verify the AWS account and IAM identity associated with the CloudShell session:
+
 Input Command: -aws sts get-caller-identity Output Command: -{"UserId"AROAY****************: ":user539*****=Daniel_J._Scurek","Account": "5730********", "Arn": "arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek"}
 -The output confirmed that AWS CLI operations were being performed under the correct AWS account and IAM identity.
 ### Creation of S3 bucket:
