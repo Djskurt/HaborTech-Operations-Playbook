@@ -58,8 +58,9 @@ This investigation focused on selecting the appropriate management and hosting s
 
 Virtualization allows workloads to run on EC2 virtual machines while abstracting the underlying physical infrastructure, enabling administrators to focus on managing operating systems and applications rather than hardware. 
 AWS Systems Manager extends this abstraction by providing a centralized management layer for multiple EC2 instances through capabilities such as Run Command, Session Manager, Inventory, and Parameter Store. 
+This allows administrative tasks to be performed from a single management interface instead of accessing each virtual machine individually. 
 
-This allows administrative tasks to be performed from a single management interface instead of accessing each virtual machine individually. The investigation also demonstrated that not every workload requires a virtual machine. 
+The investigation also demonstrated that not every workload requires a virtual machine. 
 For Bright Path's static resource page, Amazon S3 provides an abstraction from traditional server infrastructure by hosting content directly from object storage, eliminating the need to deploy, secure, and maintain an additional EC2 instance for a simple static website.
 ## Evidence Reviewed
 Bright Path Community Services currently performs routine maintenance activities manually across multiple EC2 instances. 
