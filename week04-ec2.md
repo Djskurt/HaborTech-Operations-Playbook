@@ -10,17 +10,17 @@ The outage prevented customers from reaching the organization's public-facing we
 Although the EC2 instance was running, the website remained inaccessible until the network access issue was resolved.
 
 ## Environment and Resource Names
-Platform: Amazon EC2
-Instance Name: riverside-web-ec2_instance
-Operating System: Amazon Linux
-Web Server: Apache HTTP Server (httpd)
-Access Method: AWS Systems Manager Session Manager
-Metadata Service: IMDSv2
-Security Control: EC2 Security Group
-Security group name: riverside-web-djs443
-Instance Name Tag: RiversideGoods
-Resource Type: EBS-backed EC2 instance
-Troubleshooting Tool: AWS CloudShell
+- Platform: Amazon EC2
+- Instance Name: riverside-web-ec2_instance
+- Operating System: Amazon Linux
+- Web Server: Apache HTTP Server (httpd)
+- Access Method: AWS Systems Manager Session Manager
+- Metadata Service: IMDSv2
+- Security Control: EC2 Security Group
+- Security group name: riverside-web-djs443
+- Instance Name Tag: RiversideGoods
+- Resource Type: EBS-backed EC2 instance
+- Troubleshooting Tool: AWS CloudShell
 
 
 ## AWS Documentation Evidence
