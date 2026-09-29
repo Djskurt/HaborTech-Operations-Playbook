@@ -448,22 +448,54 @@ Before stop:
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
 instance ID: i-03c3eaae0b12be279
+
 Public IP: 50.16.166.229
+
+Webpage test
 ```
-curl http://50.16.166.229
+curl http://50.16.xxx.xxx
 <h1>Riverside Goods</h1>
 ```
+
+Stopping the instance
 
 ```bash
 aws ec2 stop-instance --instance-ids i-03c3eaae0b12be279
 ```
+
 ```bash
 aws ec2 wait instance-stopped --instance-ids i-03c3eaae0b12be279
 ```
+
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
  "Monitoring": {
  "State": "stopped"
+```
+
+Starting the instance
+```bash
+aws ec2 start-instances --instance-ids i-03c3eaae0b12be279
+```
+
+```bash
+aws ec2 wait instance-running --instance-ids i-03c3eaae0b12be279
+```
+
+```bash
+aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
+```
+instance ID: i-03c3eaae0b12be279
+Public IP: 54.236.xxx.xx
+
+Webpage test
+
+```bash
+curl http://54.236.xxx.xx
+```
+output 
+```text
+<h1>Riverside Goods</h1>
 ```
 
 ## Cleanup Evidence
