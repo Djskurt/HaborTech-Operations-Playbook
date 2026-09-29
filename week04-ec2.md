@@ -350,12 +350,12 @@ No changes were made to the operating system, Apache configuration, user data, A
 ## Verification Evidence
 ### Security Group verification
 ```bash
- aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
 ```
 output:
 
 ```bash
-~ $ aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
 {
  "SecurityGroups": [
  {
@@ -411,7 +411,7 @@ The security group displayed an inbound TCP port 80 rule after remediation.
 
 HTTP Verification
 ```bash
-curl http://PUBLIC-IP
+curl http://50.16.xxx.xxx
 ```
 Output:
 
