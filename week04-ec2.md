@@ -345,7 +345,7 @@ aws ec2 authorize-security-group-ingress \
 --cidr 0.0.0.0/0
 ```
 
-No changes were made to the operating system, Apache configuration, user data, AMI, or instance type
+No changes were made to the operating system, Apache configuration, user data, AMI, or instance type.
 
 ## Verification Evidence
 ### Security Group verification
