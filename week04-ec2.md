@@ -497,9 +497,45 @@ output
 ```text
 <h1>Riverside Goods</h1>
 ```
+### Observation
+The instance ID remained the same and the website content persisted because the operating system and web files were stored on the EBS-backed root volume.
+The auto-assigned public IPv4 address changed after the stop/start cycle because an Elastic IP was not associated with the instance.
 
 ## Cleanup Evidence
+Instance termination
 
+```bash
+aws ec2 terminate-instances --instance-ids i-03c3eaae0b12be279
+```
+output
+```text
+{
+ "TerminatingInstances": [
+ {
+ "InstanceId": "i-03c3eaae0b12be279",
+ "CurrentState": {
+ "Code": 32,
+ "Name": "shutting-down"
+ },
+ "PreviousState": {
+ "Code": 16,
+ "Name": "running"
+```
+
+```bash
+aws ec2 wait instance-terminated --instance-ids i-03c3eaae0b12be279
+```
+```bash
+aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
+```
+```output
+SecondaryInterfaces": [],
+ "InstanceId": "i-03c3eaae0b12be279",
+ "ImageId": "ami-0fef201115eefe936",
+ "State": {
+ "Code": 48,
+ "Name": "terminated"
+```
 
 ## Escalation and Change-Control Notes
 
