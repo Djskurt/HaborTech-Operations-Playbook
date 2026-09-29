@@ -96,7 +96,7 @@ $ aws ec2 describe-security-groups \
 } 
 (END) 
 ### Launching of instance/status check:
-aws ec2 run-instances --image-id 'ami-0fef201115eefe936' --instance-type 't3.micro' --key-name 'vockey' --ebs-optimized --network-interfaces '{"AssociatePublicIpAddress":true,"DeviceIndex":0,"Groups":["sg-03092df2d1bb85055"]}' --credit-specification '{"CpuCredits":"unlimited"}' --tag-specifications '{"ResourceType":"instance","Tags":[{"Key":"Name","Value":"riverside-web-ec2_instance"}]}' --iam-instance-profile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanceProfile"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count '1' 
+$ aws ec2 run-instances --image-id 'ami-0fef201115eefe936' --instance-type 't3.micro' --key-name 'vockey' --ebs-optimized --network-interfaces '{"AssociatePublicIpAddress":true,"DeviceIndex":0,"Groups":["sg-03092df2d1bb85055"]}' --credit-specification '{"CpuCredits":"unlimited"}' --tag-specifications '{"ResourceType":"instance","Tags":[{"Key":"Name","Value":"riverside-web-ec2_instance"}]}' --iam-instance-profile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanceProfile"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count '1' 
 
 -instance-profile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanceProfile"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count '1' { "ReservationId": "r-0e5b7b6f20c77b619", "OwnerId": "5730********", "Groups": [], "Instances": [ { "Architecture": "x86_64", "ReservationId": "r-0e5b7b6f20c77b619", "OwnerId": "5730********", "Groups": [], "Instances": [ { "Architecture": "x86_64", "BlockDeviceMappings": [], "ClientToken": "4478dde0-a38e-4620-8d00-a3f6ddc2a1a2", "EbsOptimized": true, "EnaSupport": true, 
 $ aws ec2 wait instance-running \ 
@@ -148,7 +148,7 @@ yum update -y
 yum install -y httpd 
 systemctl enable httpd 
 systemctl start httpd 
-echo "<h1>Riverside Goods</h1>" > /var/www/html/index.html 
+echo ---"<h1>Riverside Goods</h1>" > /var/www/html/index.html 
 EOF
 $ cat userdata.sh
 <h1>Riverside Goods</h1>
@@ -156,7 +156,7 @@ $ cat userdata.sh
 $ sudo chmod +x userdata.sh
 $ sudo ./userdata.sh
 $ curl http://127.0.0.1
-<h1>Riverside Goods</h1>
+ ---<h1>Riverside Goods</h1>
 sudo systemctl status httpd
 httpd.service - The Apache HTTP Server
  Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
