@@ -194,7 +194,7 @@ Relevant output:
  
 ### Interpretation
 
-The EC2 instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove *hat users could reach the web application through the network.
+The EC2 instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove that users could reach the web application through the network.
  
 
 
@@ -223,9 +223,9 @@ Output:
 *url: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to server
 ```
  
-### Interpre*ation
+### Interpretation
  
-The failed*HTTP test confirmed that*the application was not reachable *hrough the expected user path. Com*ined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
+The failed*HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
 
 ### EC2 Instance command record (BASH)
 
