@@ -449,7 +449,7 @@ aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
 instance ID: i-03c3eaae0b12be279
 
-Public IP: 50.16.166.229
+Public IP: 50.16.xxx.xxx
 
 Webpage test
 ```
