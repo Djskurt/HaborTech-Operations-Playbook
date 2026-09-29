@@ -528,7 +528,8 @@ aws ec2 wait instance-terminated --instance-ids i-03c3eaae0b12be279
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
-```output
+output
+```text
 SecondaryInterfaces": [],
  "InstanceId": "i-03c3eaae0b12be279",
  "ImageId": "ami-0fef201115eefe936",
@@ -537,11 +538,26 @@ SecondaryInterfaces": [],
  "Name": "terminated"
 ```
 
+Security Group Termination
+```bash
+aws ec2 delete-security-group --group-id sg-03092df2d1bb85055
+```
+```bash
+aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+```
+output
+```text
+aws: [ERROR]: An error occurred (InvalidGroup.NotFound) when calling the DescribeSecurityGroups operation: The security grou'sg-03092df2d1bb85055' does not exist.
+```
+Cleanup of instance and security group was completed successfully and no lab resources remained allocated.
 ## Escalation and Change-Control Notes
-
+No immediate escalation was recommended. As the assigned intern, I reviewed the available evidence and recommended the smallest supported corrective action rather than making multiple changes or rebuilding the instance. 
+The evidence showed that the EC2 instance was running, both status checks passed, and Apache appeared to have installed and started successfully. 
+The only confirmed configuration issue was the absence of an inbound TCP port 80 rule in the security group. Based on those findings, 
+I recommended adding a single HTTP rule to the existing security group and verifying application access afterward. A rebuild, AMI change, or operating system modification was not justified because no evidence indicated a problem with those layers.
 
 ## Lessons Learned
-
+This lab reinforced the importance of collecting evidence before making configuration changes. A healthy EC2 instance and passing status checks do not guarantee application availability, as network controls can still prevent user access. By reviewing security group rules, validating services locally, and testing connectivity from the user perspective, it was possible to identify the root cause and apply the smallest supported corrective action. The exercise also demonstrated how EBS-backed storage persists through stop/start operations while auto-assigned public IPv4 addresses may change, highlighting the importance of understanding both infrastructure and application layers during troubleshooting.
 
 ## Professional Vocabulary
 
