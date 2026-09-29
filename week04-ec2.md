@@ -423,6 +423,24 @@ The successful response confirmed external connectivity to the web service.
 
 ## IMDSv2 and Guest Evidence
 
+Retrieve IMDSv2 Token
+```bash
+TOKEN=$(curl -X PUT \
+"http://169.254.169.254/latest/api/token" \
+-H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+```
+Retrieve Instance ID
+```
+curl \
+-H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/meta-data/instance-id
+```
+output
+```text
+ i-03c3eaae0b12be279
+```
+
+This verified the instance identity from inside the guest operating system rather than from the AWS control plane.
 
 ## Stop/Start Lifecycle Test
 
