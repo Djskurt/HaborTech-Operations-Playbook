@@ -130,11 +130,11 @@ relevant output:
 ]
 }
 ```
-## Interpretation
+### Interpretation
 The security group permitted all outbound traffic but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
 
  
-*## Launch Amazon Linux EC2 Instance
+## Launch Amazon Linux EC2 Instance
  
 Launch the instance using the custom security group:
  
@@ -198,7 +198,7 @@ The EC2 instance successfully reached the***Running** state and both AWS status 
  
 ---
  
-*## Retrieve Public IPv4 Address
+## Retrieve Public IPv4 Address
  
 ```bash
 aws ec2 describe-instances \
@@ -212,7 +212,7 @@ Output:
 50.16.xxx.xxx
 ```
  
-*## Initial Connectivity Test
+## Initial Connectivity Test
  
 ```bash*curl http://50.16.xxx.xxx
 ```
@@ -226,7 +226,8 @@ Output:
 ### Interpre*ation
  
 The failed*HTTP test confirmed that*the application was not reachable *hrough the expected user path. Com*ined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
-## EC2 Instance command record (BASH)
+
+### EC2 Instance command record (BASH)
 
 Create the user data script:
  
