@@ -193,11 +193,11 @@ Relevant output:
 ```
  
 ### Interpretation
- 
+
 The EC2 instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove *hat users could reach the web application through the network.
  
----
- 
+
+
 ## Retrieve Public IPv4 Address
  
 ```bash
