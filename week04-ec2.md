@@ -131,7 +131,7 @@ relevant output:
 }
 ```
 ### Interpretation
-The security group permitted all outbound traffic but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
+The security group permitted all outbound traffic but contained no inbound rules. The empty `IpPermissions` section confirmed that HTTP traffic on TCP port 80 was not allowed.
 
  
 ## Launch Amazon Linux EC2 Instance
