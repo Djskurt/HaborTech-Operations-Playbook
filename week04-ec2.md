@@ -309,7 +309,7 @@ The failed HTTP test confirmed that the application was not reachable through th
 
 Evidence A proves the EC2 instance was created and AWS assigned it a specific instance ID and AMI ID. 
 It also identifies the Amazon Machine Image (AMI) that was used to launch instance. 
-It does not prove that the instance is running correctly, that Apache was installed, or that the website is accsssible.
+It does not prove that the instance is running correctly, that Apache was installed, or that the website is accessible.
 
 - Evidence B Initial public IPv4 address:
   
