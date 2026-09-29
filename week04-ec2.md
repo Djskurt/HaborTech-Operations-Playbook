@@ -348,7 +348,78 @@ aws ec2 authorize-security-group-ingress \
 No changes were made to the operating system, Apache configuration, user data, AMI, or instance type
 
 ## Verification Evidence
+### Security Group verification
+```bash
+ aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+```
+output:
 
+```bash
+~ $ aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+{
+ "SecurityGroups": [
+ {
+ "GroupId": "sg-03092df2d1bb85055",
+ "IpPermissionsEgress": [
+ {
+ "IpProtocol": "-1",
+ "UserIdGroupPairs": [],
+ "IpRanges": [
+ {
+ "CidrIp": "0.0.0.0/0"
+ }
+ ],
+ "Ipv6Ranges": [],
+ "PrefixListIds": []
+ }
+ ],
+ "VpcId": "vpc-0a6ee74e66defe209",
+ "SecurityGroupArn": "arn:aws:ec2:us-east-1:573077417977:security-group/sg-03092df2d1bb85055",
+ "OwnerId": "573077417977",
+ "GroupName": "riverside-web-sg-djs443",
+ "Description": "Riverside Goods Web SG",
+ "IpPermissions": [
+ {
+ ],
+ "VpcId": "vpc-0a6ee74e66defe209",
+ "SecurityGroupArn": "arn:aws:ec2:us-east-1:573077417977:security-group/sg-03092df2d1bb85055",
+ "OwnerId": "573077417977",
+ "GroupName": "riverside-web-sg-djs443",
+ "Description": "Riverside Goods Web SG",
+ "IpPermissions": [
+ {
+ "IpProtocol": "tcp",
+ "FromPort": 80,
+ "ToPort": 80,
+ "UserIdGroupPairs": [],
+ "IpRanges": [
+ {
+ "CidrIp": "0.0.0.0/0"
+ }
+ ],
+ "Ipv6Ranges": [],
+ "PrefixListIds": []
+ }
+ ]
+ }
+ ]
+}
+(END)
+```
+
+The security group displayed an inbound TCP port 80 rule after remediation.
+
+HTTP Verification
+```bash
+curl http://PUBLIC-IP
+```
+Output:
+
+```text
+<h1>Riverside Goods</h1>
+```
+
+The successful response confirmed external connectivity to the web service.
 
 ## IMDSv2 and Guest Evidence
 
