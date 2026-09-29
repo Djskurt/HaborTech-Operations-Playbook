@@ -94,12 +94,11 @@ Create a security group that intentionally does not allow inbouod TCP port 80 tr
 ```bash
  aws ec2 create-security-group \
 --group name riverside-web-djs443 \
---desc*iption "Riverside Goods Web SG" \
+--description "Riverside Goods Web SG" \
 --vpc-id vpc-0a6ee************
 ```
-*---
  
-### Initial Security Group In*pection
+### Initial Security Group Inspection
  
 Inspect the newly created*security group:
  
@@ -108,7 +107,7 @@ aws ec2 describe-security-groups \
 --group-ids sg-03092df2d1bb85055
 ```
 
-*elevant output:
+relevant output:
  
 ```json
 {
@@ -131,9 +130,9 @@ aws ec2 describe-security-groups \
 ]
 }
 ```
-### Interpreta*ion
+### Interpretation
  
-The security group permitted all outbound traff*c but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
+The security group permitted all outbound traffic but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
  
 ---
  
@@ -193,7 +192,7 @@ Relevant output:
 "Status": "*k"
 }
 }
-``*
+```
  
 ### Interpretation
  
@@ -203,7 +202,7 @@ The EC2 instance successfully reached the***Running** state and both AWS status 
  
 *## Retrieve Public IPv4 Address
  
-`*`*ash
+```bash
 aws ec2 describe-instances \
 -*instance-ids i-03c3eaae0b12be279 \*--query*"Reservations[*].Instances[*].Publ*cIpAddress" \
 --output text
