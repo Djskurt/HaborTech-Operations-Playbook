@@ -331,14 +331,21 @@ It does not prove that the security group is the only cause of the issue because
 Evidence E proves the initial HTTP request to the instance was unsuccessful and the website could not be reached at the time of testing. 
 It does not prove the exact root cause of the failure. Additional evidence is required to determine whether the issue is related to the security group, Apache service, user data execution, routing, or another configuration problem.
 
-
-
-
 ## Root-Cause Analysis
+The investigation determined that the EC2 instance was healthy and Apache had successfully installed and started according to the system log. The confirmed configuration issue was the absence of an inbound HTTP rule in the attached security group.
 
-
+Because no evidence suggested operating system failure, Apache failure, or AMI issues, rebuilding the instance was not justified. Root cause points to Missing inbound TCP port 80 rule in the security group.
 ## Corrective Action
+A single inbound rule allowing HTTP traffic was added to the existing security group.
+```bash
+aws ec2 authorize-security-group-ingress \
+--group-id sg-03092df2d1bb85055 \
+--protocol tcp \
+--port 80 \
+--cidr 0.0.0.0/0
+```
 
+No changes were made to the operating system, Apache configuration, user data, AMI, or instance type
 
 ## Verification Evidence
 
