@@ -93,9 +93,9 @@ output:
 Create a security group that intentionally does not allow inbouod TCP port 80 traffic:
 
 ```bash aws ec2 create-security-group \
---*roup*name riverside-web-djs443 \
+--group name riverside-web-djs443 \
 --desc*iption "Riverside Goods Web SG" \
-*-vpc-id vpc-0a6ee************
+--vpc-id vpc-0a6ee************
 ```
 *---
  
@@ -104,7 +104,7 @@ Create a security group that intentionally does not allow inbouod TCP port 80 tr
 Inspect the newly created*security group:
  
 ```bash
-aws ec2 d*scribe-security-groups \
+aws ec2 describe-security-groups \
 --group-ids sg-03092df2d1bb85055
 ```
 
@@ -133,13 +133,13 @@ aws ec2 d*scribe-security-groups \
 ```
 ### Interpreta*ion
  
-The security*group permitted all outbound traff*c but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
+The security group permitted all outbound traff*c but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
  
 ---
  
-*## Launch Amazon*Linux EC2 Instance
+*## Launch Amazon Linux EC2 Instance
  
-Launch the*instance using the custom security group:
+Launch the instance using the custom security group:
  
 ```bash
 aws ec2 run-instan*es \
@@ -154,7 +154,7 @@ aws ec2 run-instan*es \
 --count 1
 ```
  
-Relevant *utput:
+Relevant output:
  
 ```json
 {
@@ -168,23 +168,23 @@ Relevant *utput:
 ### Wait for Instance to Re*ch Running State
  
 ```bash*aws ec2 wait instance-running \
---*nstance-ids i-03c3eaae0b12be279
+--instance-ids i-03c3eaae0b12be279
 ``*
  
 verify instance status:
  
 ```bash
-aw* ec2 describe-instance-status \
---*nstance-ids i-03c3eaae0b12be279
+aws ec2 describe-instance-status \
+--instance-ids i-03c3eaae0b12be279
 ``*
  
 Relevant output:
  
 ```json
 {
-"*nstanceId*: "i-03c3eaae0b12be279",
+"instanceId*: "i-03c3eaae0b12be279",
 * "InstanceState": {
-"Name": "r*nning"
+"Name": "running"
 },
 "InstanceStatus": {
 * "Status": "ok"
@@ -197,7 +197,7 @@ Relevant output:
  
 ### Interpretation
  
-The EC* instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove *hat users could reach the web application through the network.
+The EC2 instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove *hat users could reach the web application through the network.
  
 ---
  
@@ -209,7 +209,7 @@ aws ec2 describe-instances \
 --output text
 ```
  
-O*tput:
+Output:
  
 ```text
 50.16.xxx.xxx
@@ -217,10 +217,10 @@ O*tput:
  
 *## Initial Connectivity Test
  
-```b*sh*curl http://50.16.xxx.xxx
+```bash*curl http://50.16.xxx.xxx
 ```
  
-Out*ut:
+Output:
  
 ```text
 *url: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to server
