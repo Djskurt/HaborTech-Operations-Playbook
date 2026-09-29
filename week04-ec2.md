@@ -69,14 +69,13 @@ Output:
 Output:
 text
 region us-east-1
-```
+
  
 ```bash
  aws ec2 describe-vpcs
 ```
  
 Output:***``text***cId: vpc-0a6ee************
-```
  
 ```bash
 aws ec2 describe-subnets
