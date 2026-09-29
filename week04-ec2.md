@@ -78,7 +78,7 @@ region us-east-1
 Output:***``text***cId: vpc-0a6ee************
 ```
  
-```*ash
+```bash
 aws ec2 describe-subnets
 ```
 output:
@@ -92,7 +92,7 @@ output:
  
 Create a security group that intentionally does not allow inbouod TCP port 80 traffic:
 
-```bash*aws ec2 create-security-group \
+```bash aws ec2 create-security-group \
 --*roup*name riverside-web-djs443 \
 --desc*iption "Riverside Goods Web SG" \
 *-vpc-id vpc-0a6ee************
