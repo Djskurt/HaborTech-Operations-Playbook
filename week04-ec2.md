@@ -66,16 +66,19 @@ Output:
 ```bash
  aws configure list
 ```
-Output:
-text
+Output
+```text
 region us-east-1
-
+```
  
 ```bash
  aws ec2 describe-vpcs
 ```
- 
-Output:***``text***cId: vpc-0a6ee************
+
+Output:
+```text
+***``text***cId: vpc-0a6ee************
+```
  
 ```bash
 aws ec2 describe-subnets
@@ -88,8 +91,6 @@ output:
 
 
 ### Creation of Security Group*(Without HTTP Access)
- 
-Create a security group that intentionally does not allow inbouod TCP port 80 traffic
 
 ```bash
  aws ec2 create-security-group \
@@ -133,7 +134,6 @@ relevant output:
 ### Interpretation
 The security group permitted all outbound traffic but contained no inbound rules. The empty `IpPermissions` section confirmed that HTTP traffic on TCP port 80 was not allowed.
 
- 
 ## Launch Amazon Linux EC2 Instance
  
 Launch the instance using the custom security group:
