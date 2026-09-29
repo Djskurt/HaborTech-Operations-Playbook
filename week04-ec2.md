@@ -62,11 +62,9 @@ Output:
  
 ---
  
-### Verification of *** Region, VPC, and Subnet
+### Verification of AWS Region, VPC, and Subnet:
  
-Verify***e configured AWS region:
- 
-```bas***ws configure list
+```bas*** aws configure list
 ```
  
 Output:
@@ -75,21 +73,16 @@ Output:
 region us-east-1
 ```
  
-***ntify the VPC:
- 
 ```bash***s ec2 describe-vpcs
 ```
  
 Output:***``text***cId: vpc-0a6ee************
 ```
  
-*dentify the subnet:
- 
 ```*ash
 aws ec2 describe-subnets
 ```
- 
-*utput:
+output:
  
 ```text
 172.31.16.0/20
@@ -98,7 +91,7 @@ aws ec2 describe-subnets
  
 ### Creation of Security Group*(Without HTTP Access)
  
-Create a*security group that*intentionally does not allow inbou*d TCP port 80 traffic:
+Create a*security group that*intentionally does not allow inbouod TCP port 80 traffic:
  
 ```bash*aws ec2 create-security-group \
 --*roup*name riverside-web-djs443 \
@@ -113,17 +106,17 @@ Inspect the newly created*security group:
  
 ```bash
 aws ec2 d*scribe-security-groups \
---group-i*s sg-03092df2d1bb85055
+--group-ids sg-03092df2d1bb85055
 ```
- 
+
 *elevant output:
  
 ```json
 {
-"*roupId":*"sg-03092df2d1bb85055",
-"*roup*ame": "riverside-web-sg-djs443",
+"groupId":*"sg-03092df2d1bb85055",
+"groupname": "riverside-web-sg-djs443",
 * "Description": "Riverside Goods W*b SG",
-"Vpc*d": "vpc-0a6ee74e66*efe209",
+"VpcId": "vpc-0a6ee74e66*efe209",
  
 "IpPermissions": [],
  
@@ -139,16 +132,15 @@ aws ec2 d*scribe-security-groups \
 ]
 }
 ```
- 
 ### Interpreta*ion
  
-The security*group permitted all outbound traff*c but contained no inbound rules. *he empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
+The security*group permitted all outbound traff*c but contained no inbound rules. The empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
  
 ---
  
 *## Launch Amazon*Linux EC2 Instance
  
-Launch the*instance using the custom security*group:
+Launch the*instance using the custom security group:
  
 ```bash
 aws ec2 run-instan*es \
@@ -180,7 +172,7 @@ Relevant *utput:
 --*nstance-ids i-03c3eaae0b12be279
 ``*
  
-*erify instance status:
+verify instance status:
  
 ```bash
 aw* ec2 describe-instance-status \
@@ -206,7 +198,7 @@ Relevant output:
  
 ### Interpretation
  
-The EC* instance successfully reached the***Running** state and both AWS sta*us checks passed. This confirmed t*at the AWS infrastructure and gues* operating system were healthy. Ho*ever, these results did not prove *hat users could reach the web appl*cation through the network.
+The EC* instance successfully reached the***Running** state and both AWS status checks passed. This confirmed that the AWS infrastructure and guest operating system were healthy. However, these results did not prove *hat users could reach the web application through the network.
  
 ---
  
@@ -237,8 +229,9 @@ Out*ut:
  
 ### Interpre*ation
  
-The failed*HTTP test confirmed that*the application was not reachable *hrough the expected user path. Com*ined with the security group evide*ce showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
- 
+The failed*HTTP test confirmed that*the application was not reachable *hrough the expected user path. Com*ined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
+## EC2 Instance command record (BASH)
+
 Create the user data script:
  
 ```bash
