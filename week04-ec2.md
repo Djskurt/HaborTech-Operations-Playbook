@@ -46,7 +46,7 @@ Although the EC2 instance was running, the website remained inaccessible until t
 ## CloudShell Command Record
 ### Verification of AWS Identity
  
-Verify the AWS account and role being used:
+Verify the AWS account and role being used
  
 ```bash
 aws sts get-caller-identity
@@ -61,7 +61,7 @@ Output:
 ```
  
  
-### Verification of AWS Region, VPC, and Subnet:
+### Verification of AWS Region, VPC, and Subnet
  
 ```bash
  aws configure list
@@ -89,7 +89,7 @@ output:
 
 ### Creation of Security Group*(Without HTTP Access)
  
-Create a security group that intentionally does not allow inbouod TCP port 80 traffic:
+Create a security group that intentionally does not allow inbouod TCP port 80 traffic
 
 ```bash
  aws ec2 create-security-group \
@@ -100,7 +100,7 @@ Create a security group that intentionally does not allow inbouod TCP port 80 tr
  
 ### Initial Security Group Inspection
  
-Inspect the newly created*security group:
+Inspect the newly created security group
  
 ```bash
 aws ec2 describe-security-groups \
@@ -198,7 +198,7 @@ The EC2 instance successfully reached the***Running** state and both AWS status 
  
 
 
-## Retrieve Public IPv4 Address
+### Retrieve Public IPv4 Address
  
 ```bash
 aws ec2 describe-instances \
@@ -212,7 +212,7 @@ Output:
 50.16.xxx.xxx
 ```
  
-## Initial Connectivity Test
+### Initial Connectivity Test
  
 ```bash*curl http://50.16.xxx.xxx
 ```
