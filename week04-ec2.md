@@ -305,28 +305,28 @@ curl: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to
 The failed HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 rule, this supported the conclusion that network access was being blocked before requests could reach Apache.
 
 ## Baseline Evidence
--- Evidence A
+- Evidence A
 Instance ID and AMI ID:
 Evidence A proves the EC2 instance was created and AWS assigned it a specific instance ID and AMI ID. 
 It also identifies the Amazon Machine Image (AMI) that was used to launch instance. 
 It does not prove that the instance is running correctly, that Apache was installed, or that the website is accsssible.
 
--- Evidence B
+- Evidence B
 Initial public IPv4 address:
 Evidence B proves the instance was assigned a public IPv4 address that can potentially be reached from the internet. 
 It does not prove network connectivity, that HTTP traffic is allowed, or that a web server is listening on port 80.
 
--- Evidence C
+- Evidence C
 Status checks:
 Evidence C proves the EC2 system status and instance status checks passed, indicating that AWS infrastructure and the operating system are functioning normally.
 It does not prove that Apache is installed, that the web application is running, or that users can successfully access the website.
 
--- Evidence D
+- Evidence D
 Security group before fix:
 Evidence D proves that the security group was created. The security group configuration did not contain an inbound rule allowing TCP port 80 traffic. 
 It does not prove that the security group is the only cause of the issue because of other factors, such as web server configuration or operating system firewall rules could also prevent access
 
--- Evidence E
+- Evidence E
 Failed HTTP test:
 Evidence E proves the initial HTTP request to the instance was unsuccessful and the website could not be reached at the time of testing. 
 It does not prove the exact root cause of the failure. Additional evidence is required to determine whether the issue is related to the security group, Apache service, user data execution, routing, or another configuration problem.
