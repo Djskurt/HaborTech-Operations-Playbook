@@ -85,13 +85,13 @@ output:
  
 ```text
 172.31.16.0/20
-```*
-*--
- 
+```
+
+
 ### Creation of Security Group*(Without HTTP Access)
  
-Create a*security group that*intentionally does not allow inbouod TCP port 80 traffic:
- 
+Create a security group that intentionally does not allow inbouod TCP port 80 traffic:
+
 ```bash*aws ec2 create-security-group \
 --*roup*name riverside-web-djs443 \
 --desc*iption "Riverside Goods Web SG" \
