@@ -60,7 +60,6 @@ Output:
 "Account": "5730********"*** "Arn": "arn:***:sts::5730********:assumed-role/***labs/user539****=Daniel_J._Scure***}
 ```
  
----
  
 ### Verification of AWS Region, VPC, and Subnet:
  
@@ -72,7 +71,7 @@ text
 region us-east-1
 ```
  
-```bash***s ec2 describe-vpcs
+```bash aws ec2 describe-vpcs
 ```
  
 Output:***``text***cId: vpc-0a6ee************
@@ -92,7 +91,8 @@ output:
  
 Create a security group that intentionally does not allow inbouod TCP port 80 traffic:
 
-```bash aws ec2 create-security-group \
+```bash
+ aws ec2 create-security-group \
 --group name riverside-web-djs443 \
 --desc*iption "Riverside Goods Web SG" \
 --vpc-id vpc-0a6ee************
