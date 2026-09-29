@@ -142,7 +142,9 @@ $ aws ec2 describe-instance-status \
 50.16.166.229 
 ## EC2 Instance Command Record (BASH)
 ### User Data Creation and verification
+---bash
 $ nano userdata.sh
+---
 #!/bin/bash 
 yum update -y 
 yum install -y httpd 
@@ -152,16 +154,28 @@ echo ---html
 "<h1>Riverside Goods</h1>" > /var/www/html/index.html
 ---
 EOF
+bash---
 $ cat userdata.sh
+---
+---html
 <h1>Riverside Goods</h1>
+---
 ### File execution and local host testing:
+---bash
 $ sudo chmod +x userdata.sh
+---
+---bash
 $ sudo ./userdata.sh
+---
+---bash
 $ curl http://127.0.0.1
+---
  ---html
  <h1>Riverside Goods</h1>
  ---
-sudo systemctl status httpd
+---bash
+$ sudo systemctl status httpd
+---
 httpd.service - The Apache HTTP Server
  Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
  Active: active (running) since Mon 2026-09-27 18:05:17 UTC; 6min ago
