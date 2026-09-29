@@ -148,7 +148,9 @@ yum update -y
 yum install -y httpd 
 systemctl enable httpd 
 systemctl start httpd 
-echo ---"<h1>Riverside Goods</h1>" > /var/www/html/index.html 
+echo ---html
+"<h1>Riverside Goods</h1>" > /var/www/html/index.html
+---
 EOF
 $ cat userdata.sh
 <h1>Riverside Goods</h1>
@@ -156,7 +158,9 @@ $ cat userdata.sh
 $ sudo chmod +x userdata.sh
 $ sudo ./userdata.sh
 $ curl http://127.0.0.1
- ---<h1>Riverside Goods</h1>
+ ---html
+ <h1>Riverside Goods</h1>
+ ---
 sudo systemctl status httpd
 httpd.service - The Apache HTTP Server
  Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
