@@ -286,10 +286,9 @@ Active: active (running) since Mon 2026-09-27 18:05:17 UTC; 6 min ago
 ### Interpretation
  
 The successful localhost test confirmed that Apache was serving the expected web page from the instance itself. The `httpd` service status showed the web server was running, providing evidence that the application layer was functioning correctly before external network troubleshooting was performed.
-## Baseline Evidence
 
 
-### Initial Connectivity Test (Inside CloudShell)
+### Initial Connectivity Test (Inside AWS CloudShell)
  
 ```bash
 curl http://50.16.xxx.xxx
@@ -303,7 +302,9 @@ curl: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to
  
 ### Interpretation
  
-The failed HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
+The failed HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 rule, this supported the conclusion that network access was being blocked before requests could reach Apache.
+## Baseline Evidence
+
 
 ## Root-Cause Analysis
 
