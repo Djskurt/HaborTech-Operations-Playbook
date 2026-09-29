@@ -141,45 +141,83 @@ $ aws ec2 describe-instance-status \
 ### Instance Public IPv4 address:
 50.16.166.229 
 ## EC2 Instance Command Record (BASH)
-### User Data Creation and verification
----bash
-$ nano userdata.sh
----
-#!/bin/bash 
-yum update -y 
-yum install -y httpd 
-systemctl enable httpd 
-systemctl start httpd 
-echo ---html
-"<h1>Riverside Goods</h1>" > /var/www/html/index.html
----
-EOF
-bash---
-$ cat userdata.sh
----
----html
+### User Data Creation and Verification
+ 
+Create the user data script:
+ 
+```bash
+nano userdata.sh
+```
+ 
+Script contents:
+ 
+```bash
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl enable httpd
+systemctl start httpd
+ 
+echo "<h1>Riverside Goods</h1>" > /var/www/html/index.html
+```
+ 
+Verify the script contents:
+ 
+```bash
+cat userdata.sh
+```
+ 
+Output:
+ 
+```html
 <h1>Riverside Goods</h1>
+```
+ 
 ---
-### File execution and local host testing:
----bash
-$ sudo chmod +x userdata.sh
----
----bash
-$ sudo ./userdata.sh
----
----bash
-$ curl http://127.0.0.1
----
- ---html
- <h1>Riverside Goods</h1>
- ---
----bash
-$ sudo systemctl status httpd
----
+ 
+### File Execution and Local Host Testing
+ 
+Add executable permissions:
+ 
+```bash
+sudo chmod +x userdata.sh
+```
+ 
+Execute the script:
+ 
+```bash
+sudo ./userdata.sh
+```
+ 
+Test locally from the instance:
+ 
+```bash
+curl http://127.0.0.1
+```
+ 
+Output:
+ 
+```html
+<h1>Riverside Goods</h1>
+```
+ 
+Verify Apache service status:
+ 
+```bash
+sudo systemctl status httpd
+```
+ 
+Output:
+ 
+```text
 httpd.service - The Apache HTTP Server
- Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
- Active: active (running) since Mon 2026-09-27 18:05:17 UTC; 6min ago
- 
+Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+Active: active (running) since Mon 2026-09-27 18:05:17 UTC; 6 min ago
+```
+ 
+### Interpretation
+ 
+The successful localhost test confirmed that Apache was serving the expected web page from the instance itself. The `httpd` service status showed the web server was running, providing evidence that the application layer was functioning correctly before external network troubleshooting was performed.
 ## Baseline Evidence
 
 
