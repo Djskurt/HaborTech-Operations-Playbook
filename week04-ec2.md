@@ -202,8 +202,7 @@ The EC2 instance successfully reached the***Running** state and both AWS status 
  
 ```bash
 aws ec2 describe-instances \
--*instance-ids i-03c3eaae0b12be279 \*--query*"Reservations[*].Instances[*].Publ*cIpAddress" \
---output text
+-*instance-ids i-03c3eaae0b12be279
 ```
  
 Output:
@@ -214,13 +213,14 @@ Output:
  
 ### Initial Connectivity Test
  
-```bash*curl http://50.16.xxx.xxx
+```bash
+curl http://50.16.xxx.xxx
 ```
  
 Output:
  
 ```text
-*url: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to server
+curl: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to server
 ```
  
 ### Interpretation
