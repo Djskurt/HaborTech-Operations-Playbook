@@ -114,7 +114,7 @@ relevant output:
 "groupId":*"sg-03092df2d1bb85055",
 "groupname": "riverside-web-sg-djs443",
 * "Description": "Riverside Goods W*b SG",
-"VpcId": "vpc-0a6ee74e66*efe209",
+"VpcId": "vpc-0a6ee************",
  
 "IpPermissions": [],
  
