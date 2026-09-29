@@ -225,7 +225,7 @@ curl: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to
  
 ### Interpretation
  
-The failed*HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
+The failed HTTP test confirmed that the application was not reachable through the expected user path. Combined with the security group evidence showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
 
 ### EC2 Instance command record (BASH)
 
@@ -258,8 +258,6 @@ Output:
 ```html
 <h1>Riverside Goods</h1>
 ```
- 
----
  
 ### File Execution and Local Host Testing
  
