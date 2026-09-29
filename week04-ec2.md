@@ -64,7 +64,8 @@ Output:
  
 ### Verification of AWS Region, VPC, and Subnet:
  
-```bash aws configure list
+```bash
+ aws configure list
 ```
 Output:
 ***text
