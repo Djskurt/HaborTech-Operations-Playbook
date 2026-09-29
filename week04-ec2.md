@@ -64,11 +64,9 @@ Output:
  
 ### Verification of AWS Region, VPC, and Subnet:
  
-```bas*** aws configure list
+```bash aws configure list
 ```
- 
 Output:
- 
 ***text
 region us-east-1
 ```
