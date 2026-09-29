@@ -560,4 +560,36 @@ I recommended adding a single HTTP rule to the existing security group and verif
 This lab reinforced the importance of collecting evidence before making configuration changes. A healthy EC2 instance and passing status checks do not guarantee application availability, as network controls can still prevent user access. By reviewing security group rules, validating services locally, and testing connectivity from the user perspective, it was possible to identify the root cause and apply the smallest supported corrective action. The exercise also demonstrated how EBS-backed storage persists through stop/start operations while auto-assigned public IPv4 addresses may change, highlighting the importance of understanding both infrastructure and application layers during troubleshooting.
 
 ## Professional Vocabulary
+### EC2 Instance
+A virtual computer running in AWS. It works like a regular server but is hosted in the cloud.
+
+### AMI (Amazon Machine Image)
+A template used to create an EC2 instance. It contains the operating system and starting software configuration.
+
+### Instance Type
+The size of the virtual server. It determines how much CPU power and memory the instance receives.
+
+### EBS (Elastic Block Store)
+Storage attached to an EC2 instance that keeps data even if the instance is stopped and started again.
+
+### Security Group
+A virtual firewall that controls what network traffic is allowed to enter or leave an EC2 instance.
+
+### User Data
+A script or set of commands that automatically runs when an EC2 instance starts for the first time.
+
+### Instance Metadata
+Information about the EC2 instance that can be accessed from inside the instance, such as the instance ID and networking details.
+
+### Lifecycle State
+The current status of an EC2 instance, such as pending, running, stopping, stopped, or terminated.
+
+### Status Checks
+AWS health checks that verify whether the instance and AWS infrastructure are operating correctly.
+
+
+
+
+
+
 
