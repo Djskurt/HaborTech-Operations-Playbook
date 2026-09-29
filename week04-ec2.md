@@ -44,104 +44,200 @@ Although the EC2 instance was running, the website remained inaccessible until t
 - The trouble ticket required validating information about the running EC2 instance. This source confirms that instance metadata can be used to manage the instance, supporting the verification steps performed during the investigation.
 
 ## CloudShell Command Record
-### Verification of AWS identity:
-$ aws sts get-caller-identity 
-"UserId": "AROAY***************:user539****=Daniel_J._Scurek", 
-"Account": "5730********", 
-"Arn": "arn:aws:sts::5730********:assumed-role/voclabs/user539****=Daniel_J._Scurek" 
-### Verification of AWS region/subnet/vpc-ID:
-$ aws configure list 
-region : us-east-1
-$ aws ec2 describe-vpcs  
-VpcId": "vpc-0a6ee************
-$ aws ec2 describe-subnets 
+### Verification of AWS Identity
+ 
+Verify the AWS account and role being used:
+ 
+```bash
+aws sts get-caller-identity
+```
+ 
+Output:
+ 
+```json
+{
+"UserId": "AROAY***************:user539****=Daniel_J._S***ek",
+"Account": "5730********"*** "Arn": "arn:***:sts::5730********:assumed-role/***labs/user539****=Daniel_J._Scure***}
+```
+ 
+---
+ 
+### Verification of *** Region, VPC, and Subnet
+ 
+Verify***e configured AWS region:
+ 
+```bas***ws configure list
+```
+ 
+Output:
+ 
+***text
+region us-east-1
+```
+ 
+***ntify the VPC:
+ 
+```bash***s ec2 describe-vpcs
+```
+ 
+Output:***``text***cId: vpc-0a6ee************
+```
+ 
+*dentify the subnet:
+ 
+```*ash
+aws ec2 describe-subnets
+```
+ 
+*utput:
+ 
+```text
 172.31.16.0/20
-### Creation of Security Group riverside-web-djs443 (Without Port 80)
-$ aws ec2 create-security-group \ 
---group-name riverside-web-djs443 \ 
---description "Riverside Goods Web SG" \ 
---vpc-id vpc- 0a6ee************
-### Initial inspection of security group:
-$ aws ec2 describe-security-groups \ 
---group-ids sg- 03092df2d1bb85055  
-
-{ 
-
- "SecurityGroups": [ 
-
-  { 
-"GroupId": "sg-03092df2d1bb85055", 
-"IpPermissionsEgress": [ 
-{ 
-"IpProtocol": "-1", 
-"UserIdGroupPairs": [], 
-"IpRanges": [ 
-{ 
-"CidrIp": "0.0.0.0/0" 
- } 
-
-], 
-"Ipv6Ranges": [], 
-"PrefixListIds": [] 
-} 
-], 
-"VpcId": "vpc-0a6ee74e66defe209", 
-"SecurityGroupArn": "arn:aws:ec2:us-east-1:5730********:security-group/sg-03092df2d1bb85055", 
-"OwnerId": "5730********", 
-"GroupName": "riverside-web-sg-djs443", 
-"Description": "Riverside Goods Web SG", 
-"IpPermissions": [] 
-} 
-] 
-} 
-(END) 
-### Launching of instance/status check:
-$ aws ec2 run-instances --image-id 'ami-0fef201115eefe936' --instance-type 't3.micro' --key-name 'vockey' --ebs-optimized --network-interfaces '{"AssociatePublicIpAddress":true,"DeviceIndex":0,"Groups":["sg-03092df2d1bb85055"]}' --credit-specification '{"CpuCredits":"unlimited"}' --tag-specifications '{"ResourceType":"instance","Tags":[{"Key":"Name","Value":"riverside-web-ec2_instance"}]}' --iam-instance-profile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanceProfile"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count '1' 
-
--instance-profile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanceProfile"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count '1' { "ReservationId": "r-0e5b7b6f20c77b619", "OwnerId": "5730********", "Groups": [], "Instances": [ { "Architecture": "x86_64", "ReservationId": "r-0e5b7b6f20c77b619", "OwnerId": "5730********", "Groups": [], "Instances": [ { "Architecture": "x86_64", "BlockDeviceMappings": [], "ClientToken": "4478dde0-a38e-4620-8d00-a3f6ddc2a1a2", "EbsOptimized": true, "EnaSupport": true, 
-$ aws ec2 wait instance-running \ 
---instance-ids i-03c3eaae0b12be279
-$ aws ec2 describe-instance-status \ 
---instance-ids i-03c3eaae0b12be279  
-{ 
-"InstanceStatuses": [ 
-
- { 
-"AvailabilityZone": "us-east-1b", 
-"AvailabilityZoneId": "use1-az4", 
- "Operator": { 
-"Managed": false, 
-"HiddenByDefault": false 
-}, 
-            "InstanceId": "i-03c3eaae0b12be279", 
-            "InstanceState": { 
-                "Code": 16, 
-                "Name": "running" 
-            }, 
-            "InstanceStatus": { 
-                "Details": [ 
-                    { 
-                        "Name": "reachability", 
-                      "Status": "passed" 
-                    } 
-                    
-], 
-"Status": "ok" 
-            }, 
-            "SystemStatus": { 
-                "Details": [ 
-                    { 
-                        "Name": "reachability", 
-                        "Status": "passed" 
-                    } 
-                    
-  ], 
-                "Status": "ok" 
-            }, 
-### Instance Public IPv4 address:
-50.16.166.229 
-## EC2 Instance Command Record (BASH)
-### User Data Creation and Verification
+```*
+*--
+ 
+### Creation of Security Group*(Without HTTP Access)
+ 
+Create a*security group that*intentionally does not allow inbou*d TCP port 80 traffic:
+ 
+```bash*aws ec2 create-security-group \
+--*roup*name riverside-web-djs443 \
+--desc*iption "Riverside Goods Web SG" \
+*-vpc-id vpc-0a6ee************
+```
+*---
+ 
+### Initial Security Group In*pection
+ 
+Inspect the newly created*security group:
+ 
+```bash
+aws ec2 d*scribe-security-groups \
+--group-i*s sg-03092df2d1bb85055
+```
+ 
+*elevant output:
+ 
+```json
+{
+"*roupId":*"sg-03092df2d1bb85055",
+"*roup*ame": "riverside-web-sg-djs443",
+* "Description": "Riverside Goods W*b SG",
+"Vpc*d": "vpc-0a6ee74e66*efe209",
+ 
+"IpPermissions": [],
+ 
+* "IpPermissionsEgress": [
+{
+* "*pProtocol": "-1",
+"IpRanges"* [
+{
+"*idrIp": "0.0.0.0/0"
+}
+* ]
+}
+]
+}
+```
+ 
+### Interpreta*ion
+ 
+The security*group permitted all outbound traff*c but contained no inbound rules. *he empty `IpPermissions` section c*nfirmed that HTTP traffic on TCP p*rt 80 was not allowed.
+ 
+---
+ 
+*## Launch Amazon*Linux EC2 Instance
+ 
+Launch the*instance using the custom security*group:
+ 
+```bash
+aws ec2 run-instan*es \
+--image-id ami-0fef201115eefe*36 \
+--instance-type t3.micro \
+--*ey-name vockey \
+--ebs-optimized \*--network-interfaces '{"AssociateP*blicIpAddress":true,"DeviceIndex*:0,"Groups":["sg-03092df2d1bb850*5"]}' \
+--credit*specification '{"CpuCredits":"unli*ited"}' \
+--tag-specifications '{"*esourceType":"instance","Tags":[{"*ey":"Name","Value":"riverside-web-*c2_instance"}]}' \
+--iam-instance-*rofile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanc*Profile"}' \
+--metadata-options '{*HttpEndpoint":"enabled","HttpPutRe*ponseHopLimit":2,"HttpTokens":"req*ired"}' \
+--count 1
+```
+ 
+Relevant *utput:
+ 
+```json
+{
+"ReservationId*: "r-0e5b7b6f20c77b619",
+"OwnerI*": "5730********"
+}
+``*
+ 
+---
+ 
+### Wait for Instance to Re*ch Running State
+ 
+```bash*aws ec2 wait instance-running \
+--*nstance-ids i-03c3eaae0b12be279
+``*
+ 
+*erify instance status:
+ 
+```bash
+aw* ec2 describe-instance-status \
+--*nstance-ids i-03c3eaae0b12be279
+``*
+ 
+Relevant output:
+ 
+```json
+{
+"*nstanceId*: "i-03c3eaae0b12be279",
+* "InstanceState": {
+"Name": "r*nning"
+},
+"InstanceStatus": {
+* "Status": "ok"
+},
+* "SystemStatus": {
+"Status": "*k"
+}
+}
+``*
+ 
+### Interpretation
+ 
+The EC* instance successfully reached the***Running** state and both AWS sta*us checks passed. This confirmed t*at the AWS infrastructure and gues* operating system were healthy. Ho*ever, these results did not prove *hat users could reach the web appl*cation through the network.
+ 
+---
+ 
+*## Retrieve Public IPv4 Address
+ 
+`*`*ash
+aws ec2 describe-instances \
+-*instance-ids i-03c3eaae0b12be279 \*--query*"Reservations[*].Instances[*].Publ*cIpAddress" \
+--output text
+```
+ 
+O*tput:
+ 
+```text
+50.16.xxx.xxx
+```
+ 
+*## Initial Connectivity Test
+ 
+```b*sh*curl http://50.16.xxx.xxx
+```
+ 
+Out*ut:
+ 
+```text
+*url: (7) Failed to connect to 50.1*.xxx.xxx:80 after 0 ms: Could not *onnect to server
+```
+ 
+### Interpre*ation
+ 
+The failed*HTTP test confirmed that*the application was not reachable *hrough the expected user path. Com*ined with the security group evide*ce showing no inbound TCP port 80 *ule, this supported the conclusion*that network access was being bloc*ed before requests could reach Apa*he.
  
 Create the user data script:
  
