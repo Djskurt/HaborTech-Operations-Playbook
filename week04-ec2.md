@@ -446,10 +446,12 @@ Before stop:
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
+relevant output:
+```text
 instance ID: i-03c3eaae0b12be279
 
 Public IP: 50.16.xxx.xxx
-
+```
 Webpage test
 ```bash
 curl http://50.16.xxx.xxx
@@ -471,6 +473,9 @@ aws ec2 wait instance-stopped --instance-ids i-03c3eaae0b12be279
 
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
+```
+output:
+```text
  "Monitoring": {
  "State": "stopped"
 ```
