@@ -13,7 +13,7 @@ Although the EC2 instance was running, the website remained inaccessible until t
 - Instance Name: riverside-web-ec2_instance
 - Instance ID: i-03c3eaae0b12be279
 - AMI ID: ami-0fef201115eefe936
-- Operating System: Amazon Linux
+- Operating System: Amazon Linux 2023
 - Web Server: Apache HTTP Server (httpd)
 - Access Method: AWS Systems Manager Session Manager
 - Metadata Service: IMDSv2
@@ -90,11 +90,11 @@ output:
 ```
 
 
-### Creation of Security Group*(Without HTTP Access)
+### Creation of Security Group (Without HTTP Access)
 
 ```bash
  aws ec2 create-security-group \
---group name riverside-web-djs443 \
+--group-name riverside-web-djs443 \
 --description "Riverside Goods Web SG" \
 --vpc-id vpc-0a6ee************
 ```
@@ -112,8 +112,8 @@ relevant output:
  
 ```json
 {
-"groupId":*"sg-03092df2d1bb85055",
-"groupname": "riverside-web-sg-djs443",
+"GroupId":*"sg-03092df2d1bb85055",
+"Groupname": "riverside-web-sg-djs443",
 * "Description": "Riverside Goods W*b SG",
 "VpcId": "vpc-0a6ee************",
  
@@ -139,11 +139,11 @@ The security group permitted all outbound traffic but contained no inbound rules
 Launch the instance using the custom security group:
  
 ```bash
-aws ec2 run-instan*es \
+aws ec2 run-instances \
 --image-id ami-0fef201115eefe*36 \
 --instance-type t3.micro \
---*ey-name vockey \
---ebs-optimized \*--network-interfaces '{"AssociateP*blicIpAddress":true,"DeviceIndex*:0,"Groups":["sg-03092df2d1bb850*5"]}' \
+--key-name vockey \
+--ebs-optimized \*--network-interfaces '{"AssociatePublicIpAddress":true,"DeviceIndex*:0,"Groups":["sg-03092df2d1bb850*5"]}' \
 --credit*specification '{"CpuCredits":"unli*ited"}' \
 --tag-specifications '{"*esourceType":"instance","Tags":[{"*ey":"Name","Value":"riverside-web-*c2_instance"}]}' \
 --iam-instance-*rofile '{"Arn":"arn:aws:iam::5730********:instance-profile/LabInstanc*Profile"}' \
@@ -371,16 +371,16 @@ output:
  }
  ],
  "VpcId": "vpc-0a6ee74e66defe209",
- "SecurityGroupArn": "arn:aws:ec2:us-east-1:573077417977:security-group/sg-03092df2d1bb85055",
- "OwnerId": "573077417977",
+ "SecurityGroupArn": "arn:aws:ec2:us-east-1:5730********:security-group/sg-03092df2d1bb85055",
+ "OwnerId": "5730********",
  "GroupName": "riverside-web-sg-djs443",
  "Description": "Riverside Goods Web SG",
  "IpPermissions": [
  {
  ],
  "VpcId": "vpc-0a6ee74e66defe209",
- "SecurityGroupArn": "arn:aws:ec2:us-east-1:573077417977:security-group/sg-03092df2d1bb85055",
- "OwnerId": "573077417977",
+ "SecurityGroupArn": "arn:aws:ec2:us-east-1:5730********:security-group/sg-03092df2d1bb85055",
+ "OwnerId": "5730********",
  "GroupName": "riverside-web-sg-djs443",
  "Description": "Riverside Goods Web SG",
  "IpPermissions": [
@@ -462,7 +462,7 @@ output:
 Stopping the instance
 
 ```bash
-aws ec2 stop-instance --instance-ids i-03c3eaae0b12be279
+aws ec2 stop-instances --instance-ids i-03c3eaae0b12be279
 ```
 
 ```bash
