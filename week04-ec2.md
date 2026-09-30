@@ -158,15 +158,13 @@ Relevant output:
 "ReservationId*: "r-0e5b7b6f20c77b619",
 "OwnerI*": "5730********"
 }
-``*
+```
+### Wait for Instance to Reach Running State
  
----
- 
-### Wait for Instance to Re*ch Running State
- 
-```bash*aws ec2 wait instance-running \
+```bash
+aws ec2 wait instance-running \
 --instance-ids i-03c3eaae0b12be279
-``*
+```
  
 verify instance status:
  
