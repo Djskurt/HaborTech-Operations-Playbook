@@ -66,7 +66,7 @@ Output:
 ```bash
  aws configure list
 ```
-Output
+Output:
 ```text
 region us-east-1
 ```
@@ -493,7 +493,7 @@ Webpage test
 ```bash
 curl http://54.236.xxx.xx
 ```
-output 
+output:
 ```text
 <h1>Riverside Goods</h1>
 ```
@@ -507,7 +507,7 @@ Instance termination
 ```bash
 aws ec2 terminate-instances --instance-ids i-03c3eaae0b12be279
 ```
-output
+output:
 ```text
 {
  "TerminatingInstances": [
@@ -528,7 +528,7 @@ aws ec2 wait instance-terminated --instance-ids i-03c3eaae0b12be279
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
-output
+output:
 ```text
 SecondaryInterfaces": [],
  "InstanceId": "i-03c3eaae0b12be279",
@@ -545,7 +545,7 @@ aws ec2 delete-security-group --group-id sg-03092df2d1bb85055
 ```bash
 aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
 ```
-output
+output:
 ```text
 aws: [ERROR]: An error occurred (InvalidGroup.NotFound) when calling the DescribeSecurityGroups operation: The security grou'sg-03092df2d1bb85055' does not exist.
 ```
