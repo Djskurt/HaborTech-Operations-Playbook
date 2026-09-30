@@ -29,7 +29,7 @@ Although the EC2 instance was running, the website remained inaccessible until t
 - PDF page: 3133
 - URL: https://docs.amazonaws.cn/en_us/AWSEC2/latest/UserGuide/ec2-security-groups.html
 - Exact quote: “A security group acts as a virtual firewall for your EC2 instances to control incoming and outgoing traffic.”
-- The problem indicated that users needed web access to the EC2-hosted website. This source confirms that security groups control inbound traffic, HTTP (port 80) rules necessary for users to reach the web server.
+- The problem indicated that users needed web access to the EC2-hosted website. This source confirms that security groups control inbound traffic and that an HTTP (TCP 80) rule is required for users to reach the web server.
 ### Source 2 --  USER DATA
 - Document title: Run commands when you launch an EC2 instance with user data input
 - PDF page: 1757
