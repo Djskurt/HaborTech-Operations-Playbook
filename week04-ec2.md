@@ -171,7 +171,7 @@ verify instance status:
 ```bash
 aws ec2 describe-instance-status \
 --instance-ids i-03c3eaae0b12be279
-``*
+```
  
 Relevant output:
  
@@ -200,7 +200,7 @@ The EC2 instance successfully reached the***Running** state and both AWS status 
  
 ```bash
 aws ec2 describe-instances \
--*instance-ids i-03c3eaae0b12be279
+--instance-ids i-03c3eaae0b12be279
 ```
  
 Output:
