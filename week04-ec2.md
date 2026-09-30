@@ -451,8 +451,11 @@ instance ID: i-03c3eaae0b12be279
 Public IP: 50.16.xxx.xxx
 
 Webpage test
-```
+```bash
 curl http://50.16.xxx.xxx
+```
+output:
+```text
 <h1>Riverside Goods</h1>
 ```
 
@@ -484,6 +487,7 @@ aws ec2 wait instance-running --instance-ids i-03c3eaae0b12be279
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
+After the Start:
 instance ID: i-03c3eaae0b12be279
 Public IP: 54.236.xxx.xx
 
