@@ -334,7 +334,7 @@ It does not prove the exact root cause of the failure. Additional evidence is re
 ## Root-Cause Analysis
 The investigation determined that the EC2 instance was healthy and Apache had successfully installed and started according to the system log. The confirmed configuration issue was the absence of an inbound HTTP rule in the attached security group.
 
-Because no evidence suggested operating system failure, Apache failure, or AMI issues, rebuilding the instance was not justified. Root cause points to Missing inbound TCP port 80 rule in the security group.
+Because no evidence suggested operating system failure, Apache failure, or AMI issues, rebuilding the instance was not justified. 
 ## Corrective Action
 A single inbound rule allowing HTTP traffic was added to the existing security group.
 ```bash
@@ -354,8 +354,7 @@ aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
 ```
 output:
 
-```bash
-aws ec2 describe-security-groups --group-ids sg-03092df2d1bb85055
+```text
 {
  "SecurityGroups": [
  {
@@ -557,7 +556,7 @@ The only confirmed configuration issue was the absence of an inbound TCP port 80
 I recommended adding a single HTTP rule to the existing security group and verifying application access afterward. A rebuild, AMI change, or operating system modification was not justified because no evidence indicated a problem with those layers.
 
 ## Lessons Learned
-This lab reinforced the importance of collecting evidence before making configuration changes. A healthy EC2 instance and passing status checks do not guarantee application availability, as network controls can still prevent user access. By reviewing security group rules, validating services locally, and testing connectivity from the user perspective, it was possible to identify the root cause and apply the smallest supported corrective action. The exercise also demonstrated how EBS-backed storage persists through stop/start operations while auto-assigned public IPv4 addresses may change, highlighting the importance of understanding both infrastructure and application layers during troubleshooting.
+This excercise reinforced the importance of collecting evidence before making configuration changes. A healthy EC2 instance and passing status checks do not guarantee application availability, as network controls can still prevent user access. By reviewing security group rules, validating services locally, and testing connectivity from the user perspective, it was possible to identify the root cause and apply the smallest supported corrective action. The exercise also demonstrated how EBS-backed storage persists through stop/start operations while auto-assigned public IPv4 addresses may change, highlighting the importance of understanding both infrastructure and application layers during troubleshooting.
 
 ## Professional Vocabulary
 ### EC2 Instance
