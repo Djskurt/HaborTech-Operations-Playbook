@@ -34,8 +34,8 @@ Although the EC2 instance was running, the website remained inaccessible until t
 - Document title: Run commands when you launch an EC2 instance with user data input
 - PDF page: 1757
 - URL: URL: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
-- Exact quote: “When you launch an Amazon EC2 instance, you can pass user data to the instance that is used to perform automated configurato run scripts after the instance starts.”
-- The problem showed that user data was intended to install and configure Apache during instance startup. This source confirms that user data can rscripts, but it does not prove the web service successfully installed or remained running after launch.
+- Exact quote: “When you launch an Amazon EC2 instance, you can pass user data to the instance that is used to perform automated configuration run scripts after the instance starts.”
+- The problem showed that user data was intended to install and configure Apache during instance startup. This source confirms that user data can read scripts, but it does not prove the web service successfully installed or remained running after launch.
 ### Source 3 -- IMDSV2 OR EC2 LIFECYCLE
 - Document title: Use instance metadata to manage your EC2 instance
 - PDF page: 1663
