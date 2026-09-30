@@ -474,7 +474,7 @@ aws ec2 wait instance-stopped --instance-ids i-03c3eaae0b12be279
 ```bash
 aws ec2 describe-instances --instance-ids i-03c3eaae0b12be279
 ```
-output:
+relevant output:
 ```text
  "Monitoring": {
  "State": "stopped"
