@@ -112,7 +112,6 @@ As an intern, I can recommend further validation and implementation based on the
 This investigation reinforced the importance of separating ticket assumptions from AWS evidence. Auto Scaling, load balancing, and DNS failover solve different operational problems and should not be treated as interchangeable solutions. Auto Scaling addresses capacity, load balancing distributes traffic across healthy resources, and Route 53 can provide DNS-level failover when properly configured. Cloud operations decisions should be based on verified evidence rather than assumptions about what may already be deployed.
 
 ## Professional Vocabulary
-Define the important Week 5 terms in your own words, such as elasticity, scalability, load balancer, target group, health check, Auto Scaling group, launch template, desired capacity, Route 53, and failover.
 
 Elasticity
  The ability of cloud resources to automatically increase or decrease based on demand.
