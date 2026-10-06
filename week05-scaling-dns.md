@@ -1,13 +1,26 @@
 # Week 5: Scaling, Load Balancing, and DNS
 
 ## HarborTech Ticket Summary
-Summarize the Week 5 HarborTech ticket and the availability or capacity problem.
+TKT-2026-0005: This ticket focused on evaluating whether the Riverside Goods application is prepared for an expected seasonal traffic increase. 
+The environment currently depends on a single EC2 instance and a single public endpoint, creating both capacity and availability concerns. 
+The goal was to investigate AWS evidence related to Auto Scaling, Elastic Load Balancing, 
+and Route 53 and determine which controls are supported by evidence and which assumptions still require verification.
 
 ## Client Impact
-Explain how the reported traffic surge and single-point-of-failure risk can affect users and business operations.
+The client expects a significant increase in traffic during an upcoming promotion. 
+Previous peak utilization reached 92% CPU, indicating that the current server is already operating near its limits during busy periods. 
+If traffic increases further, users may experience slow performance, failed requests, or service interruptions. 
+Because the application relies on a single server and a single endpoint, any failure could affect all users and business operations.
 
 ## Provided Ticket Evidence
-Document the evidence HarborTech supplied. Clearly identify it as provided evidence rather than evidence you personally collected.
+The following information was supplied by HarborTech and should be treated as ticket evidence rather than AWS evidence I personally collected:
+
+- Previous promotion traffic reached 92% CPU utilization.
+- Promotion traffic is expected to increase significantly.
+- Proposed Auto Scaling design: minimum 2, desired 2, maximum 6 instances.
+- Proposed Application Load Balancer reports both test targets healthy.
+- A secondary recovery endpoint is available.
+- Route 53 failover has not been confirmed.
 
 ## AWS Commands Used
 Document the AWS CLI commands you actually executed during the investigation.
