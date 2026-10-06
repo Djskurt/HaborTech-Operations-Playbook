@@ -113,47 +113,47 @@ This investigation reinforced the importance of separating ticket assumptions fr
 
 ## Professional Vocabulary
 
-Elasticity
+### Elasticity
  The ability of cloud resources to automatically increase or decrease based on demand.
 
-Scalability
+### Scalability
  The ability of a system to handle increased workload by adding resources.
 
-Load Balancer
+### Load Balancer
  A service that distributes incoming traffic across multiple servers.
 
-Target Group
+### Target Group
  A collection of resources, such as EC2 instances, that receive traffic from a load balancer.
 
-Health Check
+### Health Check
  A test used to determine whether a resource is healthy and able to receive traffic.
 
-Auto Scaling Group (ASG)
+### Auto Scaling Group (ASG)
  A service that automatically launches or terminates EC2 instances to maintain a desired level of capacity.
 
-Launch Template
+### Launch Template
  A reusable configuration that defines how new EC2 instances should be created.
 
-Desired Capacity
+### Desired Capacity
  The number of instances an Auto Scaling Group attempts to maintain during normal operation.
 
-Minimum Capacity
+### Minimum Capacity
  The lowest number of instances that an Auto Scaling Group keeps running.
 
-Maximum Capacity
+### Maximum Capacity
  The highest number of instances an Auto Scaling Group can launch.
 
-Route 53
+### Route 53
  AWS's DNS service used to route users to application endpoints.
 
-Failover
+### Failover
  The process of automatically redirecting traffic from an unhealthy primary resource to a healthy backup resource.
 
-Target Health
+### Target Health
  The status indicating whether a registered target is healthy enough to receive traffic from a load balancer.
 
-Availability
+### Availability
  The ability of a service to remain operational and accessible to users.
 
-Redundancy
+### Redundancy
  The use of multiple resources so that service can continue if one component fails.
