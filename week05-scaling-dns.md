@@ -66,22 +66,95 @@ Output:
 []
 ```
 ## AWS Evidence Collected
-Record the relevant values returned by your own AWS environment. Do not paste entire responses when a few values communicate the evidence.
+The AWS CLI investigations returned the following results:
 
+- No Auto Scaling Groups returned.
+- No Target Groups returned.
+- No Route 53 Hosted Zones returned.
+
+These results indicate that I was unable to verify Auto Scaling, load balancing, target health configuration, or Route 53 failover capabilities in my assigned AWS environment.
 ## Virtualization Connection
-Explain how scaling and load balancing allow virtual compute capacity to expand, contract, and distribute workloads without relying on one physical server.
+Virtualization allows compute resources to be treated as flexible and replaceable rather than tied to a specific physical server. 
+Auto Scaling can automatically add or remove EC2 instances as demand changes, allowing capacity to expand and contract based on workload requirements. 
+Load balancing distributes requests across multiple virtual servers so that no single instance must handle all traffic. 
+Together, these services improve scalability, resilience, and operational flexibility while reducing dependence on a single physical system.
 
 ## Operational Analysis
-Explain what the combined ticket evidence and AWS evidence show about capacity, target health, traffic distribution, DNS routing, and remaining unknowns.
+The ticket evidence supports a capacity concern because previous utilization reached 92% CPU and additional traffic is expected during the promotion. 
+The proposed Auto Scaling design would help address this risk by allowing additional instances to be launched when demand increases.
+
+However, my AWS investigation returned no Auto Scaling Groups, meaning I could not verify that scalable capacity is currently configured.
+
+The ticket also suggests that healthy test targets exist behind an Application Load Balancer. However, my AWS investigation returned no Target Groups, 
+so I was unable to verify load-balancing configuration or target health in the assigned environment.
+
+The ticket states that a secondary recovery endpoint is available, but my AWS investigation returned no Route 53 Hosted Zones. 
+As a result, I could not verify DNS records, health checks, failover routing policies, or any Route 53 failover configuration.
+
+Based on the combined evidence, the capacity risk and traffic-distribution risk are supported. DNS failover readiness remains unverified because the required AWS evidence was not present in the environment.
 
 ## Recommendation
-Recommend the next operational action supported by the evidence. Explain how it addresses the identified risk while considering availability and cost.
+I recommend validating and implementing Auto Scaling and Application Load Balancing controls to address the capacity and availability risks identified in the ticket. 
+Auto Scaling would provide additional capacity during periods of increased demand, 
+while load balancing would distribute requests across multiple healthy instances rather than relying on a single endpoint.
+
+At this time, I do not recommend claiming Route 53 failover readiness because the AWS investigation did not verify hosted zones, health checks, or failover routing policies. 
+Additional DNS configuration review and testing should be completed before failover capability is considered operational.
+
+These recommendations address the identified risks while allowing HarborTech to scale resources only when needed, helping balance availability requirements with operational costs.
 
 ## Escalation Notes
-Document any production scaling, load balancer, DNS, or configuration change that requires approval or additional support. If no escalation is required, state that clearly.
+Implementation of Auto Scaling Groups, Application Load Balancers, Route 53 failover records, DNS routing policies, and related production configuration changes should follow the organization's established change-management and approval procedures.
+
+As an intern, I can recommend further validation and implementation based on the evidence collected, but approval and execution of production architecture changes should be performed by authorized personnel.
 
 ## Lessons Learned
-Explain what Week 5 taught you about evidence-based scaling, load balancing, health checks, DNS, and cloud operations.
+This investigation reinforced the importance of separating ticket assumptions from AWS evidence. Auto Scaling, load balancing, and DNS failover solve different operational problems and should not be treated as interchangeable solutions. Auto Scaling addresses capacity, load balancing distributes traffic across healthy resources, and Route 53 can provide DNS-level failover when properly configured. Cloud operations decisions should be based on verified evidence rather than assumptions about what may already be deployed.
 
 ## Professional Vocabulary
 Define the important Week 5 terms in your own words, such as elasticity, scalability, load balancer, target group, health check, Auto Scaling group, launch template, desired capacity, Route 53, and failover.
+
+Elasticity
+ The ability of cloud resources to automatically increase or decrease based on demand.
+
+Scalability
+ The ability of a system to handle increased workload by adding resources.
+
+Load Balancer
+ A service that distributes incoming traffic across multiple servers.
+
+Target Group
+ A collection of resources, such as EC2 instances, that receive traffic from a load balancer.
+
+Health Check
+ A test used to determine whether a resource is healthy and able to receive traffic.
+
+Auto Scaling Group (ASG)
+ A service that automatically launches or terminates EC2 instances to maintain a desired level of capacity.
+
+Launch Template
+ A reusable configuration that defines how new EC2 instances should be created.
+
+Desired Capacity
+ The number of instances an Auto Scaling Group attempts to maintain during normal operation.
+
+Minimum Capacity
+ The lowest number of instances that an Auto Scaling Group keeps running.
+
+Maximum Capacity
+ The highest number of instances an Auto Scaling Group can launch.
+
+Route 53
+ AWS's DNS service used to route users to application endpoints.
+
+Failover
+ The process of automatically redirecting traffic from an unhealthy primary resource to a healthy backup resource.
+
+Target Health
+ The status indicating whether a registered target is healthy enough to receive traffic from a load balancer.
+
+Availability
+ The ability of a service to remain operational and accessible to users.
+
+Redundancy
+ The use of multiple resources so that service can continue if one component fails.
