@@ -31,7 +31,7 @@ aws autoscaling describe-auto-scaling-groups \
 ```
 ```bash
 aws autoscaling describe-auto-scaling-groups \
-  --query 'AutoScalingGroups[].{Name:AutoScalingGroupName,Min:MinSize,Desired:DesiredCapacity,Max:MaxSize}' \
+  --query 'AutoScalingGroups[].{Name:AutoScalingGroupName,Min:MinSize,Desired:DesiredCapacity,Max:MaxSize}' 
 ```
 Output:
 ```text
@@ -45,7 +45,7 @@ aws elbv2 describe-target-groups \
 ```
 ```bash
 aws elbv2 describe-target-groups \
-  --query 'TargetGroups[].{Name:TargetGroupName,TargetGroupArn:TargetGroupArn,Protocol:Protocol,Port:Port}' \
+  --query 'TargetGroups[].{Name:TargetGroupName,TargetGroupArn:TargetGroupArn,Protocol:Protocol,Port:Port}' 
 ```
 Output:
 ```text
@@ -59,7 +59,7 @@ aws route53 list-hosted-zones \
 ```
 ```bash
 aws route53 list-hosted-zones \
-  --query 'HostedZones[].{Name:Name,Id:Id,Private:Config.PrivateZone}' \
+  --query 'HostedZones[].{Name:Name,Id:Id,Private:Config.PrivateZone}' 
 ```
 Output:
 ```text
