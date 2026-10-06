@@ -23,8 +23,48 @@ The following information was supplied by HarborTech and should be treated as ti
 - Route 53 failover has not been confirmed.
 
 ## AWS Commands Used
-Document the AWS CLI commands you actually executed during the investigation.
-
+Auto Scaling Investigation
+```bash
+aws autoscaling describe-auto-scaling-groups \
+  --query 'AutoScalingGroups[].{Name:AutoScalingGroupName,Min:MinSize,Desired:DesiredCapacity,Max:MaxSize}' \
+  --output table
+```
+```bash
+aws autoscaling describe-auto-scaling-groups \
+  --query 'AutoScalingGroups[].{Name:AutoScalingGroupName,Min:MinSize,Desired:DesiredCapacity,Max:MaxSize}' \
+```
+Output:
+```text
+[]
+```
+Load Balancing Investigation
+```bash
+aws elbv2 describe-target-groups \
+  --query 'TargetGroups[].{Name:TargetGroupName,TargetGroupArn:TargetGroupArn,Protocol:Protocol,Port:Port}' \
+  --output table
+```
+```bash
+aws elbv2 describe-target-groups \
+  --query 'TargetGroups[].{Name:TargetGroupName,TargetGroupArn:TargetGroupArn,Protocol:Protocol,Port:Port}' \
+```
+Output:
+```text
+[]
+```
+Route 53 Investigation 
+```bash
+aws route53 list-hosted-zones \
+  --query 'HostedZones[].{Name:Name,Id:Id,Private:Config.PrivateZone}' \
+  --output table
+```
+```bash
+aws route53 list-hosted-zones \
+  --query 'HostedZones[].{Name:Name,Id:Id,Private:Config.PrivateZone}' \
+```
+Output:
+```text
+[]
+```
 ## AWS Evidence Collected
 Record the relevant values returned by your own AWS environment. Do not paste entire responses when a few values communicate the evidence.
 
