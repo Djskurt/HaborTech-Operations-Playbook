@@ -1,10 +1,13 @@
 # Week 6: Containers and Serverless Computing
 
 ## HarborTech Ticket Summary
-Summarize the Week 6 HarborTech ticket and explain the compute-model problem the client is trying to solve.
+TKT-2026-0006: Bright Path Community Services currently runs a daily reporting task and a small API on a single EC2 instance that remains online even when little work is occurring. The client's applications are functioning correctly, but they continue to incur the operational responsibilities associated with maintaining a virtual machine, including operating-system and runtime management.
+The compute-model problem is determining whether each workload still requires a continuously running server or whether a different execution model would provide a better operational fit. The evaluation compares virtual machines, containers, and serverless services based on workload timing, triggers, state requirements, scaling needs, administrative overhead, and resource utilization. The reporting task runs once each morning, completes quickly, and maintains no local state, while the API receives intermittent requests throughout the day. The objective is to identify the best-fit compute model for each workload, determine which responsibilities could move to AWS, identify which responsibilities would remain with HarborTech and the client, and provide an evidence-based recommendation rather than assuming all workloads should use the same service.
 
 ## Client Impact
-Explain how an inefficient or poorly matched compute model can affect cost, reliability, scalability, and operational effort.
+An inefficient compute model can increase costs for the client by keeping resources running when little work is occurring and paying for capacity that is not being fully utilized. It can also affect reliability because HarborTech and the client must continue managing operating-system maintenance, patching, and server administration, which increases the risk of configuration issues or service disruptions.
+
+A poorly matched model may limit scalability by relying on fixed server resources that require manual management as demand changes. It also increases operational effort by requiring ongoing maintenance regardless of workload activity. Choosing a compute model that aligns with workload behavior can improve reliability, optimize costs, support scaling needs, and reduce the management burden placed on both HarborTech and the client by shifting appropriate infrastructure responsibilities to AWS.
 
 ## AWS Services Involved
 Identify the AWS services and concepts involved in the investigation, such as:
