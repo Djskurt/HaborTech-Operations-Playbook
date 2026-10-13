@@ -180,8 +180,9 @@ The reporting task is best aligned with AWS Lambda because it is scheduled, shor
 Based on the available evidence, serverless execution provides the best operational fit for both workloads while reducing infrastructure-management responsibilities and idle resource utilization.
 
 ## Recommendation
-Recommend the compute approach that best fits the workload.
-Explain how the recommendation addresses the operational need and responsibility tradeoff.
+The evidence supports a serverless recommendation for both workloads. The daily reporting task should be implemented with AWS Lambda because it runs once per day, completes in approximately 20 seconds, and maintains no persistent state between executions. The small API should be implemented using API Gateway and Lambda because requests are intermittent and do not require a continuously running server.
+This approach addresses the operational need by aligning compute resources with actual workload activity rather than keeping an EC2 instance online during long periods of inactivity. AWS would assume responsibility for the underlying infrastructure, operating-system maintenance, and scaling of the execution environment. HarborTech and the client would remain responsible for application code, configuration, integrations, IAM permissions, security controls, monitoring, and troubleshooting application-level issues.
+This recommendation assumes the workloads do not require persistent server processes, custom operating-system packages, or regular host-level administration. Any migration planning, production API changes, or final architecture decisions should be escalated to the appropriate HarborTech engineering and architecture teams before implementation.
 
 ## Escalation Notes
 Document any permission, networking, application, deployment, or production change that requires approval or additional support.
