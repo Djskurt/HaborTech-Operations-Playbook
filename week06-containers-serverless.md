@@ -11,15 +11,19 @@ A poorly matched model may limit scalability by relying on fixed server resource
 
 ## AWS Services Involved
 Identify the AWS services and concepts involved in the investigation, such as:
-- Containers
-- Serverless Computing
-- AWS Lambda
-- Amazon API Gateway
-- AWS Step Functions
-- IAM Execution Roles
-- Event-Driven Computing
-- VPC-Connected Lambda
-- Monitoring and Logs
+- Amazon EC2–Current compute platform hosting both workloads and requiring ongoing operating-system, patching, and server administration responsibilities.
+- Containers – Application packaging model that isolates dependencies while sharing a host operating-system kernel.
+- Amazon ECS (Elastic Container Service) – Managed container orchestration service that could run containerized workloads without managing individual servers.
+- Serverless Computing – Execution model that removes customer-managed server infrastructure from the workload.
+- AWS Lambda – Executes application code on demand for scheduled or event-driven workloads without requiring a continuously running server.
+- Amazon API Gateway – Receives API requests, manages endpoints, and invokes backend services such as Lambda functions.
+- Event-Driven Computing – Model where workloads execute in response to events or triggers rather than running continuously.
+- Amazon EventBridge – Service that can trigger scheduled Lambda executions for the daily reporting workload.
+- IAM Execution Roles – Permissions framework that allows Lambda functions and other AWS services to securely access required AWS resources.
+- VPC-Connected Lambda – Lambda functions configured to access resources located within a VPC when private networking is required.
+- Monitoring and Logs – Operational monitoring and troubleshooting capabilities used to track workload health and performance.
+- Amazon CloudWatch – Provides logs, metrics, alarms, and monitoring for EC2 instances, Lambda functions, and API Gateway.
+- AWS Step Functions – Workflow orchestration service used when multiple serverless tasks must be coordinated in a defined sequence.
 
 ## Virtualization Connection
 Explain how containers and serverless computing represent different levels of abstraction from traditional virtual machines and reduce direct infrastructure management.
