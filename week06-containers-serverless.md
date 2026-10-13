@@ -199,18 +199,23 @@ Short-lived, stateless workloads are strong candidates for serverless execution,
 ## Professional Vocabulary
 Define the important Week 6 terms in your own words.
 Include terms such as:
-- Container
-- Serverless Computing
-- AWS Lambda
-- API Gateway
-- Execution Role
-- Event Trigger
-- Step Functions
-- VPC-Connected Lambda
-- Runtime
-- Abstraction
-- Stateless Workloads – Workloads that do not require local state between executions, making them
-- Operational Responsibility Model – Evaluation of which responsibilities remain with HarborTech and the client versus which responsibilities move to AWS.
-- Application Dependencies – Determining whether software requirements can run in Lambda, containers, or require full operating-system control on a virtual machine.
-- Scheduled Execution – Execution pattern used by the daily reporting workload.
-- API-Based Workloads – Request-driven execution pattern used by the small REST API.
+Container - A package that includes an application and everything it needs to run.
+
+Serverless Computing - A way to run applications where AWS manages the servers for you.
+
+AWS Lambda - A service that runs code only when it is triggered by an event or request.
+
+API Gateway - A service that receives API requests and sends them to the correct application or service.
+
+Execution Role - The permissions a service uses to access AWS resources.
+
+Event Trigger - Something that starts a workload, such as a schedule or API request.
+
+Step Functions - A service that connects multiple tasks together and runs them in order.
+
+VPC-Connected Lambda - A Lambda function that can access resources inside a private VPC network.
+
+Runtime - The environment that runs application code, such as Python.
+
+Abstraction - Hiding technical complexity so users can focus on the application instead of the infrastructure.
+
