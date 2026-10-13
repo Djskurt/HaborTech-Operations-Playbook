@@ -120,6 +120,7 @@ Configuration evidence confirmed:
 - Memory: 128 MB
 - Timeout: 10 seconds
 - Package Type: Zip
+
 Successful deployment demonstrated that the reporting workload could execute within a managed serverless runtime.
 #### Successful Invocation Evidence
 A valid test event was created:
