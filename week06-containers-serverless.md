@@ -191,10 +191,8 @@ The recommendation further assumes that the reporting task and API do not requir
 
 ## Lessons Learned
 Week 6 reinforced that compute models should be selected based on workload evidence rather than a one-size-fits-all approach. Containers and serverless computing reduce infrastructure management compared to traditional virtual machines, but each model addresses different operational requirements.
-
 The investigation demonstrated how event-driven workloads can use services such as API Gateway and Lambda to run only when triggered, reducing idle resources and administrative overhead. 
 It also highlighted the importance of separating API requests from application execution and understanding which responsibilities remain with HarborTech versus those managed by AWS.
-
 Most importantly, the investigation showed that workload timing, state requirements, dependencies, control needs, and operational responsibility should drive compute-model recommendations. 
 Short-lived, stateless workloads are strong candidates for serverless execution, while workloads requiring greater infrastructure control may be better suited for containers or virtual machines.
 
