@@ -44,11 +44,11 @@ This allows HarborTech and the client to focus more on application functionality
 
 ## Evidence Reviewed
 Document the evidence you reviewed, such as:
-### Workload Evidence
+#### Workload Evidence
 The reporting task executes once per day, runs for approximately 20 seconds, and does not require a persistent server process. The API receives intermittent requests throughout the day. Both workloads currently share a single EC2 instance that remains online even when little work is occurring, resulting in long periods of low utilization.
-### Compute Model Evaluation
+#### Compute Model Evaluation
 The reporting task was compared against EC2, ECS/Fargate, and Lambda before deployment activities began. The workload's short runtime, scheduled execution pattern, and lack of persistent state indicated that serverless execution was the strongest initial candidate. The primary factor that could change this recommendation would be evidence of a continuously running process, persistent state requirement, or dependency on direct operating-system access.
-### AWS Identity Verification
+#### AWS Identity Verification
 ```bash
 aws sts get-caller-identity
 ```
@@ -61,7 +61,7 @@ Output:
 }
 ```
 This confirmed authenticated access through the Learner Lab environment and verified the active AWS identity before resource discovery and deployment activities.
-### AWS Resource Discovery
+#### AWS Resource Discovery
 Read-only discovery commands were executed to identify existing compute resources:
 ```bash
 aws lambda list-functions --region us-east-1
@@ -76,9 +76,9 @@ Existing Lambda functions were successfully returned. The ECS discovery command 
 }
 ```
 The empty list indicated that no ECS clusters were deployed in the region at the time of the investigation.
-### IAM and Permission Evidence
+#### IAM and Permission Evidence
 Testing was performed using the existing LabRole as required by the AWS Learner Lab environment. The investigation confirmed that creating a new administrative IAM role was not permitted and that all deployment and testing activities should use the preexisting role.
-### Lambda Proof-of-Concept Deployment
+#### Lambda Proof-of-Concept Deployment
 The Lambda proof of concept was created and deployed using the following commands:
 ```bash
 mkdir -p ~/ht-week06 && cd ~/ht-week06
@@ -121,7 +121,7 @@ Configuration evidence confirmed:
 - Timeout: 10 seconds
 - Package Type: Zip
 Successful deployment demonstrated that the reporting workload could execute within a managed serverless runtime.
-### Successful Invocation Evidence
+#### Successful Invocation Evidence
 A valid test event was created:
 ```bash
 printf '%s' '{"department":"operations"}' > valid.json
@@ -141,7 +141,7 @@ Lambda returned a successful invocation and the response file contained:
 }
 ```
 This confirmed successful function execution and successful application processing when valid input was provided.
-### Failed-Test Evidence
+#### Failed-Test Evidence
 An invalid test event was created with the required field omitted:
 ```bash
 printf '%s' '{}' > invalid.json
@@ -166,11 +166,11 @@ However, the application response contained:
   "body": "{\"error\":\"department is required\"}"
 }
 ```
-### Failure Analysis
+#### Failure Analysis
 The failed test demonstrated that Lambda successfully executed the function because the invocation returned StatusCode: 200. The returned application response of 400 showed that the request failed validation because the required department field was missing. This confirmed the issue was application-level validation rather than a Lambda service failure or infrastructure problem.
-### Monitoring and Validation Evidence
+#### Monitoring and Validation Evidence
 Configuration data, invocation responses, status codes, and application outputs were reviewed throughout testing. Evidence confirmed successful deployment, successful execution with valid input, predictable validation behavior with invalid input, and proper operation of the serverless runtime.
-### Remaining Validation Needs
+#### Remaining Validation Needs
 No evidence indicated a requirement for persistent local storage, host-level troubleshooting, custom operating-system packages, VPC connectivity, or continuously running background processes. Additional validation should confirm dependency requirements, integration constraints, runtime limits, and any need for direct operating-system control before implementation or migration decisions are approved.
 
 ## Operational Analysis
