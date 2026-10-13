@@ -185,11 +185,18 @@ This approach addresses the operational need by aligning compute resources with 
 This recommendation assumes the workloads do not require persistent server processes, custom operating-system packages, or regular host-level administration. Any migration planning, production API changes, or final architecture decisions should be escalated to the appropriate HarborTech engineering and architecture teams before implementation.
 
 ## Escalation Notes
-Document any permission, networking, application, deployment, or production change that requires approval or additional support.
-If no escalation is required, state that clearly.
+No immediate escalation is required for the evaluation itself because this investigation is limited to recommending a compute model based on workload evidence. As an intern, my role is to assess the workload and provide a recommendation rather than approve or implement changes.
+If the recommendation is accepted, any migration from EC2 to Lambda, API Gateway, containers, or another compute platform should be escalated to the appropriate HarborTech engineering and architecture teams for review and approval. Production API modifications, deployment planning, IAM permission changes, networking changes, VPC integration requirements, and architecture decisions also require approval before implementation.
+The recommendation further assumes that the reporting task and API do not require persistent server processes, custom operating-system packages, host-level administration, or other dependencies that would prevent serverless adoption. Additional validation of application dependencies, integration requirements, and production operational needs should be completed before any implementation decision is approved.
 
 ## Lessons Learned
-Explain what Week 6 taught you about containers, serverless computing, APIs, event-driven workloads, and selecting the right compute model.
+Week 6 reinforced that compute models should be selected based on workload evidence rather than a one-size-fits-all approach. Containers and serverless computing reduce infrastructure management compared to traditional virtual machines, but each model addresses different operational requirements.
+
+The investigation demonstrated how event-driven workloads can use services such as API Gateway and Lambda to run only when triggered, reducing idle resources and administrative overhead. 
+It also highlighted the importance of separating API requests from application execution and understanding which responsibilities remain with HarborTech versus those managed by AWS.
+
+Most importantly, the investigation showed that workload timing, state requirements, dependencies, control needs, and operational responsibility should drive compute-model recommendations. 
+Short-lived, stateless workloads are strong candidates for serverless execution, while workloads requiring greater infrastructure control may be better suited for containers or virtual machines.
 
 ## Professional Vocabulary
 Define the important Week 6 terms in your own words.
