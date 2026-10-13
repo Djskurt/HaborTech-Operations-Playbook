@@ -199,23 +199,33 @@ Short-lived, stateless workloads are strong candidates for serverless execution,
 ## Professional Vocabulary
 Define the important Week 6 terms in your own words.
 Include terms such as:
-Container - A package that includes an application and everything it needs to run.
+#### Container  
+A package that includes an application and everything it needs to run.
 
-Serverless Computing - A way to run applications where AWS manages the servers for you.
+#### Serverless Computing  
+A way to run applications where AWS manages the servers for you.
 
-AWS Lambda - A service that runs code only when it is triggered by an event or request.
+#### AWS Lambda  
+A service that runs code only when it is triggered by an event or request.
 
-API Gateway - A service that receives API requests and sends them to the correct application or service.
+#### API Gateway  
+A service that receives API requests and sends them to the correct application or service.
 
-Execution Role - The permissions a service uses to access AWS resources.
+#### Execution Role  
+The permissions a service uses to access AWS resources.
 
-Event Trigger - Something that starts a workload, such as a schedule or API request.
+#### Event Trigger  
+Something that starts a workload, such as a schedule or API request.
 
-Step Functions - A service that connects multiple tasks together and runs them in order.
+#### Step Functions  
+A service that connects multiple tasks together and runs them in order.
 
-VPC-Connected Lambda - A Lambda function that can access resources inside a private VPC network.
+#### VPC-Connected Lambda  
+A Lambda function that can access resources inside a private VPC network.
 
-Runtime - The environment that runs application code, such as Python.
+#### Runtime  
+The environment that runs application code, such as Python.
 
-Abstraction - Hiding technical complexity so users can focus on the application instead of the infrastructure.
+#### Abstraction  
+Hiding technical complexity so users can focus on the application instead of the infrastructure.
 
