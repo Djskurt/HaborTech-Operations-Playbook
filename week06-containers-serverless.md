@@ -11,20 +11,27 @@ A poorly matched model may limit scalability by relying on fixed server resource
 
 ## AWS Services Involved
 Identify the AWS services and concepts involved in the investigation, such as:
-- Amazon EC2–Current compute platform hosting both workloads and requiring ongoing operating-system, patching, and server administration responsibilities.
-- Containers – Application packaging model that isolates dependencies while sharing a host operating-system kernel.
-- Amazon ECS (Elastic Container Service) – Managed container orchestration service that could run containerized workloads without managing individual servers.
-- Serverless Computing – Execution model that removes customer-managed server infrastructure from the workload.
-- AWS Lambda – Executes application code on demand for scheduled or event-driven workloads without requiring a continuously running server.
-- Amazon API Gateway – Receives API requests, manages endpoints, and invokes backend services such as Lambda functions.
-- Event-Driven Computing – Model where workloads execute in response to events or triggers rather than running continuously.
-- Amazon EventBridge – Service that can trigger scheduled Lambda executions for the daily reporting workload.
-- IAM Execution Roles – Permissions framework that allows Lambda functions and other AWS services to securely access required AWS resources.
-- VPC-Connected Lambda – Lambda functions configured to access resources located within a VPC when private networking is required.
-- Monitoring and Logs – Operational monitoring and troubleshooting capabilities used to track workload health and performance.
-- Amazon CloudWatch – Provides logs, metrics, alarms, and monitoring for EC2 instances, Lambda functions, and API Gateway.
-- AWS Step Functions – Workflow orchestration service used when multiple serverless tasks must be coordinated in a defined sequence.
-
+- Amazon EC2 
+- Containers 
+- Amazon ECS 
+- Serverless Computing 
+- AWS Lambda 
+- Amazon API Gateway 
+- Event-Driven Computing 
+- Amazon EventBridge 
+- IAM Execution Roles 
+- VPC-Connected Lambda 
+- Monitoring and Logs 
+- Amazon CloudWatch
+- AWS CloudShell
+- AWS CLI
+- AWS Step Functions
+- Compute Models (VM, Container, Serverless)
+- Stateless Workloads
+- Cost Optimization
+- Scalability and Resource Utilization
+### Summary 
+These AWS services and concepts were used to evaluate the most appropriate compute model for Bright Path Community Services' reporting task and API workload. The investigation compared virtual machine, container, and serverless options based on workload timing, triggers, state requirements, infrastructure control, scalability, cost, and operational responsibility. AWS CloudShell and the AWS CLI were used to interact with AWS services and validate configurations, while services such as Lambda, API Gateway, EventBridge, ECS, and CloudWatch were examined to understand how managed and serverless services could reduce idle infrastructure and administrative overhead. The evaluation focused on determining which responsibilities could move to AWS, which responsibilities would remain with HarborTech and the client, and which compute model best fit each workload based on the available evidence.
 ## Virtualization Connection
 Explain how containers and serverless computing represent different levels of abstraction from traditional virtual machines and reduce direct infrastructure management.
 
@@ -69,3 +76,8 @@ Include terms such as:
 - VPC-Connected Lambda
 - Runtime
 - Abstraction
+- Stateless Workloads – Workloads that do not require local state between executions, making them
+- Operational Responsibility Model – Evaluation of which responsibilities remain with HarborTech and the client versus which responsibilities move to AWS.
+- Application Dependencies – Determining whether software requirements can run in Lambda, containers, or require full operating-system control on a virtual machine.
+- Scheduled Execution – Execution pattern used by the daily reporting workload.
+- API-Based Workloads – Request-driven execution pattern used by the small REST API.
