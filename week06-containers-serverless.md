@@ -175,8 +175,9 @@ Configuration data, invocation responses, status codes, and application outputs 
 No evidence indicated a requirement for persistent local storage, host-level troubleshooting, custom operating-system packages, VPC connectivity, or continuously running background processes. Additional validation should confirm dependency requirements, integration constraints, runtime limits, and any need for direct operating-system control before implementation or migration decisions are approved.
 
 ## Operational Analysis
-Explain what the evidence shows about the current compute model.
-Identify whether the workload is better suited for a virtual machine, container, serverless function, API-driven service, or coordinated workflow.
+The evidence shows the current EC2 model is functional but inefficient because the reporting task runs for approximately 20 seconds once per day and the API receives only intermittent requests, while the server remains online and requires ongoing operating-system maintenance and administration.
+The reporting task is best aligned with AWS Lambda because it is scheduled, short-lived, and stateless. The API is best aligned with an API Gateway and Lambda design because requests are event-driven and do not require a continuously running server. A container-based model remains a viable alternative if future dependency or packaging requirements exceed Lambda capabilities. A virtual machine would be justified only if future validation identifies a need for continuous processing, custom operating-system packages, or regular host-level administration.
+Based on the available evidence, serverless execution provides the best operational fit for both workloads while reducing infrastructure-management responsibilities and idle resource utilization.
 
 ## Recommendation
 Recommend the compute approach that best fits the workload.
