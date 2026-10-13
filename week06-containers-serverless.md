@@ -61,7 +61,7 @@ Output:
 }
 ```
 This confirmed authenticated access through the Learner Lab environment and verified the active AWS identity before resource discovery and deployment activities.
-AWS Resource Discovery
+### AWS Resource Discovery
 Read-only discovery commands were executed to identify existing compute resources:
 ```bash
 aws lambda list-functions --region us-east-1
