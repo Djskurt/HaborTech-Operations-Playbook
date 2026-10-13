@@ -33,20 +33,145 @@ Identify the AWS services and concepts involved in the investigation, such as:
 ### Summary 
 These AWS services and concepts were used to evaluate the most appropriate compute model for Bright Path Community Services' reporting task and API workload. The investigation compared virtual machine, container, and serverless options based on workload timing, triggers, state requirements, infrastructure control, scalability, cost, and operational responsibility. AWS CloudShell and the AWS CLI were used to interact with AWS services and validate configurations, while services such as Lambda, API Gateway, EventBridge, ECS, and CloudWatch were examined to understand how managed and serverless services could reduce idle infrastructure and administrative overhead. The evaluation focused on determining which responsibilities could move to AWS, which responsibilities would remain with HarborTech and the client, and which compute model best fit each workload based on the available evidence.
 ## Virtualization Connection
-Explain how containers and serverless computing represent different levels of abstraction from traditional virtual machines and reduce direct infrastructure management.
+Containers and serverless computing both reduce infrastructure management compared to a traditional virtual machine. 
+In the current EC2 model, HarborTech and the client are responsible for maintaining the guest operating system, applying patches, managing runtime dependencies, and troubleshooting the server environment.
+Containers increase the level of abstraction by packaging the application and its dependencies while sharing a host operating-system kernel. 
+This reduces operating-system overhead and simplifies application deployment, but some infrastructure and platform management responsibilities still remain.
+Serverless computing increases abstraction further by removing the need to manage servers altogether. 
+Services such as Lambda run code only when triggered by a request, event, or schedule, allowing AWS to manage the underlying infrastructure, scaling, and operating-system maintenance.
+As the compute model moves from virtual machines to containers and then to serverless execution, direct infrastructure management decreases and more operational responsibility shifts to AWS. 
+This allows HarborTech and the client to focus more on application functionality, configuration, security, and monitoring rather than maintaining continuously running servers.
 
 ## Evidence Reviewed
 Document the evidence you reviewed, such as:
-- Workload duration and frequency
-- Current server utilization
-- Trigger or event pattern
-- Runtime and dependency requirements
-- IAM permissions
-- API request behavior
-- Lambda logs and errors
-- VPC connectivity requirements
-- Workflow steps and failure points
-- Monitoring evidence
+### Workload Evidence
+The reporting task executes once per day, runs for approximately 20 seconds, and does not require a persistent server process. The API receives intermittent requests throughout the day. Both workloads currently share a single EC2 instance that remains online even when little work is occurring, resulting in long periods of low utilization.
+### Compute Model Evaluation
+The reporting task was compared against EC2, ECS/Fargate, and Lambda before deployment activities began. The workload's short runtime, scheduled execution pattern, and lack of persistent state indicated that serverless execution was the strongest initial candidate. The primary factor that could change this recommendation would be evidence of a continuously running process, persistent state requirement, or dependency on direct operating-system access.
+### AWS Identity Verification
+```bash
+aws sts get-caller-identity
+```
+Output:
+```JSON
+{
+  "UserId": "AROAY****************:user539****=Daniel_J._Scurek",
+  "Account": "REDACTED",
+  "Arn": "arn:aws:sts::REDACTED:assumed-role/voclabs/user539****=Daniel_J._Scurek"
+}
+```
+This confirmed authenticated access through the Learner Lab environment and verified the active AWS identity before resource discovery and deployment activities.
+AWS Resource Discovery
+Read-only discovery commands were executed to identify existing compute resources:
+```bash
+aws lambda list-functions --region us-east-1
+```
+```bash
+aws ecs list-clusters --region us-east-1
+```
+Existing Lambda functions were successfully returned. The ECS discovery command returned:
+```JSON
+{
+  "clusterArns": []
+}
+```
+The empty list indicated that no ECS clusters were deployed in the region at the time of the investigation.
+### IAM and Permission Evidence
+Testing was performed using the existing LabRole as required by the AWS Learner Lab environment. The investigation confirmed that creating a new administrative IAM role was not permitted and that all deployment and testing activities should use the preexisting role.
+### Lambda Proof-of-Concept Deployment
+The Lambda proof of concept was created and deployed using the following commands:
+```bash
+mkdir -p ~/ht-week06 && cd ~/ht-week06
+```
+```bash
+python3 -m zipfile -c function.zip lambda_function.py
+```
+```bash
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+```
+```bash
+FUNCTION_NAME="ht-w6-djs443-event"
+```
+```bash
+aws lambda create-function \
+--function-name "$FUNCTION_NAME" \
+--runtime python3.12 \
+--role "arn:aws:iam::${ACCOUNT_ID}:role/LabRole" \
+--handler lambda_function.lambda_handler \
+--zip-file fileb://function.zip \
+--timeout 10 \
+--memory-size 128 \
+--region us-east-1
+```
+```bash
+aws lambda wait function-active-v2 \
+--function-name "$FUNCTION_NAME" \
+--region us-east-1
+```
+```bash
+aws lambda get-function-configuration \
+--function-name "$FUNCTION_NAME" \
+--region us-east-1
+```
+Configuration evidence confirmed:
+- Runtime: Python 3.12
+- Handler: lambda_function.lambda_handler
+- Role: LabRole
+- Memory: 128 MB
+- Timeout: 10 seconds
+- Package Type: Zip
+Successful deployment demonstrated that the reporting workload could execute within a managed serverless runtime.
+### Successful Invocation Evidence
+A valid test event was created:
+```bash
+printf '%s' '{"department":"operations"}' > valid.json
+```
+The function was invoked with:
+```bash
+aws lambda invoke \
+--function-name ht-w6-djs443-event \
+--payload fileb://valid.json \
+response.json
+```
+Lambda returned a successful invocation and the response file contained:
+```JSON
+{
+  "statusCode": 200,
+  "body": "{\"report\":\"ready\",\"department\":\"operations\"}"
+}
+```
+This confirmed successful function execution and successful application processing when valid input was provided.
+### Failed-Test Evidence
+An invalid test event was created with the required field omitted:
+```bash
+printf '%s' '{}' > invalid.json
+```
+The function was invoked again:
+```bash
+aws lambda invoke \
+--function-name ht-w6-djs443-event \
+--payload fileb://invalid.json \
+error-response.json
+```
+Lambda reported a successful invocation:
+```JSON
+{
+  "StatusCode": 200
+}
+```
+However, the application response contained:
+```JSON
+{
+  "statusCode": 400,
+  "body": "{\"error\":\"department is required\"}"
+}
+```
+### Failure Analysis
+The failed test demonstrated that Lambda successfully executed the function because the invocation returned StatusCode: 200. The returned application response of 400 showed that the request failed validation because the required department field was missing. This confirmed the issue was application-level validation rather than a Lambda service failure or infrastructure problem.
+### Monitoring and Validation Evidence
+Configuration data, invocation responses, status codes, and application outputs were reviewed throughout testing. Evidence confirmed successful deployment, successful execution with valid input, predictable validation behavior with invalid input, and proper operation of the serverless runtime.
+### Remaining Validation Needs
+No evidence indicated a requirement for persistent local storage, host-level troubleshooting, custom operating-system packages, VPC connectivity, or continuously running background processes. Additional validation should confirm dependency requirements, integration constraints, runtime limits, and any need for direct operating-system control before implementation or migration decisions are approved.
 
 ## Operational Analysis
 Explain what the evidence shows about the current compute model.
