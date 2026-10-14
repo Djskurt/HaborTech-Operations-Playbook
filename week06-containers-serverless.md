@@ -10,7 +10,6 @@ An inefficient compute model can increase costs for the client by keeping resour
 A poorly matched model may limit scalability by relying on fixed server resources that require manual management as demand changes. It also increases operational effort by requiring ongoing maintenance regardless of workload activity. Choosing a compute model that aligns with workload behavior can improve reliability, optimize costs, support scaling needs, and reduce the management burden placed on both HarborTech and the client by shifting appropriate infrastructure responsibilities to AWS.
 
 ## AWS Services Involved
-Identify the AWS services and concepts involved in the investigation, such as:
 - Amazon EC2 
 - Containers 
 - Amazon ECS 
@@ -22,7 +21,6 @@ Identify the AWS services and concepts involved in the investigation, such as:
 - IAM Execution Roles 
 - VPC-Connected Lambda 
 - Monitoring and Logs 
-- Amazon CloudWatch
 - AWS CloudShell
 - AWS CLI
 - AWS Step Functions
@@ -43,7 +41,6 @@ As the compute model moves from virtual machines to containers and then to serve
 This allows HarborTech and the client to focus more on application functionality, configuration, security, and monitoring rather than maintaining continuously running servers.
 
 ## Evidence Reviewed
-Document the evidence you reviewed, such as:
 #### Workload Evidence
 The reporting task executes once per day, runs for approximately 20 seconds, and does not require a persistent server process. The API receives intermittent requests throughout the day. Both workloads currently share a single EC2 instance that remains online even when little work is occurring, resulting in long periods of low utilization.
 #### Compute Model Evaluation
@@ -197,7 +194,6 @@ Most importantly, the investigation showed that workload timing, state requireme
 Short-lived, stateless workloads are strong candidates for serverless execution, while workloads requiring greater infrastructure control may be better suited for containers or virtual machines.
 
 ## Professional Vocabulary
-Define the important Week 6 terms in your own words.
 Include terms such as:
 #### Container  
 A package that includes an application and everything it needs to run.
