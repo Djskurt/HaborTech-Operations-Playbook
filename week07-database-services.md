@@ -1,23 +1,46 @@
 # Week 7: Managed Database Services
 
 ## HarborTech Ticket Summary
-Summarize the Week 7 HarborTech ticket and explain the database workload problem or decision the client is facing.
+TKT-2026-0007: HarborTech received a client advisory request from a café business operating a transactional MySQL database on an Amazon EC2 instance. The database is functioning correctly, but the client is experiencing increased operational overhead related to guest operating system maintenance, database patching, backup management, storage administration, and recovery planning.
+The workload uses a relational data model with structured tables, SQL queries, and transaction processing. The purpose of this assessment was to investigate the current database operating model, document workload requirements, compare applicable AWS database services, and identify factors that should be evaluated before making a future database modernization decision.
+As a HarborTech Cloud Operations Intern, I documented the existing environment, gathered infrastructure and database evidence, deployed a test Amazon RDS MariaDB environment, migrated application data, and validated application functionality within the AWS Academy learner lab environment.
 
 ## Client Impact
-Explain how database availability, performance, migration risk, or an incorrect service choice can affect users and business operations.
+Database availability affects the café's ability to process orders, retrieve data, and support daily operations. An outage or failed recovery event could disrupt application access and business transactions.
+Performance issues can increase application response times and negatively affect the user experience. Migration activities also introduce risk because application connectivity, database compatibility, and data integrity must be maintained throughout the transition.
+An incorrect database service choice could increase costs, add operational complexity, limit scalability, or require unnecessary application changes. Therefore, workload requirements, performance needs, availability objectives, and migration constraints must be validated before any production database decision is made.
 
 ## AWS Services Involved
-Identify the AWS services and concepts involved in the investigation, such as:
-- Amazon RDS
+- AWS Services
+- Amazon EC2
+- Amazon RDS (MariaDB)
 - Amazon Aurora
 - Amazon DynamoDB
+- AWS Systems Manager Parameter Store
+- Amazon CloudWatch
+- Amazon VPC
+### AWS Concepts
 - Relational Databases
 - NoSQL Databases
-- Multi-AZ
-- Database Migration Service
-- Schema Conversion
-- Security Groups
+- MySQL/MariaDB Database Engines
+- SQL Queries
+- Transaction Processing
+- Managed Database Services
+- Database Migration
+- Database Backups and Recovery
 - Database Connectivity
+- High Availability
+- Availability Zones
+- Multi-AZ Design
+- Application Compatibility
+- Migration Risk Analysis
+- Shared Responsibility Model
+### Networking and Security Components
+- Security Groups
+- Subnets
+- DB Subnet Groups
+### Summary
+TKT-2026-0007 involved evaluating database modernization options for a café business operating a transactional MySQL workload on Amazon EC2. The investigation focused on managed database services, migration activities, database connectivity, monitoring, backup and recovery responsibilities, workload compatibility, networking requirements, security controls, and the operational differences between self-managed and managed database platforms.
 
 ## Virtualization Connection
 Explain how managed database services abstract more of the underlying compute, storage, operating system, and database infrastructure than a database running directly on a virtual machine.
