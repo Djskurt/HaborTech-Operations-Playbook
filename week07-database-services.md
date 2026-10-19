@@ -43,7 +43,11 @@ An incorrect database service choice could increase costs, add operational compl
 TKT-2026-0007 involved evaluating database modernization options for a café business operating a transactional MySQL workload on Amazon EC2. The investigation focused on managed database services, migration activities, database connectivity, monitoring, backup and recovery responsibilities, workload compatibility, networking requirements, security controls, and the operational differences between self-managed and managed database platforms.
 
 ## Virtualization Connection
-Explain how managed database services abstract more of the underlying compute, storage, operating system, and database infrastructure than a database running directly on a virtual machine.
+A database running directly on an Amazon EC2 instance operates on top of virtualized infrastructure, but the customer remains responsible for managing the guest operating system, database software, patching, backups, storage planning, monitoring, and recovery processes. While AWS manages the underlying physical hardware and virtualization layer, the customer is responsible for administering the server and database environment.
+
+Managed database services such as Amazon RDS abstract additional layers of infrastructure management beyond virtualization. AWS manages the underlying compute resources, operating system maintenance, database software installation, automated backups, patching, storage provisioning, and many operational tasks associated with running the database platform. The customer remains responsible for database design, application integration, access management, query performance, and data management, but no longer manages the underlying database server directly.
+
+In TKT-2026-0007, the client's operational burden stemmed from maintaining a self-managed MySQL database on an EC2 virtual machine. The investigation evaluated whether moving to a managed database service could reduce administrative responsibilities while maintaining support for the existing relational database workload and application requirements.
 
 ## Evidence Reviewed
 Document the evidence you reviewed, such as:
