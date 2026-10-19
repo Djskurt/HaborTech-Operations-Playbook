@@ -50,19 +50,149 @@ Managed database services such as Amazon RDS abstract additional layers of infra
 In TKT-2026-0007, the client's operational burden stemmed from maintaining a self-managed MySQL database on an EC2 virtual machine. The investigation evaluated whether moving to a managed database service could reduce administrative responsibilities while maintaining support for the existing relational database workload and application requirements.
 
 ## Evidence Reviewed
-Document the evidence you reviewed, such as:
-- Database engine and workload type
-- Data structure
-- Query or access patterns
-- Availability requirements
-- Backup and recovery needs
-- Database connectivity
-- Security group rules
-- Migration requirements
-- Engine compatibility
-- Schema conversion needs
-- Current administrative workload
-- Cost or scaling considerations
+### Database Engine and Workload Type
+The client workload uses a transactional relational database hosted on an Amazon EC2 instance. The application uses structured tables, SQL queries, and transaction processing to support café ordering operations. Migration activities targeted a MariaDB-compatible Amazon RDS instance to maintain workload compatibility.
+
+### Data Structure
+The workload stores structured relational data. Validation of the migrated database confirmed product records containing product names, descriptions, pricing information, product group identifiers, and image references.
+
+### Query and Access Patterns
+The application accesses structured relational data through SQL queries. Migration validation included querying the product table after data restoration.
+
+Command:
+```
+select * from product;
+Observed output:
+
++----+---------------------------+
+|  1 | Croissant                 |
+|  2 | Donut                     |
+|  3 | Chocolate Chip Cookie     |
+|  4 | Muffin                    |
+|  5 | Strawberry Blueberry Tart |
+|  6 | Strawberry Tart           |
+|  7 | Coffee                    |
+|  8 | Hot Chocolate             |
+|  9 | Latte                     |
++----+---------------------------+
+```
+The query returned nine product records from the migrated database.
+
+### Availability Requirements
+
+Database availability is critical because the application depends on product and order data. RDS availability was verified after deployment.
+
+Command:
+```
+aws rds describe-db-instances \
+--db-instance-identifier MomPopCafeDBInstance \
+--query "DBInstances[*].[Endpoint.Address,AvailabilityZone,PreferredBackupWindow,BackupRetentionPeriod,DBInstanceStatus]"
+```
+Observed output:
+
+```text
+[
+    [
+        "mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com",
+        "us-east-1a",
+        "09:09-09:39",
+        1,
+        "available"
+    ]
+]
+```
+### Backup and Recovery Requirements
+The client identified backup execution, backp verification, and recovery plannng as operational burdens.
+
+Observed output:
+
+Preferred Backuk Window: 09:09-09:39
+Backup Retention Period: 1
+### Database Connectivity
+Database connectivity wwas validated through direct database connections and Amazon CloudWatch monitoring.
+
+Observed results:
+
+DB Connections while connected 1
+
+DB Connections after disconnecting: 0
+Security Group Rules
+A dedicated security group was reated to protect the Amazon RDS dtabase and restrict MySQL access t* the application security group.
+
+command:
+```
+aws ec2 authorize*security-group-ingress \
+--group-id sg-0989f7a6c8f2e3fe9 \
+--protocol*tcp \
+--port 3306 \
+--source-group*sg-0c6bd8d2be9fc8938
+```
+Observed output:
+
+Rule added successfully to allow TCP port 3306 traffic from security group sg-0c6bd8d2b*9fc8938.
+Migration Requirements
+Migration required creation of a database backup, restoration o Amazon RDS, application reconfiguration, and validation testing.
+
+Commands:
+```
+mysqldump --datab*ses mom_pop_db --add-drop-database*> mompopdb-backup.sql
+--host=mompopcafedbinstanc*.c6dlrml3nvep.us-east-1.rds.amazon*ws.com \
+< mompopdb-backup.sql
+```
+Observed results:
+```text
+mysqld*mp completed successfully.
+
+Databa*e restore completed successfully.
+```
+
+### Engine Compatibility
+
+An engine compatibility issue was ident*fied during deployment.
+
+Command:
+```bash
+aws rds create-db-instance \
+--db-instance-identifier MomPopCafeDBInstance \
+--engine mariadb \
+--engine-version 10.6.14
+Observed output:
+```
+An error occurred (InvalidParameterCombination) when calling the CreateDBInstance operation:
+
+Cannot find version 10.6.14 for mariadb
+Investigation command:
+```
+aws rds describe-db-engine-versions \
+--engine mariadb \
+--query "DBEngineVersions[*].EngineVersion"
+```
+Observed output (partial):
+```
+10.5.28
+10.5.29
+10.6.22
+10.6.23
+10.6.24
+10.6.25
+10.6.27
+10.6.28
+```
+The deployment was successfully completed using MariaDB version 10.6.28.
+
+Schema Conversion Requirements
+Schema conversion was not required because the source and target environments remained MariaDB-compatible. Migration was completed using a native database backup and restore process.
+
+### Current Administrative Workload
+The client reported operational effort associated with:
+
+- Guest operating system maintenance
+- Database patching
+- Backup execution
+- Backup verification
+- Storage management
+- Recovery planning
+These responsibilities prompted the evaluation of managed database services.
 
 ## AWS Academy Activity: Actions and Results
 Record commands or exact console actions, observed outputs or statuses, and verification results. Explain what each result demonstrates. Do not include secrets.
