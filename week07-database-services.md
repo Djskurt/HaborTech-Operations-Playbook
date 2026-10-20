@@ -558,15 +558,44 @@ No escalation was required during the AWS Academy activity because the database 
 ## Lessons Learned
 Week 7 reinforced the importance of selecting database solutions based on workload requirements and operational evidence rather than assumptions. The investigation showed that workload characteristics such as structured relational data, SQL queries, and transaction processing are key factors when evaluating database options. The activity also demonstrated how managed database services can reduce operational responsibilities by shifting infrastructure maintenance, patching, backup management, and platform administration away from the customer while maintaining application functionality. This highlighted the tradeoff between managing a database directly on a virtual machine and using a managed service. Another important lesson was the value of migration planning and validation. Successful migration required infrastructure preparation, compatibility verification, data migration, application reconfiguration, and post-migration testing. The MariaDB version compatibility issue encountered during deployment emphasized the need to validate dependencies and supported configurations before implementation. Finally, the activity showed that database recommendations should be supported by evidence collected from workload analysis, migration testing, application validation, and operational requirements. Effective database decisions require balancing workload fit, availability needs, operational responsibilities, and long-term management considerations.
 ## Professional Vocabulary
-Define the important Week 7 terms in your own words.
-Include terms such as:
-- Relational Database
-- NoSQL
-- Amazon RDS
-- Amazon Aurora
-- Amazon DynamoDB
-- Multi-AZ
-- Database Migration Service
-- Schema Conversion
-- Managed Service
-- Workload Fit
+
+### Relational Database
+
+A database that stores data in tables made up of rows and columns. Relationships can be created between tables, and data is typically accessed using SQL queries.
+
+### NoSQL
+
+A database model designed for data that does not fit traditional table structures. NoSQL databases often store data as documents, key-value pairs, or other flexible formats.
+
+### Amazon RDS
+
+A managed AWS database service that automates tasks such as backups, patching, maintenance, and database administration for supported database engines.
+
+### Amazon Aurora
+
+A managed relational database service built for high performance and compatibility with MySQL and PostgreSQL.
+
+### Amazon DynamoDB
+
+A fully managed NoSQL database service designed for fast performance, scalability, and flexible data structures.
+
+### Multi-AZ
+
+A high-availability configuration that places database resources across multiple Availability Zones to improve resilience and reduce downtime.
+
+### Database Migration Service (DMS)
+
+An AWS service used to migrate data from one database to another with minimal disruption to applications.
+
+### Schema Conversion
+
+The process of converting database structures, tables, and database objects from one database engine format to another.
+
+### Managed Service
+
+A cloud service where the provider manages much of the infrastructure, maintenance, updates, and operational tasks on behalf of the customer.
+
+### Workload Fit
+
+The process of matching a workload's requirements, data structure, performance needs, and operational goals to the most appropriate database service.
+
