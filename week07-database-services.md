@@ -142,6 +142,7 @@ Website loaded successfully after updating the
 Orders before migration: 9
 
 Orders after migration: 9
+
 The DB Connections metric confirmed successful communication between the application and the Amazon RDS database. Website functionality, preserved order history, and successful SQL query results verified that the application was using the migrated RDS database.
 ### Security Group Rules
 A dedicated security group was reated to protect the Amazon RDS dtabase and restrict MySQL access to the application security group.
@@ -276,7 +277,274 @@ Observed Administrative Requirements:
 Limitations:
 The investigation did not include workload growth projections, cost modeling, transaction volume metrics, recovery objective requirements, or long-term scaling forecasts. Additional validation of workload demand, performance requirements, availability objectives, and budget considerations would be required before making a production database modernization recommendation.
 ## AWS Academy Activity: Actions and Results
-Record commands or exact console actions, observed outputs or statuses, and verification results. Explain what each result demonstrates. Do not include secrets.
+
+### Evidence Entry 1 - Create RDS Networking Components
+
+#### Action or Command
+
+Created two private subnets and a database subnet group required for the Amazon RDS deployment.
+
+```bash
+aws ec2 create-subnet \
+--vpc-id vpc-07674b4a4bc6175d9 \
+--cidr-block 10.200.2.0/23 \
+--availability-zone us-east-1a
+```
+
+```bash
+aws ec2 create-subnet \
+--vpc-id vpc-07674b4a4bc6175d9 \
+--cidr-block 10.200.10.0/23 \
+--availability-zone us-east-1b
+```
+
+```bash
+aws rds create-db-subnet-group \
+--db-subnet-group-name "MomPopCafeDB Subnet Group" \
+--db-subnet-group-description "DB subnet group for Mom & Pop Cafe" \
+--subnet-ids subnet-0c7ff9cc7cb0288b0 subnet-036c3d3a0ce14a88c
+```
+
+#### Actual Result
+
+```text
+Private Subnet 1 SubnetId:
+subnet-0c7ff9cc7cb0288b0
+
+Private Subnet 2 SubnetId:
+subnet-036c3d3a0ce14a88c
+```
+
+#### Interpretation
+
+The required Amazon RDS networking components were successfully created. Two private subnets were provisioned in separate Availability Zones and used to support the database subnet group required for the RDS deployment.
+
+#### Limitations
+
+This evidence confirms supporting infrastructure creation but does not verify successful database deployment, connectivity, or application functionality.
+
+---
+
+### Evidence Entry 2 - Create and Validate Amazon RDS Instance
+
+#### Action or Command
+
+Attempted to create the Amazon RDS MariaDB instance using the lab-specified engine version, identified a version compatibility issue, and deployed the database using a supported version.
+
+```bash
+aws rds create-db-instance \
+--db-instance-identifier MomPopCafeDBInstance \
+--engine mariadb \
+--engine-version 10.6.14
+```
+
+```bash
+aws rds describe-db-engine-versions \
+--engine mariadb \
+--query "DBEngineVersions[*].EngineVersion"
+```
+
+```bash
+aws*rds create-db-instance \
+--db-inst*nce-identifier MomPopCafeDBInstanc* \
+*-engine mariadb \
+--engine-version*10.6.28
+*``
+
+```bash
+aws rds describe-db-in*tances \
+--db-instance-identifier *omPopCafeDBInstance \
+--query "DBInstances[*].[Endpoint.Address,AvailabilityZone,PreferredBackupWindow,BackupRetentionPeriod,DBInstanceStatus]"
+```
+
+#### Actual Result
+
+```text
+An error occurred (InvalidParameterCombination) when calling the CreateDBInstance operation:
+
+Cannot find version 10.6.14 for mariadb
+```
+
+Supported engine versions included:
+
+```text
+10.5.28
+10.5.29
+10.6.22
+10.6.23
+10.6.24
+10.6.25
+10.6.27
+10.6.28
+```
+
+Deployment verification:
+
+```text
+[
+    [
+        "mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com",
+        "us-east-1a",
+        "09:09-09:39",
+        1,
+        "available"
+    ]
+]
+```
+
+#### Interpretation
+
+The initial deployment failed because the MariaDB version specified in the lab was no longer available. After reviewing available versions, the database was successfully deployed using MariaDB version 10.6.28. The output confirmed that the RDS instance became available and provided the endpoint, backup window, and retention settings.
+
+#### Limitations
+
+Successful deployment confirms service availability but does not verify successful migration of application data or application connectivity.
+
+---
+
+### Evidence Entry 3 - Migrate and Validate Database Data
+
+#### Action or Command
+
+Created a backup of the source database, restored the backup to Amazon RDS, and validated the migrated data.
+
+```bash
+mysqldump --databases mom_pop_db --add-drop-database > mompopdb-backup.sql
+```
+
+```bash
+mysql \
+--host=mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com \
+< mompopdb-backup.sql
+```
+
+Validation query:
+
+```sql
+select * from product;
+```
+
+#### Actual Result
+
+```text
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+| id | product_name              | description                                                     | price | product_group | image_url                               |
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+|  1 | Croissant                 | Fresh, buttery and fluffy... Simply delicious!                  |
+|  2 | Donut                     | We have more than half-a-dozen flavors!                         |
+|  3 | Chocolate Chip Cookie     | Made with Swiss chocolate with a touch of Madagascar vanilla    |
+|  4 | Muffin                    | Banana bread, blueberry, cranberry or apple                     |
+|  5 | Strawberry Blueberry Tart | Bursting with the taste and aroma of fresh fruit                |
+|  6 | Strawberry Tart           | Made with fresh ripe strawberries and a delicious whipped cream |
+|  7 | Coffee                    | Freshly-ground black or blended Columbian coffee                |
+|  8 | Hot Chocolate             | Rich and creamy, and made with real chocolate                   |
+|  9 | Latte                     | Offered hot or cold and in various delicious flavors            |
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+```
+
+#### Interpretation
+
+The backup and restore process completed successfully and the migrated database returned all expected product records. The query results confirmed that application data was successfully migrated from the EC2-hosted database to the Amazon RDS instance.
+
+#### Limitations
+
+Validation confirmed the product table contents but did not independently verify every table, relationship, transaction history record, or production workload scenario.
+
+---
+
+### Final Verification
+
+#### Verification Action
+
+Updated the application database endpoint through:
+
+```text
+AWS Management Console
+→ Systems Manager
+→ Parameter Store
+→ /mompopcafe/dbUrl
+→ Edit
+```
+
+Updated parameter value:
+
+```text
+mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com
+```
+
+Opened the application:
+
+```text
+http://ec2-54-152-15-53.compute-1.amazonaws.com/mompopcafe
+```
+
+Reviewed Order History and validated application functionality.
+
+Connected to the Amazon RDS database and executed:
+
+```sql
+select * from product;
+```
+
+Monitored active database connections through:
+
+```text
+AWS Management Console
+→ Amazon RDS
+→ Databases
+→ mompopcafedbinstance
+→ Monitoring
+→ DB Connections
+```
+
+#### Actual Verification Result
+
+```text
+Website loaded successfully.
+```
+
+```text
+Orders before migration: 9
+Orders after migration: 9
+```
+
+Product table query output:
+
+```text
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+| id | product_name              | description                                                     | price | product_group | image_url                               |
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+|  1 | Croissant                 | Fresh, buttery and fluffy... Simply delicious!                  |  1.50 |             1 | images/Croissants.jpg                   |
+|  2 | Donut                     | We have more than half-a-dozen flavors!                         |  1.00 |             1 | images/Donuts.jpg                       |
+|  3 | Chocolate Chip Cookie     | Made with Swiss chocolate with a touch of Madagascar vanilla    |  2.50 |             1 | images/Chocolate-Chip-Cookies.jpg       |
+|  4 | Muffin                    | Banana bread, blueberry, cranberry or apple                     |  3.00 |             1 | images/Muffins.jpg                      |
+|  5 | Strawberry Blueberry Tart | Bursting with the taste and aroma of fresh fruit                |  3.50 |             1 | images/Strawberry-&-Blueberry-Tarts.jpg |
+|  6 | Strawberry Tart           | Made with fresh ripe strawberries and a delicious whipped cream |  3.50 |             1 | images/Strawberry-Tarts.jpg             |
+|  7 | Coffee                    | Freshly-ground black or blended Columbian coffee                |  3.00 |             2 | images/Coffee.jpg                       |
+|  8 | Hot Chocolate             | Rich and creamy, and made with real chocolate                   |  3.00 |             2 | images/Cup-of-Hot-Chocolate.jpg         |
+|  9 | Latte                     | Offered hot or cold and in various delicious flavors            |  3.50 |             2 | images/Latte.jpg                        |
++----+---------------------------+-----------------------------------------------------------------+-------+---------------+-----------------------------------------+
+```
+
+Amazon RDS monitoring results:
+
+```text
+DB Connections while connected: 1
+
+DB Connections after disconnecting: 0
+```
+
+RDS database status:
+
+```text
+available
+```
+
+#### Conclusion and Limitations
+
+Verification confirmed that the Mom & Pop Café application was successfully reconfigured to use the Amazon RDS MariaDB instance instead of the local database hosted on the EC2 server. The website loaded normally after the Parameter Store update, Order History remained unchanged at 9 records before and after migration, the product table returned all expected records, and Amazon RDS monitoring confirmed active database connectivity.
+
+Testing was performed within the AWS Academy learner lab environment only. Backup recovery validation, failover testing, production workload performance testing, recovery objective validation, cost modeling, and production cutover approval were not performed. Any production migration or architectural change would require additional validation and approval by authorized personnel.
 
 ## Operational Analysis
 Explain what the evidence shows about the database workload.
