@@ -561,41 +561,41 @@ Week 7 reinforced the importance of selecting database solutions based on worklo
 
 ### Relational Database
 
-A database that stores data in tables made up of rows and columns. Relationships can be created between tables, and data is typically accessed using SQL queries.
+A database that stores information in tables with rows and columns. Data can be connected between tables and searched using SQL.
 
 ### NoSQL
 
-A database model designed for data that does not fit traditional table structures. NoSQL databases often store data as documents, key-value pairs, or other flexible formats.
+A type of database that does not use traditional tables. It is often used for flexible or large amounts of data.
 
 ### Amazon RDS
 
-A managed AWS database service that automates tasks such as backups, patching, maintenance, and database administration for supported database engines.
+An AWS service that helps run a database without having to manage the database server yourself.
 
 ### Amazon Aurora
 
-A managed relational database service built for high performance and compatibility with MySQL and PostgreSQL.
+A managed AWS database that works like MySQL or PostgreSQL and is designed for high performance and reliability.
 
 ### Amazon DynamoDB
 
-A fully managed NoSQL database service designed for fast performance, scalability, and flexible data structures.
+An AWS NoSQL database service that is built for fast performance and automatic scaling.
 
 ### Multi-AZ
 
-A high-availability configuration that places database resources across multiple Availability Zones to improve resilience and reduce downtime.
+A setup that places database resources in multiple AWS Availability Zones to help keep the database available if one location has an issue.
 
 ### Database Migration Service (DMS)
 
-An AWS service used to migrate data from one database to another with minimal disruption to applications.
+An AWS service that helps move data from one database to another.
 
 ### Schema Conversion
 
-The process of converting database structures, tables, and database objects from one database engine format to another.
+The process of changing a database structure so it works with a different database engine.
 
 ### Managed Service
 
-A cloud service where the provider manages much of the infrastructure, maintenance, updates, and operational tasks on behalf of the customer.
+A service where AWS handles much of the maintenance, updates, and infrastructure management.
 
 ### Workload Fit
 
-The process of matching a workload's requirements, data structure, performance needs, and operational goals to the most appropriate database service.
+How well a database service matches the needs of an application, its data, and its users.
 
