@@ -102,22 +102,49 @@ Observed output:
 ]
 ```
 ### Backup and Recovery Requirements
-The client identified backup execution, backp verification, and recovery plannng as operational burdens.
+The client identified backup execution, backup verification, and recovery plannng as operational burdens.
 
 Observed output:
 
-Preferred Backuk Window: 09:09-09:39
+Preferred Backup Window: 09:09-09:39
 Backup Retention Period: 1
 ### Database Connectivity
-Database connectivity wwas validated through direct database connections and Amazon CloudWatch monitoring.
+Database connectivity was validated through direct MySQL connections, application testing, and Amazon CloudWatch monitoring.
 
-Observed results:
+AWS Management Console Path:
 
-DB Connections while connected 1
+Amazon RDS → Databases → mompopcafedbinstance → Monitoring → DB Connections
+Application Validation Path:
+
+AWS Systems Manager → Parameter Store → /mompopcafe/dbUrl → Edit
+Updated value:
+
+mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com
+Database Connection Command:
+```
+mysql --user=root \
+--host=mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com \
+mom_pop_db
+```
+Validation Query:
+```
+select * from product;
+```
+Observed Results:
+
+DB Connections while connected: 1
 
 DB Connections after disconnecting: 0
-Security Group Rules
-A dedicated security group was reated to protect the Amazon RDS dtabase and restrict MySQL access t* the application security group.
+
+Website loaded successfully after updating the
+/mompopcafe/dbUrl parameter.
+
+Orders before migration: 9
+
+Orders after migration: 9
+The DB Connections metric confirmed successful communication between the application and the Amazon RDS database. Website functionality, preserved order history, and successful SQL query results verified that the application was using the migrated RDS database.
+### Security Group Rules
+A dedicated security group was reated to protect the Amazon RDS dtabase and restrict MySQL access to the application security group.
 
 command:
 ```
