@@ -150,32 +150,32 @@ command:
 ```
 aws ec2 authorize*security-group-ingress \
 --group-id sg-0989f7a6c8f2e3fe9 \
---protocol*tcp \
+--protocol tcp \
 --port 3306 \
---source-group*sg-0c6bd8d2be9fc8938
+--source-group sg-0c6bd8d2be9fc8938
 ```
 Observed output:
 
-Rule added successfully to allow TCP port 3306 traffic from security group sg-0c6bd8d2b*9fc8938.
+Rule added successfully to allow TCP port 3306 traffic from security group sg-0c6bd8d2be9fc8938.
 Migration Requirements
 Migration required creation of a database backup, restoration o Amazon RDS, application reconfiguration, and validation testing.
 
 Commands:
 ```
-mysqldump --datab*ses mom_pop_db --add-drop-database*> mompopdb-backup.sql
---host=mompopcafedbinstanc*.c6dlrml3nvep.us-east-1.rds.amazon*ws.com \
+mysqldump --databases mom_pop_db --add-drop-database > mompopdb-backup.sql
+--host=mompopcafedbinstanc*.c6dlrml3nvep.us-east-1.rds.amazonaws.com \
 < mompopdb-backup.sql
 ```
 Observed results:
 ```text
-mysqld*mp completed successfully.
+mysqldump completed successfully.
 
-Databa*e restore completed successfully.
+Database restore completed successfully.
 ```
 
 ### Engine Compatibility
 
-An engine compatibility issue was ident*fied during deployment.
+An engine compatibility issue was identified during deployment.
 
 Command:
 ```bash
