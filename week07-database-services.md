@@ -207,9 +207,33 @@ Observed output (partial):
 ```
 The deployment was successfully completed using MariaDB version 10.6.28.
 
-Schema Conversion Requirements
-Schema conversion was not required because the source and target environments remained MariaDB-compatible. Migration was completed using a native database backup and restore process.
+### Schema Conversion Requirements
 
+Schema conversion was not required because both the source database and the target database used MariaDB-compatible database engines. The migration was completed using a native database backup and restore process rather than converting schemas between different database platforms.
+
+Migration Commands:
+
+```bash
+mysqldump --databases mom_pop_db --add-drop-database > mompopdb-backup.sql
+```
+
+```bash
+mysql \
+--host=mompopcafedbinstance.c6dlrml3nvep.us-east-1.rds.amazonaws.com \
+< mompopdb-backup.sql
+```
+
+Observed Results:
+
+```text
+mysqldump completed successfully.
+
+Database restore completed successfully.
+
+select * from product;
+```
+
+The successful restoration and validation of all nine product records confirmed that schema conversion was unnecessary for this migration because database compatibility was maintained between the source and target environments.
 ### Current Administrative Workload
 The client reported operational effort associated with:
 
@@ -220,7 +244,37 @@ The client reported operational effort associated with:
 - Storage management
 - Recovery planning
 These responsibilities prompted the evaluation of managed database services.
+### Cost and Scaling Considerations
 
+The client's primary concern was the operational burden associated with managing a self-hosted database on Amazon EC2 rather than an immediate performance or scalability issue. Current evidence did not include transaction volume, growth projections, performance baselines, recovery objectives, or budget constraints.
+
+Observed Environment:
+
+```text
+Source Database Platform:
+Amazon EC2-hosted MySQL/MariaDB
+
+Target Database Platform:
+Amazon RDS MariaDB
+
+Source Instance Type:
+t2.small
+
+Target Database Instance Class:
+db.t3.micro
+```
+
+Observed Administrative Requirements:
+
+- Guest operating system maintenance
+- Database patching
+- Backup execution
+- Backup verification
+- Storage management
+- Recovery planning
+
+Limitations:
+The investigation did not include workload growth projections, cost modeling, transaction volume metrics, recovery objective requirements, or long-term scaling forecasts. Additional validation of workload demand, performance requirements, availability objectives, and budget considerations would be required before making a production database modernization recommendation.
 ## AWS Academy Activity: Actions and Results
 Record commands or exact console actions, observed outputs or statuses, and verification results. Explain what each result demonstrates. Do not include secrets.
 
