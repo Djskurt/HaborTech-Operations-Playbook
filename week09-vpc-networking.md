@@ -377,7 +377,7 @@ No route-table evidence demonstrated a default route to the Internet Gateway. Th
 
 ### Practice Environment Comparison
 
-The AWS Learner Lab environment was used only to recreate and better understand the conditions described in the HarborTech training scenario. Findings from the practice environment should not be represented as production evidence.
+The AWS Learner Lab environment was used only to recreate and better understand the conditions described in the Client's problem. Findings from the practice environment should not be represented as production evidence.
 
 The HarborTech analysis relied on the simulated VPC evidence packet. The recreated environment demonstrated that an attached Internet Gateway, a public IPv4 address, permissive Security Group rules, and permissive Network ACL rules do not alone establish internet reachability when route-table evidence does not show a valid path to the Internet Gateway.
 ## Operational Analysis
