@@ -8,17 +8,26 @@ The client's desired outcome is to provide public access to the web application 
 this can result in application downtime, failed customer connections, increased support requests, and disruption of normal business operations. Because public accessibility depends on a complete network path, any failure in routing, subnet configuration, or security controls can prevent users from accessing the service and reduce the reliability of HarborTech's online presence.
 
 ## AWS Services Involved
-Identify the AWS services and concepts involved in the investigation, such as:
+
+### AWS Services
+- Amazon EC2
 - Amazon VPC
 - Subnets
 - Route Tables
-- Internet Gateway
+- Internet Gateway (IGW)
 - NAT Gateway
 - Security Groups
-- Network ACLs
-- CIDR Blocks
-- Public and Private Subnets
+- Network ACLs (NACLs)
 - VPC Flow Logs
+
+### Networking Concepts
+- CIDR Blocks
+- Public IPv4 Addressing
+- Public Subnets
+- Private Subnets
+
+### Summary
+For **TKT-2026-0009**, the investigation focuses on the AWS networking components that affect connectivity between an internet client and the web application. The primary areas of analysis are **routing, subnet design, internet connectivity, and traffic filtering**, with particular attention given to the relationship between the VPC, subnet, route table, internet gateway, security group, and network ACL evidence provided in the ticket.
 
 ## Virtualization Connection
 Explain how VPC networking creates software-defined network boundaries, routes, gateways, and traffic controls for virtual cloud resources.
