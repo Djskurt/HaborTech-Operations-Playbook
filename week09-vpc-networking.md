@@ -407,9 +407,31 @@ If the route is missing and a public-facing web application is the intended desi
 This recommendation follows the evidence collected during the investigation and focuses on the earliest network layer where support for the required traffic path is missing, while avoiding unnecessary changes to Security Groups, Network ACLs, or other network controls that currently support the intended traffic flow.
 
 ## Escalation Notes
-Document any production routing, gateway, security group, network ACL, or architecture change that requires approval or additional support.
-If no escalation is required, state that clearly.
 
+At the current stage of the investigation, no production changes have been implemented. The evidence reviewed supports additional verification before any routing, gateway, security, or architecture modifications are performed.
+
+If verification confirms that the subnet intended to host the public-facing application lacks a default route of:
+
+```text
+0.0.0.0/0 to Internet Gateway
+```
+
+then a production routing change would require approval before implementation. This change would affect network connectivity and should follow established change management procedures.
+
+No evidence currently supports modifying:
+
+- Security Group rules
+- Network ACL rules
+- NAT Gateway configuration
+- VPC CIDR assignments
+- Subnet CIDR assignments
+- Application configuration
+
+The Security Group and Network ACL evidence provided in the ticket support the required TCP port 80 traffic flow and do not indicate a filtering issue. As a result, modifying those controls would not be supported by the evidence collected during this investigation.
+
+If route-table verification confirms that the required default route already exists, additional escalation may be required to investigate other layers of the traffic path, including subnet associations, connectivity testing, application behavior, or additional network controls not included in the evidence packet.
+
+At this time, the only potential escalation identified is a production routing change if route verification confirms that internet connectivity is not supported by the existing route-table configuration.
 ## Lessons Learned
 Explain what Week 9 taught you about VPC design, network paths, layered traffic controls, and evidence-based network troubleshooting.
 
