@@ -38,7 +38,6 @@ For **TKT-2026-0009**, the investigation focuses on the AWS networking component
 Explain how VPC networking creates software-defined network boundaries, routes, gateways, and traffic controls for virtual cloud resources.
 
 ## Evidence Reviewed
-## Evidence Reviewed
 
 ### Required Traffic Path
 
