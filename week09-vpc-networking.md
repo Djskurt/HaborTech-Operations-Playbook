@@ -385,8 +385,26 @@ Explain what the evidence shows about the network path.
 Identify whether the issue involves routing, addressing, gateway configuration, subnet design, security groups, network ACLs, or another network layer.
 
 ## Recommendation
-Recommend the next operational action supported by the evidence.
-Explain how the recommendation addresses the identified connectivity problem without making unnecessary network changes.
+Based on the available evidence, the next operational action is to verify whether the subnet associated with the EC2 instance has an active default route of **0.0.0.0/0 to the Internet Gateway** and confirm that the subnet is associated with the expected route table.
+This recommendation addresses the most likely connectivity issue without making unnecessary network changes. The EC2 instance is running, the web application is expected to be listening on TCP port 80, the Security Group allows inbound TCP 80 from **0.0.0.0/0**, and the Network ACL permits the required traffic. These controls support the intended communication path and do not currently indicate a filtering problem.
+
+The route-table evidence, however, shows only:
+
+```text
+10.42.0.0/16 to local
+```
+
+No evidence was provided demonstrating a default route to the Internet Gateway. As a result, the first unsupported assumption is that the subnet is public and capable of receiving internet traffic.
+
+The recommended verification is to review the subnet association and route-table configuration and determine whether a route exists for:
+
+```text
+0.0.0.0/0 to Internet Gateway
+```
+
+If the route is missing and a public-facing web application is the intended design, a routing change should be submitted through the appropriate approval process before implementation. After route verification or correction, a new connectivity test should be performed from an external client to the web server on TCP port 80 to confirm end-to-end reachability.
+
+This recommendation follows the evidence collected during the investigation and focuses on the earliest network layer where support for the required traffic path is missing, while avoiding unnecessary changes to Security Groups, Network ACLs, or other network controls that currently support the intended traffic flow.
 
 ## Escalation Notes
 Document any production routing, gateway, security group, network ACL, or architecture change that requires approval or additional support.
