@@ -446,18 +446,38 @@ If route-table verification confirms that the required default route already exi
 
 At this time, the only potential escalation identified is a production routing change if route verification confirms that internet connectivity is not supported by the existing route-table configuration.
 ## Lessons Learned
-Explain what Week 9 taught you about VPC design, network paths, layered traffic controls, and evidence-based network troubleshooting.
+Week 9 reinforced the importance of evaluating the complete network path when troubleshooting connectivity issues in Amazon VPC environments. A running EC2 instance, an operational web service, and the presence of a public IPv4 address do not independently guarantee application accessibility.
+This investigation emphasized the relationship between VPC components, including CIDR blocks, subnets, route tables, Internet Gateways, Security Groups, and Network ACLs. Each component contributes to end-to-end connectivity and must be validated within the context of the required traffic flow.
+The exercise also demonstrated the importance of evidence-based troubleshooting. Rather than assuming a filtering issue, the investigation focused on tracing the intended path from the internet client to the web application and identifying the earliest layer where the available evidence no longer supported connectivity. Overall, Week 9 highlighted that effective cloud networking analysis requires validating addressing, routing, gateway connectivity, security controls, and return paths before recommending corrective actions. Following the evidence and avoiding unsupported assumptions leads to more accurate diagnoses and more appropriate remediation recommendations.
 
 ## Professional Vocabulary
-Define the important Week 9 terms in your own words.
-Include terms such as:
-- VPC
-- Subnet
-- Route Table
-- Internet Gateway
-- NAT Gateway
-- Security Group
-- Network ACL
-- CIDR
-- Public Subnet
-- Private Subnet
+
+### VPC
+A Virtual Private Cloud (VPC) is a logically isolated network in AWS where resources such as EC2 instances are deployed and managed.
+
+### Subnet
+A subnet is a segment of a VPC that contains resources and controls how they are grouped within the network.
+
+### Route Table
+A route table contains rules that determine where network traffic is sent within or outside the VPC.
+
+### Internet Gateway
+An Internet Gateway is a VPC component that enables communication between resources in a VPC and the public internet.
+
+### NAT Gateway
+A NAT Gateway allows resources in a private subnet to initiate outbound internet connections while preventing unsolicited inbound internet traffic.
+
+### Security Group
+A Security Group is a stateful firewall that controls inbound and outbound traffic for an AWS resource, such as an EC2 instance.
+
+### Network ACL
+A Network Access Control List (Network ACL) is a stateless firewall that controls traffic entering and leaving a subnet.
+
+### CIDR
+Classless Inter-Domain Routing (CIDR) defines the IP address range assigned to a network or subnet.
+
+### Public Subnet
+A public subnet is a subnet whose route table contains a route to an Internet Gateway, allowing internet connectivity.
+
+### Private Subnet
+A private subnet is a subnet that does not have a direct route to an Internet Gateway and is not directly reachable from the internet.
