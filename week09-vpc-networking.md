@@ -381,8 +381,21 @@ The AWS Learner Lab environment was used only to recreate and better understand 
 
 The HarborTech analysis relied on the simulated VPC evidence packet. The recreated environment demonstrated that an attached Internet Gateway, a public IPv4 address, permissive Security Group rules, and permissive Network ACL rules do not alone establish internet reachability when route-table evidence does not show a valid path to the Internet Gateway.
 ## Operational Analysis
-Explain what the evidence shows about the network path.
-Identify whether the issue involves routing, addressing, gateway configuration, subnet design, security groups, network ACLs, or another network layer.
+The evidence reviewed indicates that the issue is primarily associated with the routing layer. The required traffic path is from an internet client to the EC2 web server on TCP port 80. The simulated evidence confirms that the EC2 instance is running, the web service is listening on TCP port 80, the instance has a public IPv4 address, and an Internet Gateway is attached to the VPC.
+
+The addressing evidence does not indicate a problem. The EC2 instance has a public IPv4 address, and the VPC and subnet use valid CIDR ranges that support communication within the environment. Likewise, the gateway configuration confirms that an Internet Gateway is attached to the VPC, making internet connectivity possible if supported by routing.
+
+The Security Group evidence allows inbound TCP port 80 from 0.0.0.0/0, and the Network ACL evidence allows the required inbound and outbound traffic. These findings allow filtering at the Security Group and Network ACL layers to be ruled out as the most likely cause of the issue based on the available evidence.
+
+The route-table evidence is the first area where support for the intended traffic path is missing. The associated route table contains only:
+
+10.42.0.0/16 to local (active)
+No default route was provided for:
+
+0.0.0.0/0 to Internet Gateway
+Because the required route to the Internet Gateway is not shown, the evidence does not prove that internet traffic can reach the subnet hosting the application. As a result, the first unsupported assumption is that the subnet is public and capable of supporting internet-accessible workloads.
+
+The issue is therefore most likely related to routing and subnet design, not application availability, addressing, Security Groups, or Network ACLs. The evidence supports the conclusion that the required network path from the internet to the web server has not been fully established or verified. Additional route-table verification and connectivity testing are required to determine whether a routing correction is needed.
 
 ## Recommendation
 Based on the available evidence, the next operational action is to verify whether the subnet associated with the EC2 instance has an active default route of **0.0.0.0/0 to the Internet Gateway** and confirm that the subnet is associated with the expected route table.
