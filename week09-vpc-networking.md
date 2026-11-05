@@ -35,7 +35,7 @@ this can result in application downtime, failed customer connections, increased 
 For **TKT-2026-0009**, the investigation focuses on the AWS networking components that affect connectivity between an internet client and the web application. The primary areas of analysis are **routing, subnet design, internet connectivity, and traffic filtering**, with particular attention given to the relationship between the VPC, subnet, route table, internet gateway, security group, and network ACL evidence provided in the ticket.
 
 ## Virtualization Connection
-Explain how VPC networking creates software-defined network boundaries, routes, gateways, and traffic controls for virtual cloud resources.
+Amazon VPC uses software-defined networking to create virtual network boundaries, routing, gateways, and traffic controls for cloud resources. Components such as subnets, route tables, Internet Gateways, Security Groups, and Network ACLs work together to control how traffic flows between resources and external networks. This investigation demonstrated that virtual networking still relies on traditional networking principles. Resources require valid addressing, routing, security controls, and a complete traffic path to support application connectivity.
 
 ## Evidence Reviewed
 
