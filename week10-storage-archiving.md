@@ -66,6 +66,103 @@ Ticket TKT-2026-0010
 **Operational Significance**
 
 The client evidence identified four storage-related requirements that guided the investigation. First, the documented 19-day-old snapshot raised concerns regarding compliance with the client's 24-hour recovery-point objective (RPO). Second, the requirement for concurrent file access across three Linux servers indicated a need for shared file storage. Third, uploaded documents required an object-storage solution capable of managing file-based data. Finally, completed records required a long-term archival strategy capable of retaining data for seven years while minimizing storage costs for information that is rarely accessed after 90 days.
+### AWS Environment Verification
+
+**CloudShell Commands**
+
+```bash
+aws sts get-caller-identity
+
+aws --version
+
+aws configure get region
+
+aws configure list
+
+echo "$AWS_DEFAULT_REGION"
+```
+
+**CLI Evidence**
+
+```json
+{
+    "UserId": "AROAY**************:user539****=Daniel**._Scurek",
+    "Account":**[REDACTED]",
+    "Arn":**arn:aws:sts::[REDACTED]:assumed-r**e/vocl**s/user539****=Daniel_J._Scurek"
+}
+```
+
+```text
+aws-cli/2.39.4 Python/3.14.8 Linux/6.1.189-236.400.amzn2023.x86_64 exec-env/CloudShell exe/x86_64.amzn.2023
+```
+
+```text
+NAME       : VALUE                    : TYPE             : LOCATION
+profile    : <not set>                : None             : None
+access_key : ****************ZFHG     : container-role   :
+secret_key : ****************zfTr     : container-role   :
+region     : us-east-1                : env              : ['AWS_REGION', 'AWS_DEFAULT_REGION']
+```
+
+```text
+us-east-1
+```
+
+The evidence confirmed that the investigation was conducted within the AWS Academy CloudShell environment using the `voclabs` role in the `us-east-1` Region.
+
+---
+### EBS Volume Investigation
+
+**CloudShell Commands**
+
+```
+aws ec2 describe-volumes --region us-east-1 --query "Volumes[*].[VolumeId,State,Size,AvailabilityZone,VolumeType]"
+
+aws ec2 describe-availability-zones --region us-east-1 --query "AvailabilityZones[*].ZoneName" --output table
+
+aws ec2 create-volume \
+  --availability-zone us-east-1a \
+  --size 1 \
+  --volume-type gp3 \
+  --tag-specifications "ResourceType=volume,Tags=[{Key=Purpose,Value=IT4560Week10}]" \
+  --region us-east-1
+```
+
+**CLI Evidence**
+
+```text
+No approved volume exists.
+```
+```text
+us-east-1a
+us-east-1b
+us-east-1c
+us-east-1d
+us-east-1e
+us-east-1f
+```
+```
+{
+    "VolumeId": "vol-0141ef89bb00176e4",
+    "VolumeType": "gp3",
+    "Size": 1,
+    "AvailabilityZone": "us-east-1a",
+    "State": "available",
+    "Iops": 3000,
+    "Throughput": 125,
+    "MultiAttachEnabled": false,
+    "Encrypted": false,
+    "Tags": [
+        {
+            "Key": "Purpose",
+            "Value": "IT4560Week10"
+        }
+    ]
+}
+```
+The investigation created and validated a disposable 1 GiB gp3 EBS volume for storage and recovery testing.
+
+
 ## Operational Analysis
 
 
