@@ -304,7 +304,7 @@ Lifecycle inspection:
 ```text
 aws: [ERROR]: An error occurred (NoSuchLifecycleConfiguration) when calling the GetBucketLifecycleConfiguration operation: The lifecycle configuration does not exist
 ```
-Versioning was successfully enabled, while no lifecycle policy was currently applied to the practice bucket.
+Versioning was successfully enabled, while no lifecycle policy was currently applied to the practice bucket to successfully replicate client issue in Learn Lab environment.
 
 ## Operational Analysis
 
