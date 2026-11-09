@@ -306,6 +306,100 @@ aws: [ERROR]: An error occurred (NoSuchLifecycleConfiguration) when calling the 
 ```
 Versioning was successfully enabled, while no lifecycle policy was currently applied to the practice bucket to successfully replicate client issue in Learn Lab environment.
 
+### Resource Cleanup Verification
+
+**CloudShell Commands**
+```bash
+aws s3api list-object-versions \
+  --bucket $BUCKET \
+  --region us-east-1
+
+aws s3 rm s3://$BUCKET/week10-sample.txt --region us-east-1
+
+aws s3api delete-bucket \
+  --bucket $BUCKET \
+  --region us-east-1
+
+aws s3api delete-object \
+  --bucket $BUCKET \
+  --key week10-sample.txt \
+  --version-id null \
+  --region us-east-1
+
+aws s3api delete-object \
+  --bucket $BUCKET \
+  --key week10-sample.txt \
+  --version-id lZPaHahtRE2zzNmSAxrK2ER2JB688OK6 \
+  --region us-east-1
+
+aws ec2 delete-snapshot \
+  --snapshot-id snap-0f89c8a99d95448f2 \
+  --region us-east-1
+
+aws ec2 delete-volume \
+  --volume-id vol-0141ef89bb00176e4 \
+  --region us-east-1
+
+aws ec2 describe-volumes \
+  --volume-ids vol-0141ef89bb00176e4 \
+  --region us-east-1
+```
+
+**CLI Evidence**
+
+Versioned Object inspection:
+```JSON
+{
+    "Versions": [
+        {
+            "Key": "week10-sample.txt",
+            "VersionId": "null",
+            "IsLatest": false
+        }
+    ],
+    "DeleteMarkers": [
+        {
+            "Key": "week10-sample.txt",
+            "VersionId": "lZPaHahtRE2zzNmSAxrK2ER2JB688OK6",
+            "IsLatest": true
+        }
+    ]
+}
+```
+Object deletion:
+```text
+delete: s3://djs443-week10-1794243869/week10-sample.txt
+```
+Bucket deletion attempt:
+```text
+aws: [ERROR]: An error occurred (BucketNotEmpty) when calling the DeleteBucket operation: The bucket you tried to delete is not empty. You must delete all versions in the bucket.
+```
+Version-specific cleanup:
+```JSON
+{
+    "VersionId": "null"
+}
+```
+```JSON
+{
+    "DeleteMarker": true,
+    "VersionId": "lZPaHahtRE2zzNmSAxrK2ER2JB688OK6"
+}
+```
+Volume cleanup verification:
+```text
+aws: [ERROR]: An error occurred (InvalidVolume.NotFound) when calling the DescribeVolumes operation: The volume 'vol-0141ef89bb00176e4' does not exist.
+```
+The cleanup process successfully removed the versioned S3 content, snapshot resources, and disposable EBS volume after verification identified and resolved remaining object versions and delete markers.
+
+### Summary
+The investigation began with client evidence showing that the newest documented EC2 application disk snapshot was 19 days old despite a 24-hour recovery-point objective. Additional requirements included shared file access for three Linux servers, object storage for uploaded documents, and seven-year retention for records that become infrequently accessed after 90 days.
+
+Using AWS CloudShell in the us-east-1 Region, a disposable 1 GiB gp3 EBS volume was created and inspected. A snapshot of the volume was successfully created and verified as completed, demonstrating EBS backup and recovery capabilities. Amazon S3 was then used to upload and inspect a sample object, confirming object storage functionality and AES256 server-side encryption.
+
+Further testing enabled S3 versioning and validated a lifecycle policy proposal that would transition archived data to Glacier storage after 90 days. Although no lifecycle configuration was applied to the bucket, the investigation demonstrated how lifecycle management can support long-term archival requirements.
+
+Finally, cleanup procedures removed all disposable resources created during testing. The process required additional version-specific deletions because S3 versioning retained an object version and delete marker after the initial object deletion. Overall, the investigation provided evidence for evaluating backup, object storage, file sharing, retention, and archival solutions that align with the client's requirements.
 ## Operational Analysis
 
 
