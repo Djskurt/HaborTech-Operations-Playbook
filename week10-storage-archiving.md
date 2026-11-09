@@ -414,15 +414,26 @@ I also learned that **Amazon S3** is optimized for object storage and provides a
 Finally, I learned the importance of selecting the correct storage model based on access requirements. Amazon EBS supports application disks, Amazon EFS supports shared file access across multiple Linux servers, and Amazon S3 with Glacier storage classes supports long-term archival and retention requirements. Together, these services provide a flexible approach to backup, recovery, storage management, and long-term data retention in AWS.
 
 ## Professional Vocabulary
-Define the important Week 9 terms in your own words.
-Include terms such as:
-- VPC
-- Subnet
-- Route Table
-- Internet Gateway
-- NAT Gateway
-- Security Group
-- Network ACL
-- CIDR
-- Public Subnet
-- Private Subnet
+### Block Storage
+Storage that functions like a virtual hard drive attached to a server. Data is stored in blocks and is commonly used for operating systems, databases, and application disks.
+
+### File Storage
+Storage that organizes data into files and folders that can be shared and accessed by multiple systems through a common file system.
+
+### Object Storage
+Storage that saves data as individual objects with unique identifiers. Objects are accessed through APIs rather than a mounted disk or traditional file system.
+
+### EBS Snapshot
+A backup of an Amazon EBS volume captured at a specific point in time. Snapshots can be used to recover data or create new volumes if needed.
+
+### Amazon EFS
+A managed AWS file storage service that allows multiple Linux servers to access the same files and directories at the same time.
+
+### S3 Versioning
+An Amazon S3 feature that keeps previous versions of objects so data can be recovered if an object is accidentally changed or deleted.
+
+### Lifecycle Rule
+An automated storage policy that moves data to different storage classes or removes data based on age and retention requirements.
+
+### Archive
+The process of moving infrequently used data to lower-cost storage while preserving it for long-term retention and future retrieval.
