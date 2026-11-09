@@ -37,26 +37,36 @@ The client's uploaded documents must be stored as object data and retained recor
 TKT-2026-0010 involved several AWS storage, backup, and data lifecycle services. AWS STS and AWS CloudShell were used to verify the investigation environment and execute AWS CLI commands. Amazon EBS and EBS Snapshots were evaluated for application disk backup and recovery capabilities, Amazon S3 was used to investigate object storage and data protection features, and Amazon EFS was identified as the appropriate shared file storage solution for multiple Linux servers. The investigation also focused on recovery-point objectives, long-term retention requirements, versioning, lifecycle 
 
 ## Virtualization Connection
-Explain how VPC networking creates software-defined network boundaries, routes, gateways, and traffic controls for virtual cloud resources.
+Cloud storage and archiving services use virtualization to provide storage resources without requiring organizations to manage physical hardware. During this investigation, Amazon EBS provided virtual block storage for application data, Amazon S3 provided object storage for uploaded files, and lifecycle policies were evaluated for archival storage. These services allow storage, backup, retention, and recovery processes to be managed through software-defined cloud resources, improving scalability, availability, and cost efficiency.
 
 ## Evidence Reviewed
-Document the evidence you reviewed, such as:
-- VPC CIDR
-- Subnet CIDR
-- Subnet type
-- Route table entries
-- Internet gateway attachment
-- NAT gateway configuration
-- Security group rules
-- Network ACL rules
-- Public or private IP addressing
-- Application port
-- Flow log evidence
-- Connectivity test results
+### Client Ticket Evidence
 
+**Client Findings Provided**
+
+```text
+Ticket TKT-2026-0010
+
+- Bright Path has an EC2 application disk whose newest documented snapshot is 19 days old.
+- The maximum acceptable data loss is 24 hours.
+- Three Linux servers require concurrent access to shared working files.
+- Uploaded documents require object storage.
+- Completed records are rarely accessed after 90 days.
+- Records must be retained for seven years.
+```
+
+**Investigation Boundaries**
+```text
+- The 19-day-old snapshot is client ticket evidence and is not a resource within the AWS Learner Lab environment.
+- CloudShell practice resources were created solely for investigation and evidence collection.
+- Practice resources do not remediate or modify the client environment.
+- Only disposable resources created during the investigation were used.
+```
+
+**Operational Significance**
+The client evidence identified four storage-related requirements that guided the investigation. First, the documented 19-day-old snapshot raised concerns regarding compliance with the client's 24-hour recovery-point objective (RPO). Second, the requirement for concurrent file access across three Linux servers indicated a need for shared file storage. Third, uploaded documents required an object-storage solution capable of managing file-based data. Finally, completed records required a long-term archival strategy capable of retaining data for seven years while minimizing storage costs for information that is rarely accessed after 90 days.
 ## Operational Analysis
-Explain what the evidence shows about the network path.
-Identify whether the issue involves routing, addressing, gateway configuration, subnet design, security groups, network ACLs, or another network layer.
+
 
 ## Recommendation
 Recommend the next operational action supported by the evidence.
