@@ -162,6 +162,149 @@ us-east-1f
 ```
 The investigation created and validated a disposable 1 GiB gp3 EBS volume for storage and recovery testing.
 
+### EBS Snapshot and Recovery
+
+**CloudShell Commands**
+```bash
+aws ec2 create-snapshot \
+  --volume-id vol-0141ef89bb00176e4 \
+  --description "IT4560 Week10 practice" \
+  --tag-specifications "ResourceType=snapshot,Tags=[{Key=Purpose,Value=IT4560Week10}]" \
+  --region us-east-1
+
+aws ec2 describe-snapshots \
+  --snapshot-ids snap-0f89c8a99d95448f2 \
+  --region us-east-1
+```
+
+**CLI Evidence**
+
+Initial snapshot creation:
+```text
+{
+    "SnapshotId": "snap-0f89c8a99d95448f2",
+    "VolumeId": "vol-0141ef89bb00176e4",
+    "State": "pending",
+    "Description": "IT4560 Week10 practice"
+}
+```
+
+Snapshot completion:
+
+```text
+{
+    "SnapshotId": "snap-0f89c8a99d95448f2",
+    "VolumeId": "vol-0141ef89bb00176e4",
+    "State": "completed",
+    "Progress": "100%",
+    "CompletionTime": "2026-11-09T16:57:56.065000+00:00"
+}
+```
+
+The snapshot reached a completed state and provided a validated recovery point for the practice volume.
+
+### Amazon S3 Object Storage
+**CloudShell Commands**
+```bash
+BUCKET=djs443-week10-$(date +%s)
+
+aws s3api create-bucket \
+  --bucket $BUCKET \
+  --region us-east-1
+
+printf "IT4560 Week10 practice\n" > week10-sample.txt
+
+aws s3 cp week10-sample.txt s3://$BUCKET/week10-sample.txt --region us-east-1
+
+aws s3api head-object \
+  --bucket $BUCKET \
+  --key week10-sample.txt \
+  --region us-east-1
+```
+
+**CLI Evidence**
+
+Bucket creation:
+```JSON
+{
+    "Location": "/djs443-week10-1794243869",
+    "BucketArn": "arn:aws:s3:::djs443-week10-1794243869"
+}
+```
+Object upload:
+```text
+upload: ./week10-sample.txt to s3://djs443-week10-1794243869/week10-sample.txt
+```
+
+Object inspection:
+```
+{
+    "LastModified": "2026-11-09T17:12:10+00:00",
+    "ContentLength": 23,
+    "ContentType": "text/plain",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
+```
+
+The object was successfully stored in Amazon S3 and encrypted at rest using AES256 server-side encryption.
+### S3 Versioning and Lifecycle Investigation
+**CloudShell Commands**
+```bash
+aws s3api get-bucket-versioning \
+  --bucket $BUCKET \
+  --region us-east-1
+
+aws s3api put-bucket-versioning \
+  --bucket $BUCKET \
+  --versioning-configuration Status=Enabled \
+  --region us-east-1
+
+aws s3api get-bucket-versioning \
+  --bucket $BUCKET \
+  --region us-east-1
+
+python3 -m json.tool lifecycle.json
+
+aws s3api get-bucket-lifecycle-configuration \
+  --bucket $BUCKET \
+  --region us-east-1
+```
+
+**CLI Evidence**
+
+Versioning enabled:
+```
+{
+    "Status": "Enabled"
+}
+```
+Validated lifecycle proposal:
+```JSON
+{
+    "Rules": [
+        {
+            "ID": "Week10ArchiveProposal",
+            "Status": "Enabled",
+            "Filter": {
+                "Prefix": "archive/"
+            },
+            "Transitions": [
+                {
+                    "Days": 90,
+                    "StorageClass": "GLACIER"
+                }
+            ]
+        }
+    ]
+}
+```
+
+Lifecycle inspection:
+```text
+aws: [ERROR]: An error occurred (NoSuchLifecycleConfiguration) when calling the GetBucketLifecycleConfiguration operation: The lifecycle configuration does not exist
+```
+Versioning was successfully enabled, while no lifecycle policy was currently applied to the practice bucket.
 
 ## Operational Analysis
 
