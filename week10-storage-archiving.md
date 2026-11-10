@@ -1,12 +1,12 @@
 # Week 10: Storage and Archiving
 
 ## HarborTech Ticket Summary
-TKT-2026-0010: The Client known as, Bright Path Community Serivces is experiencing a storage protection and data lifecycle management issue. The client's newest documented EC2 application disk snapshot is 19 days old despite a maximum acceptable data loss of 24 hours, creating a potential gap between the documented backup state and the required recovery-point objective (RPO). In addition, the organization requires three Linux servers to access shared working files simultaneously, uploaded documents to be stored using object storage, and completed records to be retained for seven years while being rarely accessed after the first 90 days.
+TKT-2026-0010: The Client known as, Bright Path Community Services is experiencing a storage protection and data lifecycle management issue. The client's newest documented EC2 application disk snapshot is 19 days old despite a maximum acceptable data loss of 24 hours, creating a potential gap between the documented backup state and the required recovery-point objective (RPO). In addition, the organization requires three Linux servers to access shared working files simultaneously, uploaded documents to be stored using object storage, and completed records to be retained for seven years while being rarely accessed after the first 90 days.
 
 The investigation focused on evaluating AWS storage services that align with these requirements. CloudShell evidence demonstrated the successful creation of an Amazon EBS volume and a completed EBS snapshot, confirming the availability of volume-level backup capabilities. Additional evidence showed successful storage of an uploaded file in Amazon S3, server-side encryption of the object, enabled bucket versioning, and the ability to define lifecycle policies for long-term archival storage. Based on the ticket requirements and collected evidence, the investigation assessed Amazon EBS for application disk recovery, Amazon EFS for shared Linux file access, Amazon S3 for uploaded document storage, and lifecycle-based archival storage for seven-year record retention.
 
 ## Client Impact
-The storage and retention issues identified in TKT-2026-0010 could expose Bright Path to increased risk of data loss, operational disruption, and compliance challenges. The client's newest documented application disk snapshot is 19 days old even though the maximum acceptable data loss window is 24 hours. If an application failure, accidental deletion, ransomware event, or storage corruption were to occur, recovery efforts could require restoring data that is significantly older than the organization's recovery objective, potentially resulting in the loss of recent business information and extended downtime.
+The storage and retention issues identified in TKT-2026-0010 could expose Bright Path to increased risk of data loss, operational disruption, and compliance challenges. The client's newest documented application disk snapshot is 19 days old even though the maximum acceptable data loss window is 24 hours. If an application failure, accidental deletion, or storage corruption were to occur, recovery efforts could require restoring data that is significantly older than the organization's recovery objective, potentially resulting in the loss of recent business information and extended downtime.
 
 The requirement for three Linux servers to access the same working files also creates an operational challenge if an inappropriate storage model is used. Without a shared file system designed for concurrent access, users and applications may experience inconsistent data, duplicate file copies, or workflow interruptions that affect productivity and collaboration.
 
@@ -34,7 +34,7 @@ The client's uploaded documents must be stored as object data and retained recor
 
 ### Summary
 
-TKT-2026-0010 involved several AWS storage, backup, and data lifecycle services. AWS STS and AWS CloudShell were used to verify the investigation environment and execute AWS CLI commands. Amazon EBS and EBS Snapshots were evaluated for application disk backup and recovery capabilities, Amazon S3 was used to investigate object storage and data protection features, and Amazon EFS was identified as the appropriate shared file storage solution for multiple Linux servers. The investigation also focused on recovery-point objectives, long-term retention requirements, versioning, lifecycle 
+TKT-2026-0010 involved several AWS storage, backup, and data lifecycle services. AWS STS and AWS CloudShell were used to verify the investigation environment and execute AWS CLI commands. Amazon EBS and EBS Snapshots were evaluated for application disk backup and recovery capabilities, Amazon S3 was used to investigate object storage and data protection features, and Amazon EFS was identified as the appropriate shared file storage solution for multiple Linux servers. The investigation also focused on recovery-point objectives, long-term retention requirements, S3 versioning, lifecycle management, archival storage, and recovery planning.
 
 ## Virtualization Connection
 Cloud storage and archiving services use virtualization to provide storage resources without requiring organizations to manage physical hardware. During this investigation, Amazon EBS provided virtual block storage for application data, Amazon S3 provided object storage for uploaded files, and lifecycle policies were evaluated for archival storage. These services allow storage, backup, retention, and recovery processes to be managed through software-defined cloud resources, improving scalability, availability, and cost efficiency.
@@ -131,7 +131,7 @@ aws ec2 create-volume \
 **CLI Evidence**
 
 ```text
-No approved volume exists.
+No existing volume meeting investigation requirements was identified.
 ```
 ```text
 us-east-1a
@@ -304,7 +304,7 @@ Lifecycle inspection:
 ```text
 aws: [ERROR]: An error occurred (NoSuchLifecycleConfiguration) when calling the GetBucketLifecycleConfiguration operation: The lifecycle configuration does not exist
 ```
-Versioning was successfully enabled, while no lifecycle policy was currently applied to the practice bucket to successfully replicate client issue in Learn Lab environment.
+Versioning was successfully enabled. The lifecycle policy proposal was validated locally using lifecycle.json; however, no lifecycle configuration was applied to the practice bucket, as confirmed by the NoSuchLifecycleConfiguration response.
 
 ### Resource Cleanup Verification
 
@@ -338,6 +338,10 @@ aws ec2 delete-snapshot \
 
 aws ec2 delete-volume \
   --volume-id vol-0141ef89bb00176e4 \
+  --region us-east-1
+
+aws ec2 describe-snapshots \
+  --snapshot-ids snap-0f89c8a99d95448f2 \
   --region us-east-1
 
 aws ec2 describe-volumes \
@@ -386,6 +390,12 @@ Version-specific cleanup:
     "VersionId": "lZPaHahtRE2zzNmSAxrK2ER2JB688OK6"
 }
 ```
+
+Snapshot cleanup verification:
+```text
+aws: [ERROR]: An error occurred (InvalidSnapshot.NotFound) when calling the DescribeSnapshots operation: The snapshot 'snap-0f89c8a99d95448f2' does not exist.
+```
+
 Volume cleanup verification:
 ```text
 aws: [ERROR]: An error occurred (InvalidVolume.NotFound) when calling the DescribeVolumes operation: The volume 'vol-0141ef89bb00176e4' does not exist.
