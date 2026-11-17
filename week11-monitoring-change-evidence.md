@@ -159,27 +159,56 @@ The evidence shows that the web-tier Auto Scaling Group capacity was reduced bef
 The evidence does not identify who or what initiated the change. CloudTrail records show that an assumed role session performed the API action, but the available records do not determine whether the change originated from a specific user, an automated process, or another AWS service. Because attribution cannot be verified from the evidence packet alone, the origin of the change remains an unresolved question and should be treated as an assumption rather than a confirmed finding.
 
 ## Recommendation
-Recommend the next operational action supported by the evidence.
-Explain whether the situation requires continued monitoring, configuration review, containment, correction, or another approved response.
+
+The evidence supports conducting a configuration review of the `rg-web-asg` Auto Scaling Group and comparing its current settings against the approved capacity baseline. Because the reduction in capacity occurred immediately before the observed performance degradation, the configuration change should be reviewed by the responsible cloud operations team to determine whether it was authorized and whether corrective action is required. Continued monitoring of CloudWatch metrics, logs, and alarms is recommended to track application performance and verify that response times remain within expected thresholds. Escalation to a cloud operations analyst or engineer is appropriate for validation of the approved configuration and evaluation of any rollback or remediation activities. No containment actions, account restrictions, or attribution decisions are supported by the available evidence. The origin of the change should remain under review until additional evidence confirms whether the action was performed by a user, automation process, or another authorized service.
 
 ## Escalation Notes
-Document any suspected unauthorized activity, production configuration change, security concern, or unresolved condition that requires escalation.
-If no escalation is required, state that clearly.
-
+As a cloud operations intern, I do not have authority to approve, reverse, or modify production configurations. Based on the evidence, this incident should be escalated to the appropriate cloud operations analyst or engineer for review.
+The escalation is required because the rg-web-asg Auto Scaling Group was changed from its approved capacity configuration, and the change occurred immediately before degraded application performance was observed. The operations team should verify whether the change was authorized and determine whether the current configuration remains appropriate for the workload. No evidence currently supports escalating this incident as a security event. The available records show that an assumed role session performed the configuration change, but the evidence does not identify a specific individual or determine whether the action originated from a user, automation process, or another authorized service. This unresolved attribution question should be included in the escalation for further review. No direct production actions were taken as part of this investigation. The recommendation is limited to escalation, configuration validation, and continued monitoring by personnel authorized to manage production resources.
 ## Lessons Learned
-Explain what Week 11 taught you about monitoring, audit trails, configuration history, incident timelines, and evidence-based troubleshooting.
+Week 11 reinforced the importance of using multiple evidence sources to investigate incidents and avoid making assumptions. Monitoring data from CloudWatch metrics and alarms helped establish when the performance issue became visible, while application logs provided additional context about the state of the environment during the incident. The investigation also demonstrated the value of audit trails and configuration history. CloudTrail showed when a configuration change was made, and AWS Config confirmed the exact before-and-after state of the affected resource. By correlating these records with monitoring and log data, it was possible to reconstruct the incident timeline and identify the most strongly supported explanation for the website slowdown. Most importantly, the exercise emphasized evidence-based troubleshooting. Rather than starting with a suspected cause or individual, the investigation focused on what the records could prove, the order in which events occurred, and which conclusions were supported by multiple sources. Any gaps in attribution remained clearly identified as assumptions or unresolved questions instead of being treated as confirmed facts.
 
 ## Professional Vocabulary
-Define the important Week 11 terms in your own words.
-Include terms such as:
-- Monitoring
-- Metric
-- Log
-- Alarm
-- CloudWatch
-- CloudTrail
-- AWS Config
-- Audit Trail
-- Configuration History
-- Incident Timeline
-- Evidence Correlation
+### Monitoring
+
+Monitoring is the process of continuously watching systems and applications to identify performance issues, failures, or unusual behavior before they become larger problems. It helps operations teams understand how services are performing over time.
+
+### Metric
+
+A metric is a numerical measurement collected from a system, application, or resource. Metrics help show trends and changes in performance, such as whether response times, CPU usage, or network traffic are increasing or decreasing.
+
+### Log
+
+A log is a record of activity generated by an application, operating system, or cloud service. Logs provide detailed information about what was happening at a specific moment and can help investigators understand the events surrounding an incident.
+
+### Alarm
+
+An alarm is an automated notification that triggers when a monitored value crosses a defined threshold. It helps alert administrators to conditions that may require attention, but it does not explain why the condition occurred.
+
+### CloudWatch
+
+Amazon CloudWatch is AWS's monitoring platform used to collect metrics, logs, and alarms from cloud resources and applications. It helps teams detect performance issues and track the health of their environments.
+
+### CloudTrail
+
+AWS CloudTrail records actions performed within an AWS environment. It helps investigators determine what activity occurred, when it happened, and which identity or service initiated the action.
+
+### AWS Config
+
+AWS Config tracks the configuration of supported AWS resources and records how those configurations change over time. It allows teams to compare previous and current resource settings during investigations.
+
+### Audit Trail
+
+An audit trail is the historical record of actions performed within a system. It provides evidence that can be reviewed to understand what activity took place and helps support accountability during investigations.
+
+### Configuration History
+
+Configuration history is the record of how a resource's settings have changed over time. It helps teams determine when a resource was modified and compare previous settings to current ones.
+
+### Incident Timeline
+
+An incident timeline is a chronological sequence of events related to an issue. By placing records in time order, investigators can better understand what happened first, what followed, and how events may be related.
+
+### Evidence Correlation
+
+Evidence correlation is the process of comparing information from different sources and connecting related events to build a complete picture of what happened. Instead of relying on a single record, investigators look at metrics, logs, audit records, alarms, and configuration history together to verify whether they support the same conclusion. For example, if a configuration change is recorded in CloudTrail, the same change appears in AWS Config, and performance issues are later observed in CloudWatch, those separate records can be correlated to show how the events are related. Evidence correlation helps ensure that conclusions are based on multiple supporting facts rather than assumptions or isolated observations.
