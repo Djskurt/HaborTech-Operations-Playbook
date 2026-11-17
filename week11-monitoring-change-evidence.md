@@ -128,9 +128,35 @@ No Athena query results were included in the supplied evidence packet. Therefore
 At **14:05:12**, CloudTrail recorded an `UpdateAutoScalingGroup` API call that reduced Auto Scaling Group capacity. At **14:06:03**, AWS Config confirmed the corresponding configuration change from a desired capacity of 3 to 1 and a maximum size of 4 to 1. At **14:07:00**, CloudWatch metrics showed target response time increasing from 0.3 seconds to 2.4 seconds. At **14:07:30**, application logs reported only one healthy target serving requests. At **14:09:00**, the `rg-web-latency-high` alarm entered the ALARM state after sustained elevated latency. The evidence shows that the capacity reduction occurred before the observed performance degradation and alarm activity.
 
 ## Operational Analysis
-State the incident window and reconstruct the timeline in event order.
-Correlate monitoring, audit, and configuration evidence to identify what happened and when.
-Separate your supported findings from your assumptions and list any unresolved questions.
+### Incident Window
+
+The incident became observable at **14:07:00** when CloudWatch metrics showed target response time increasing from **0.3 seconds** to **2.4 seconds**. The issue was confirmed at **14:09:00** when the `rg-web-latency-high` alarm entered the **ALARM** state after sustained elevated latency. Based on the available evidence, the incident window begins no later than **14:07** and continues through at least **14:09**.
+
+### Reconstructed Timeline
+
+At **14:05:12**, CloudTrail recorded an `UpdateAutoScalingGroup` API call from an assumed role session. The request set the Auto Scaling Group `desiredCapacity` to **1** and `maxSize` to **1**.
+
+At **14:06:03**, AWS Config recorded the corresponding configuration change for `rg-web-asg`, confirming that the desired capacity changed from **3 to 1** and the maximum size changed from **4 to 1**.
+
+At **14:07:00**, CloudWatch metrics showed target response time increasing from **0.3 seconds** to **2.4 seconds**, indicating degraded website performance.
+
+At **14:07:30**, application logs reported:
+
+```text
+WARN upstream response 2.38 s, healthy targets 1
+```
+
+This confirms that only one healthy target was serving traffic during the performance degradation.
+
+At **14:09:00**, the `rg-web-latency-high` CloudWatch alarm transitioned from **OK** to **ALARM**, confirming that the elevated response times persisted long enough to breach monitoring thresholds.
+
+### Supported Findings
+
+The evidence shows that the web-tier Auto Scaling Group capacity was reduced before website performance degraded. CloudTrail recorded the capacity change, AWS Config confirmed the before-and-after configuration state, application logs showed only one healthy target, and CloudWatch metrics and alarms documented the resulting increase in response latency. The strongest supported finding is that the reduction of Auto Scaling Group capacity from its approved configuration to a single-instance configuration contributed to the website slowdown observed by Riverside Goods.
+
+### Assumptions and Unresolved Questions
+
+The evidence does not identify who or what initiated the change. CloudTrail records show that an assumed role session performed the API action, but the available records do not determine whether the change originated from a specific user, an automated process, or another AWS service. Because attribution cannot be verified from the evidence packet alone, the origin of the change remains an unresolved question and should be treated as an assumption rather than a confirmed finding.
 
 ## Recommendation
 Recommend the next operational action supported by the evidence.
